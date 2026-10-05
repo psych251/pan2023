@@ -1,6 +1,6 @@
 ---
-title: "Replication of Problems 1 and 2 of Tversky & Kahneman (1981, *Science*)"
-author: "Your Name (your.email@stanford.edu)"
+title: "Replication of Experiment 3 of Pan & Rivers (2023, Memory & Cognition)"
+author: "Jay Gorrepati (jayanthg@stanford.edu)"
 date: today
 date-format: long
 format:
@@ -75,41 +75,17 @@ original_p_loss <- original$risky[original$condition == "loss"] / original$n[ori
 ::: {.callout-note appearance="simple" icon=false}
 ## Project links
 
-- **Original paper:** Tversky, A., & Kahneman, D. (1981). The framing of decisions and the
-  psychology of choice. *Science, 211*(4481), 453–458. <https://doi.org/10.1126/science.7455683>
+- **Original paper:** Pan & Rivers (2023). Metacognitive awareness of the pretesting effect improves with self‑regulation support. Memory & Cognition (2023) 51:1461–1480. <https://doi.org/10.3758/s13421-022-01392-1>
+- **Original Paper Preregistration:** [OSF registration](https://osf.io/64x5k) [OSF materials & methods video] (https://osf.io/htjqz/files/24efh) *(original prereg was 04-29-2020, & experiment video 04-9-2020, before final publish 01-13-2023)*
 - **Preregistration:** [OSF registration](https://osf.io/XXXXX) *(registered YYYY-MM-DD, before final data collection)*
 - **Live experiment:** <https://psych251.github.io/your-repo/> (take the study exactly as participants did)
-- **Repository:** <https://github.com/psych251/your-repo> (experiment code, data, and this report)
+- **Repository:** <	https://github.com/psych251/pan2023> (experiment code, data, and this report)
 :::
 
 # AI use statement
-
-::: {.callout-tip icon=false}
-## Guidance
-
-This statement comes first so a reader knows how the work was produced before reading it. Keep
-it current from the start of the project rather than reconstructing it at the end.
-
-**Course policy: you write all of the text in this report yourself.** AI tools may help with
-code, and may comment on drafts you have written, but they may not write, rewrite or paraphrase
-any of the report's text. That includes "polishing" a paragraph.
-
-List every AI tool you used on this project, what you used it for, and how you checked what it
-produced. Include coding assistants (for example Claude Code, Codex, Copilot) and chat
-assistants. Name the model and version where you know it. "How you checked" is the important
-column: say what you verified yourself, not that the output "looked right". If you used no AI
-tools, replace the table with a sentence saying so.
-:::
-
-| Tool and model | What it was used for | How you checked the output |
-|---|---|---|
-| *e.g., Claude Code (Claude Opus 5)* | *Implemented the experiment from the original Methods section* | *Ran the automated tests; took the study myself; compared every screen with the original materials* |
-| *e.g., Claude Code (Claude Opus 5)* | *Drafted the analysis code* | *Checked the exclusion counts by hand; confirmed the key test matches the preregistration* |
-| *e.g., ChatGPT* | *Comments on my draft of the Introduction (no text generated)* | *Decided which comments to act on and made every change myself; checked any factual claim against the source* |
-
-I wrote all of the text in this report myself. AI tools were not used to write, rewrite or
-paraphrase it, and were not used to generate, alter, or impute any participant data. I take full
-responsibility for the content of this report, including any errors introduced by AI tools.
+| Tool and model | What it was used for | How you checked the output | Date |
+|---|---|---|---|
+| *Opus 5.5* | *Explained ANOVA applications in original paper to me to understand how replication would occur* | *Compared model output explanation to original paper description* | *Oct 4 - Introduction/proposal writing* |
 
 # Key statistics
 
@@ -122,7 +98,6 @@ analysis code below (open "Show the analysis code"), which is shared by both pha
 analysed identically. Edit that code once, here, to match your design and preregistered
 exclusion rule. On the scientific-extension track, the Phase 2 row reports the new comparison:
 adapt its code and say so in the caption.
-:::
 
 ```{r}
 #| label: analysis-functions
@@ -236,15 +211,16 @@ bind_rows(
 # Phase 1: Replication
 
 ## Introduction
+I'm very interested broadly in learning science and decision making in learning, and I dipped a little into reward prediction error and spaced learning studies last quarter which I really enjoyed. I thought it would be interesting to replicate a study that tried to manipulate other metacognitive variables, and the use of different pre-testing and reminder/feedback experiments like Pan & Rivers ran seemed like a good fit.
 
-::: {.callout-tip icon=false}
-## Guidance
+For the construction of the experiment, the procedure includes a test of participants pairing words - for the pairs themselves, I'll use the same data set of paired words taht Pan & Rivers pulled from, coming from Huelser & Metcalfe, 2012, and Nelson et al., 1998(norms). For bulding out the experiment itself, I'll send out some agents to build out the several parts of it, from my understanding of the method that Pan & Rivers designed. Since the materials & experiment sample is also public, I have a good insight into what exactly the structure of the site and bounds of the experiment is for a participant. 
 
-One or two paragraphs, no abstract and no literature review: that is in the original paper.
-Say what the original study found, which specific finding you are replicating, and why it
-matters to you. Write the Introduction and Methods in the past tense, even though you write
-them before collecting data.
-:::
+The first part for the participant is the reading phase, where word pairs are randomly assigned for participants to be flashed pairs and attempt to internalize for the next session, which is the pre-test trial. Participants should likely fail most, and next they will predict their rate. After 5 minutes of a distractor activity(Tetris was used by Pan & Rivers - should be negligible & any non-semantic game should be viable but I can likely send an agent out to integrate or create a Tetris version for replicability's sake), they will enter the test phase. Unlike the 5-seconds for guessing and correct answer flashing on reading/pre-test trials, this test phase is self-paced, and following that, participants will have one more feedback display before finishing. This entire cycle is repeated once more with a new set of randomized pairs. A concern I might have lean more logistical, but the length of this test is around 30 minutes, so not sure how we are incentivizing participants. 
+
+For the statistical test, we want to focus on how people's metacognitive recognition of pre-testing working better plays out - the idea the pre-testing is better has essentially came to consensus from previous research. We want to take into account people's predictions in both cycles, and like Pan & Rivers had shown, the reminders of their own predictions throughout both cycles, and better performance with pre-testing should make participants' predictions in Cycle 2 shift towards pretesting more. The key statistic that does this is a 2x2 ANOVA test across the gap in Cycle 1 between pre-test & read trials, gap in Cycle 2 in pre-test and read trials, and the change in that gap. The results from the original paper was most importantly, ηp² = .18, which essentially values how big the shift between C1 and C2 is on average, or the share of the variability in belief that's actually explained by the belief, along with p = .0017, and F = 10.92. 
+
+An extension possibility I am considering is assigning a control group with no feedback displays. All participants got feedback in experiment 3, so the shift in predictions could also come from task reptition or Cycle 2 benefits. The original study compares Experiment 3 to Experiment 1, which runs on a different platfor, so a control group could test any causal link claims potentially? The key test is actually still identical if this is built out, it just requires a larger sample size.
+
 
 ## Methods
 
