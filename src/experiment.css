@@ -9,3 +9,26 @@
 .framing .programs { margin: 1em 0; padding-left: 1.2em; }
 #jspsych-html-button-response-btngroup { text-align: center; }
 .thanks { text-align: center; }
+
+/* Word pairs (study, pretest, test) */
+.phase-label { text-align: center; color: #667; font-size: 15px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4em; }
+.pair { display: flex; justify-content: center; align-items: center; gap: 0.6em; font-size: 40px; margin: 0.6em 0 0.4em; }
+.pair .cue, .pair .target { font-weight: 600; }
+.pair .dash { color: #999; }
+.pair input.answer { font-size: 32px; width: 9em; padding: 0.15em 0.3em; }
+#jspsych-survey-text-form input[type="text"] { font-size: 28px; width: 10em; display: block; margin: 0 auto; }
+#jspsych-survey-text-form { text-align: center; }
+
+/* Feedback and checks */
+.feedback-table { margin: 1em auto; border-collapse: collapse; font-size: 20px; }
+.feedback-table th, .feedback-table td { padding: 0.5em 1.1em; border-bottom: 1px solid #ddd; text-align: center; }
+.feedback-table tbody th { text-align: left; font-weight: 500; }
+.question { text-align: center; font-size: 19px; }
+.check-btn { white-space: normal; max-width: 230px; line-height: 1.35; }
+
+/* Tetris */
+.tetris { display: flex; justify-content: center; gap: 28px; align-items: flex-start; }
+#tetris-board { border: 2px solid #444; background: #1d2230; }
+.tetris-side { font-size: 15px; min-width: 90px; }
+.tetris-side p { margin: 0.2em 0; }
+.tetris-big { font-size: 30px; font-weight: 600; margin-bottom: 0.8em !important; font-variant-numeric: tabular-nums; }

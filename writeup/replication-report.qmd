@@ -49,27 +49,43 @@ library(jsonlite)
 
 # Must match EXPERIMENT.id in experiment.js, and the --experiment you passed to the export.
 # Phase 2 runs under its own id, so its data never mix with Phase 1's.
-experiment_id        <- "framing-demo"
-experiment_id_phase2 <- "framing-demo-phase2"
+# Change this to the final id (e.g. "pan2023-final") when you switch experiment.js for real data.
+experiment_id        <- "pan2023-pilot-a"
+experiment_id_phase2 <- "pan2023-phase2"
 ```
 
 ```{r}
 #| label: original-study
 #| include: false
-# The original study's numbers, entered once and used by the power analysis, the Key
-# statistics table, and the side-by-side figures. Replace these with your original study's
-# values, and say in a comment exactly where in the paper each one comes from.
-#
-# Tversky & Kahneman (1981), Problem 1 (gain frame, N = 152): 72% chose the certain program,
-# 28% the risky one. Problem 2 (loss frame, N = 155): 22% certain, 78% risky. The paper
-# reports percentages, so the counts below are reconstructed from them.
-original <- tibble(
-  condition = c("gain", "loss"),
-  n         = c(152, 155),
-  risky     = round(c(0.28 * 152, 0.78 * 155))
+# Pan & Rivers (2023), Experiment 3: N = 52 analysed (8 excluded for failing attention checks).
+# Summary values computed from the authors' public OSF data (https://osf.io/htjqz/):
+#   predictions: "KUPE Globally Differentiated Predictions Data.xlsx", sheet kupe3gpredsrfile
+#   recall:      "KUPE Criterial Test Data.xlsx", sheet kupe3finaltest (proportions; pretested
+#                items guessed correctly at pretest are already removed)
+# Check: these reproduce the paper's Exp 3 statistics exactly: cycle x condition interaction
+# on predictions F(1, 51) = 10.92, p = .0017, partial eta^2 = .18; recall advantage for
+# pretested pairs t(51) = 6.67 (Cycle 1) and 5.99 (Cycle 2).
+original_n <- 52
+
+original_pred <- tibble(        # predictions, 0-16
+  cycle     = c(1, 1, 2, 2),
+  condition = c("read", "pretest", "read", "pretest"),
+  mean      = c(6.5577, 5.8462, 6.9231, 7.6154),
+  sd        = c(3.3631, 3.4035, 3.4004, 3.4022),
+  n         = original_n
 )
-original_p_gain <- original$risky[original$condition == "gain"] / original$n[original$condition == "gain"]
-original_p_loss <- original$risky[original$condition == "loss"] / original$n[original$condition == "loss"]
+original_recall <- tibble(      # proportion recalled on the criterial test
+  cycle     = c(1, 1, 2, 2),
+  condition = c("read", "pretest", "read", "pretest"),
+  mean      = c(0.5084, 0.6825, 0.5493, 0.7178),
+  sd        = c(0.2207, 0.1970, 0.2501, 0.2030),
+  n         = original_n
+)
+
+# Key contrast, per participant: (pretest - read prediction in Cycle 2) minus
+# (pretest - read prediction in Cycle 1). Its one-sample t-test is the 2 x 2 interaction:
+# F(1, N - 1) = t^2. Mean and SD of the contrast from the OSF data.
+original_contrast <- list(N = 52, mean = 1.4038, sd = 3.0631)
 ```
 
 ::: {.callout-note appearance="simple" icon=false}
@@ -78,7 +94,7 @@ original_p_loss <- original$risky[original$condition == "loss"] / original$n[ori
 - **Original paper:** Pan & Rivers (2023). Metacognitive awareness of the pretesting effect improves with self‑regulation support. Memory & Cognition (2023) 51:1461–1480. <https://doi.org/10.3758/s13421-022-01392-1>
 - **Original Paper Preregistration:** [OSF registration](https://osf.io/64x5k) [OSF materials & methods video] (https://osf.io/htjqz/files/24efh) *(original prereg was 04-29-2020, & experiment video 04-9-2020, before final publish 01-13-2023)*
 - **Preregistration:** [OSF registration](https://osf.io/XXXXX) *(registered YYYY-MM-DD, before final data collection)*
-- **Live experiment:** <https://psych251.github.io/your-repo/> (take the study exactly as participants did)
+- **Live experiment:** <https://psych251.github.io/pan2023/> (take the study exactly as participants did)
 - **Repository:** <	https://github.com/psych251/pan2023> (experiment code, data, and this report)
 :::
 
@@ -98,6 +114,7 @@ analysis code below (open "Show the analysis code"), which is shared by both pha
 analysed identically. Edit that code once, here, to match your design and preregistered
 exclusion rule. On the scientific-extension track, the Phase 2 row reports the new comparison:
 adapt its code and say so in the caption.
+:::
 
 ```{r}
 #| label: analysis-functions
@@ -109,74 +126,122 @@ read_phase <- function(id) {
   dir <- file.path("..", "data", "raw", id)
   if (!all(file.exists(file.path(dir, c("participants.csv", "trials.csv"))))) return(NULL)
   participants <- read_csv(file.path(dir, "participants.csv"), show_col_types = FALSE)
-  trials       <- read_csv(file.path(dir, "trials.csv"), show_col_types = FALSE)
+  trials       <- read_csv(file.path(dir, "trials.csv"), show_col_types = FALSE, guess_max = 100000)
   errors_path  <- file.path(dir, "errors.csv")
   errors <- if (file.exists(errors_path)) read_csv(errors_path, show_col_types = FALSE) else tibble()
 
-  complete <- participants |> filter(completed)
+  complete <- participants |> filter(as.logical(completed))
 
-  # Exclusion rule: replace with the rule you preregistered. Here: at least 6 of 8
-  # lexical-decision trials correct, and at least one speeded response at all (a session in
-  # which every speeded trial timed out is what a device without a keyboard produces).
-  ld <- trials |>
-    filter(task == "lexical_decision") |>
+  # Exclusion rule (replace with the rule you preregister). As in the original: exclude anyone
+  # who failed either Cycle 1 attention check (the two "my prediction was higher / lower / the
+  # same as how well I actually performed" questions). Also exclude anyone missing one of the
+  # four predictions, since the key test needs all four.
+  checks <- trials |>
+    filter(task == "attention_check") |>
     group_by(participant_id) |>
-    summarise(ld_acc           = mean(as.logical(correct), na.rm = TRUE),
-              ld_all_timed_out = all(as.logical(timed_out)),
-              .groups = "drop")
-  checked <- complete |> left_join(ld, by = "participant_id")
-  keep <- checked |> filter(!is.na(ld_acc), !ld_all_timed_out, ld_acc >= 0.75)
+    summarise(checks_passed = sum(as.logical(passed) %in% TRUE), .groups = "drop")
+  n_preds <- trials |>
+    filter(task == "prediction") |>
+    group_by(participant_id) |>
+    summarise(n_pred = sum(!is.na(prediction)), .groups = "drop")
+  checked <- complete |>
+    select(participant_id) |>
+    left_join(checks, by = "participant_id") |>
+    left_join(n_preds, by = "participant_id") |>
+    mutate(checks_passed   = replace_na(checks_passed, 0),
+           n_pred          = replace_na(n_pred, 0),
+           passed_checks   = checks_passed == 2,
+           has_predictions = n_pred == 4)
+  keep <- complete |>
+    semi_join(filter(checked, passed_checks, has_predictions), by = "participant_id")
 
   list(participants = participants, trials = trials, errors = errors,
-       complete = complete, keep = keep,
-       n_no_response = sum(checked$ld_all_timed_out %in% TRUE))
+       complete = complete, checked = checked, keep = keep)
 }
 
-# The key comparison's raw counts: how many analysed participants chose the risky program
-# in each frame.
-risky_counts <- function(d) {
+# Predictions of analysed participants: one row per participant x cycle x condition.
+prediction_data <- function(d) {
   d$trials |>
-    filter(task == "framing", participant_id %in% d$keep$participant_id) |>
-    group_by(condition) |>
-    summarise(risky = sum(choice == "risky"), n = n(), .groups = "drop")
+    filter(task == "prediction", participant_id %in% d$keep$participant_id) |>
+    transmute(participant_id, cycle = as.integer(cycle), condition, value = as.numeric(prediction))
 }
 
-# The key statistic: difference in the proportion choosing the risky program (loss minus
-# gain) with a 95% CI, and the uncorrected chi-square, which is the same test. NULL until
-# both frames have at least one analysed participant.
-diff_ci <- function(counts) {
-  loss <- counts[counts$condition == "loss", ]
-  gain <- counts[counts$condition == "gain", ]
-  if (nrow(loss) == 0 || nrow(gain) == 0) return(NULL)
-  pt <- prop.test(c(loss$risky, gain$risky), c(loss$n, gain$n), correct = FALSE)
-  tibble(N = loss$n + gain$n,
-         estimate = unname(pt$estimate[1] - pt$estimate[2]),
-         ci_low = pt$conf.int[1], ci_high = pt$conf.int[2],
-         statistic = unname(pt$statistic), p = pt$p.value)
+# Criterial-test recall of analysed participants, proportion correct (lenient scoring) per
+# participant x cycle x condition. Pretested pairs guessed correctly at pretest are dropped,
+# as in the original (following Huelser & Metcalfe, 2012).
+recall_data <- function(d, scoring = c("correct", "correct_strict")) {
+  scoring <- match.arg(scoring)
+  d$trials |>
+    filter(task == "test", participant_id %in% d$keep$participant_id) |>
+    filter(!(condition == "pretest" & as.logical(guess_correct) %in% TRUE)) |>
+    group_by(participant_id, cycle = as.integer(cycle), condition) |>
+    summarise(value = mean(as.logical(.data[[scoring]])), n_items = n(), .groups = "drop")
 }
 
-# Side-by-side figure: any number of studies on the same axes, in the order given.
-prop_ci <- function(x, n) {
-  ci <- prop.test(x, n, correct = FALSE)$conf.int
-  tibble(p = x / n, low = ci[1], high = ci[2])
+# Mean, SD and n per cycle x condition, the shape used by the figures (and by `original_pred`).
+cell_summary <- function(long) {
+  long |>
+    group_by(cycle, condition) |>
+    summarise(mean = mean(value, na.rm = TRUE), sd = sd(value, na.rm = TRUE),
+              n = sum(!is.na(value)), .groups = "drop")
 }
-comparison_plot <- function(...) {
+
+# Per-participant contrasts from long data (columns participant_id, cycle, condition, value).
+wide_cells <- function(long) {
+  long |> pivot_wider(id_cols = participant_id, names_from = c(condition, cycle), values_from = value)
+}
+
+# One-sample t-test on a contrast, reported as the equivalent 2 x 2 repeated-measures F.
+# Takes either a vector of per-participant contrasts or list(N, mean, sd). NULL if N < 2.
+contrast_test <- function(x) {
+  if (is.numeric(x)) {
+    x <- x[!is.na(x)]
+    x <- list(N = length(x), mean = if (length(x)) mean(x) else NA, sd = if (length(x) > 1) sd(x) else NA)
+  }
+  if (x$N < 2 || is.na(x$sd) || x$sd == 0) return(NULL)
+  df <- x$N - 1; se <- x$sd / sqrt(x$N); t <- x$mean / se
+  tibble(N = x$N, estimate = x$mean, sd = x$sd,
+         ci_low = x$mean - qt(0.975, df) * se, ci_high = x$mean + qt(0.975, df) * se,
+         t = t, df = df, F = t^2, p = 2 * pt(-abs(t), df), pes = t^2 / (t^2 + df), dz = x$mean / x$sd)
+}
+
+# The key statistic: the cycle x condition interaction on predictions,
+# (pretest - read in Cycle 2) - (pretest - read in Cycle 1).
+key_contrast <- function(d) {
+  w <- wide_cells(prediction_data(d))
+  if (!all(c("read_1", "pretest_1", "read_2", "pretest_2") %in% names(w))) return(NULL)
+  contrast_test((w$pretest_2 - w$read_2) - (w$pretest_1 - w$read_1))
+}
+original_key <- contrast_test(original_contrast)
+
+# contrast_test() with extra label columns; NULL (dropped by bind_rows) when it cannot be computed.
+labelled_test <- function(x, ...) {
+  r <- contrast_test(x)
+  if (is.null(r)) NULL else mutate(r, ...)
+}
+
+# Side-by-side figure: any number of studies, one panel each, same axes. Each argument is a
+# cell summary (cycle, condition, mean, sd, n). Error bars are 95% CIs of the cell means.
+comparison_plot <- function(..., ylab = "Predicted number correct (out of 16)", ylim = c(0, 16)) {
   studies <- list(...)
   studies <- studies[!map_lgl(studies, ~ is.null(.x) || nrow(.x) == 0)]
   df <- imap_dfr(studies, ~ mutate(.x, Study = .y)) |>
-    rowwise() |> mutate(prop_ci(risky, n)) |> ungroup() |>
-    mutate(Study = factor(Study, levels = names(studies)), label = sprintf("n = %d", n))
-  fills <- setNames(c("grey55", "#1E6E76", "#B8792A")[seq_along(studies)], names(studies))
-  dodge <- position_dodge(width = 0.8)
-  ggplot(df, aes(x = condition, y = p, fill = Study)) +
-    geom_col(position = dodge, width = 0.75) +
-    geom_errorbar(aes(ymin = low, ymax = high), position = dodge, width = 0.2) +
-    geom_text(aes(y = 0.02, label = label), position = dodge, vjust = 0, size = 3, colour = "white") +
-    scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
-    scale_fill_manual(values = fills) +
-    labs(x = "Frame", y = "Chose the risky program", fill = NULL) +
+    mutate(Study     = factor(Study, levels = names(studies)),
+           Cycle     = factor(paste("Cycle", cycle)),
+           Condition = factor(condition, levels = c("read", "pretest"), labels = c("Read", "Pretest")),
+           half      = ifelse(n > 1, qt(0.975, n - 1) * sd / sqrt(n), NA),
+           label     = sprintf("n = %d", n))
+  dodge <- position_dodge(width = 0.75)
+  ggplot(df, aes(x = Cycle, y = mean, fill = Condition)) +
+    geom_col(position = dodge, width = 0.7) +
+    geom_errorbar(aes(ymin = mean - half, ymax = mean + half), position = dodge, width = 0.2, na.rm = TRUE) +
+    facet_wrap(~ Study, nrow = 1) +
+    coord_cartesian(ylim = ylim) +
+    scale_fill_manual(values = c(Read = "grey60", Pretest = "#1E6E76")) +
+    labs(x = NULL, y = ylab, fill = NULL,
+         caption = paste(sprintf("%s: n = %d", levels(df$Study), tapply(df$n, df$Study, max)), collapse = "   ")) +
     theme_minimal(base_size = 12) +
-    theme(legend.position = "top")
+    theme(legend.position = "top", panel.grid.major.x = element_blank())
 }
 
 phase1 <- read_phase(experiment_id)
@@ -190,22 +255,23 @@ have_phase2 <- !is.null(phase2)
 #| echo: false
 fmt_row <- function(study, r) {
   if (is.null(r)) {
-    return(tibble(Study = study, N = "", `Effect (loss − gain)` = "not yet collected",
-                  `95% CI` = "", `χ²(1)` = "", p = ""))
+    return(tibble(Study = study, N = "", `Interaction (prediction points)` = "not yet collected",
+                  `95% CI` = "", F = "", p = "", `ηp²` = ""))
   }
   tibble(Study = study, N = as.character(r$N),
-         `Effect (loss − gain)` = sprintf("%.0f points", 100 * r$estimate),
-         `95% CI` = sprintf("[%.0f, %.0f]", 100 * r$ci_low, 100 * r$ci_high),
-         `χ²(1)` = sprintf("%.2f", r$statistic),
-         p = format.pval(r$p, digits = 2, eps = 0.001))
+         `Interaction (prediction points)` = sprintf("%.2f", r$estimate),
+         `95% CI` = sprintf("[%.2f, %.2f]", r$ci_low, r$ci_high),
+         F = sprintf("F(1, %d) = %.2f", r$df, r$F),
+         p = format.pval(r$p, digits = 2, eps = 0.001),
+         `ηp²` = sprintf("%.2f", r$pes))
 }
 bind_rows(
-  fmt_row("Original", diff_ci(original)),
-  fmt_row("Phase 1: replication", if (have_data) diff_ci(risky_counts(phase1))),
-  fmt_row("Phase 2: extension", if (have_phase2) diff_ci(risky_counts(phase2)))
+  fmt_row("Original (Exp 3)", original_key),
+  fmt_row("Phase 1: replication", if (have_data) key_contrast(phase1)),
+  fmt_row("Phase 2: extension", if (have_phase2) key_contrast(phase2))
 ) |>
-  knitr::kable(align = "lrlllr",
-               caption = "Key comparison: difference in the percentage of analysed participants choosing the risky program, loss frame minus gain frame.")
+  knitr::kable(align = "lrrlllr",
+               caption = "Key comparison: cycle × condition interaction on predictions, i.e. the change from Cycle 1 to Cycle 2 in (pretest − read) predicted recall, out of 16.")
 ```
 
 # Phase 1: Replication
@@ -242,19 +308,21 @@ what the course's participant budget allowed.
 
 ```{r}
 #| label: power
+# The key test is the 2 x 2 within-subjects interaction, which is a one-sample t-test on each
+# participant's contrast (see Key statistics), so power is computed for that test from the
+# original's standardized effect, d_z = mean / SD of the contrast.
 power_rows <- map_dfr(c(0.80, 0.90, 0.95), function(pw) {
-  n <- power.prop.test(p1 = original_p_gain, p2 = original_p_loss,
-                       power = pw, sig.level = 0.05)$n
-  tibble(power = scales::percent(pw), n_per_group = ceiling(n), n_total = 2 * ceiling(n))
+  n <- power.t.test(delta = original_key$dz, sd = 1, power = pw, sig.level = 0.05,
+                    type = "one.sample", alternative = "two.sided")$n
+  tibble(power = scales::percent(pw), n_total = ceiling(n))
 })
 
-original_effect <- original_p_loss - original_p_gain
-two_and_half <- ceiling(2.5 * original$n)
+two_and_half <- ceiling(2.5 * original_n)
 
-knitr::kable(power_rows, col.names = c("Power", "N per frame", "N total"),
+knitr::kable(power_rows, col.names = c("Power", "N analysed"),
              caption = sprintf(
-               "Sample needed to detect the original effect (risky choice: %.0f%% gain vs %.0f%% loss, a difference of %.0f points), two-sided alpha = .05.",
-               100 * original_p_gain, 100 * original_p_loss, 100 * original_effect))
+               "Sample needed to detect the original interaction (d_z = %.2f; ηp² = %.2f, F(1, %d) = %.2f), two-sided alpha = .05.",
+               original_key$dz, original_key$pes, original_key$df, original_key$F))
 ```
 
 For comparison, 2.5 times the original sample would be `r two_and_half[1]` in the gain frame
@@ -368,29 +436,23 @@ if (!have_data) {
 #| eval: !expr have_data
 # Loaded and excluded by read_phase(), under Key statistics, so Phase 1 and Phase 2 share one
 # exclusion rule.
-participants  <- phase1$participants
-trials        <- phase1$trials
-errors        <- phase1$errors
-complete      <- phase1$complete
-keep          <- phase1$keep
-n_no_response <- phase1$n_no_response
+participants <- phase1$participants
+trials       <- phase1$trials
+errors       <- phase1$errors
+complete     <- phase1$complete
+checked      <- phase1$checked
+keep         <- phase1$keep
 ```
 
 ```{r}
 #| label: funnel
 #| eval: !expr have_data
-funnel_levels <- c("Started", "Completed", "Passed exclusion criteria")
-bind_rows(
-  participants |> mutate(step = "Started"),
-  complete     |> mutate(step = "Completed"),
-  keep         |> mutate(step = "Passed exclusion criteria")
+tibble(
+  Step = c("Started", "Completed", "Passed both attention checks",
+           "Analysed (passed checks and gave all four predictions)"),
+  N    = c(nrow(participants), nrow(complete), sum(checked$passed_checks), nrow(keep))
 ) |>
-  mutate(step = factor(step, levels = funnel_levels)) |>
-  count(step, condition, .drop = FALSE) |>
-  pivot_wider(names_from = condition, values_from = n, values_fill = 0) |>
-  mutate(Total = rowSums(across(-step))) |>
-  rename(Step = step) |>
-  knitr::kable(caption = "Participants at each step, by frame. Differences between frames in attrition or exclusion are a threat to validity and should be discussed.")
+  knitr::kable(caption = "Participants at each step.")
 ```
 
 ```{r}
@@ -400,10 +462,8 @@ bind_rows(
 #| results: asis
 cat(sprintf("Of %d participants who started, %d completed the study and %d met the exclusion criteria.",
             nrow(participants), nrow(complete), nrow(keep)))
-if (n_no_response > 0) {
-  cat(sprintf(" %d completed session(s) contained no response to any speeded trial and were excluded on that basis.",
-              n_no_response))
-}
+n_failed <- sum(!checked$passed_checks)
+if (n_failed > 0) cat(sprintf(" %d completed session(s) failed at least one attention check.", n_failed))
 if (nrow(keep) == 0) cat(" No participants remain for analysis yet, so the results below are empty.")
 cat("\n")
 ```
@@ -455,21 +515,46 @@ the data beyond that.
 ```{r}
 #| label: confirmatory
 #| eval: !expr have_data
-framing <- trials |>
-  filter(task == "framing", participant_id %in% keep$participant_id) |>
-  select(participant_id, condition, choice)
-risky <- risky_counts(phase1)
-tab <- table(Frame = framing$condition, Choice = framing$choice)
+preds <- prediction_data(phase1)
+key1  <- key_contrast(phase1)
 
-if (all(dim(tab) == c(2, 2))) {
-  # No continuity correction, so this test and the effect-size interval below agree: the
-  # uncorrected 2 x 2 chi-square is the same test as the two-proportion comparison.
-  print(tab)
-  print(chisq.test(tab, correct = FALSE))
+# 2 (cycle) x 2 (condition) repeated-measures ANOVA on predictions, as in the original.
+# The cycle:condition row is the key test; it equals the contrast test reported below.
+anova_ok <- n_distinct(preds$participant_id) >= 2
+if (anova_ok) {
+  fit <- tryCatch(
+    aov(value ~ factor(cycle) * factor(condition) + Error(factor(participant_id) / (factor(cycle) * factor(condition))),
+        data = preds),
+    error = function(e) { message("ANOVA could not be fitted: ", conditionMessage(e)); NULL })
+  if (!is.null(fit)) print(summary(fit))
 } else {
-  message("Chi-square not run: the frame-by-choice table is ", paste(dim(tab), collapse = " x "),
-          ". It needs both frames and both choices; with ", nrow(framing),
-          " participant(s) in the analysis set this is expected.")
+  message("ANOVA not run: it needs at least two analysed participants; there are ",
+          n_distinct(preds$participant_id), ".")
+}
+
+if (!is.null(key1)) {
+  key1 |>
+    transmute(N, `Interaction (points)` = sprintf("%.2f", estimate),
+              `95% CI` = sprintf("[%.2f, %.2f]", ci_low, ci_high),
+              F = sprintf("F(1, %d) = %.2f", df, F), p = format.pval(p, digits = 2, eps = 0.001),
+              `ηp²` = sprintf("%.2f", pes), `d_z` = sprintf("%.2f", dz)) |>
+    knitr::kable(caption = "Key test: cycle × condition interaction on predictions.")
+} else {
+  message("Key test not computed yet: needs at least two analysed participants whose contrasts are not all identical.")
+}
+
+# Follow-up tests reported in the original: pretest vs read predictions within each cycle.
+w <- wide_cells(preds)
+if (nrow(w) >= 2 && all(c("read_1", "pretest_1", "read_2", "pretest_2") %in% names(w))) {
+  follow <- bind_rows(
+    labelled_test(w$pretest_1 - w$read_1, Comparison = "Cycle 1: pretest − read"),
+    labelled_test(w$pretest_2 - w$read_2, Comparison = "Cycle 2: pretest − read")
+  )
+  if (nrow(follow) > 0) follow |>
+    transmute(Comparison, N, `Difference (points)` = sprintf("%.2f", estimate),
+              `95% CI` = sprintf("[%.2f, %.2f]", ci_low, ci_high),
+              t = sprintf("t(%d) = %.2f", df, t), p = format.pval(p, digits = 2, eps = 0.001)) |>
+    knitr::kable(caption = "Predictions for pretested minus read pairs within each cycle.")
 }
 ```
 
@@ -488,18 +573,19 @@ informative and should be reported as such (Experimentology §3.2).
 ```{r}
 #| label: comparison
 #| eval: !expr have_data
-orig <- diff_ci(original)
-rep  <- diff_ci(risky)
+orig <- original_key
+rep  <- key1
 
 if (!is.null(rep)) {
-  bind_rows(orig |> mutate(Study = "Original"), rep |> mutate(Study = "Phase 1: replication")) |>
+  bind_rows(orig |> mutate(Study = "Original (Exp 3)"), rep |> mutate(Study = "Phase 1: replication")) |>
     transmute(Study, N,
-              `Difference (loss − gain)` = sprintf("%.0f points", 100 * estimate),
-              `95% CI` = sprintf("[%.0f, %.0f]", 100 * ci_low, 100 * ci_high),
+              `Interaction (points)` = sprintf("%.2f", estimate),
+              `95% CI` = sprintf("[%.2f, %.2f]", ci_low, ci_high),
+              `ηp²` = sprintf("%.2f", pes), `d_z` = sprintf("%.2f", dz),
               p = format.pval(p, digits = 2, eps = 0.001)) |>
-    knitr::kable(caption = "Effect size: difference in the percentage choosing the risky program.")
+    knitr::kable(caption = "Effect size: change from Cycle 1 to Cycle 2 in the pretest − read difference in predictions.")
 } else {
-  message("Replication effect size not computed yet: need at least one analysed participant in each frame.")
+  message("Replication effect size not computed yet: need at least two analysed participants.")
 }
 ```
 
@@ -512,10 +598,10 @@ if (!is.null(rep)) {
   excludes_zero <- rep$ci_low > 0 | rep$ci_high < 0
   includes_orig <- orig$estimate >= rep$ci_low & orig$estimate <= rep$ci_high
   cat(sprintf(
-    "The replication's 95%% interval %s zero and %s the original estimate of %.0f points. ",
+    "The replication's 95%% interval %s zero and %s the original estimate of %.2f points. ",
     if (excludes_zero) "excludes" else "includes",
     if (includes_orig) "includes" else "does not include",
-    100 * orig$estimate))
+    orig$estimate))
   cat("These two facts are the starting point for the summary in the Discussion, not the conclusion.\n")
 }
 ```
@@ -555,10 +641,11 @@ caption. If the original reported no variability, say so rather than leaving it 
 ```{r}
 #| label: fig-comparison
 #| eval: !expr have_data
-#| fig-cap: "Percentage choosing the risky program in each frame, original study and Phase 1 replication. Error bars are 95% confidence intervals."
-#| fig-width: 7
+#| fig-cap: "Predicted number of pairs recalled (out of 16) for read and pretested pairs in each cycle: original Experiment 3 (values computed from the authors' OSF data) and Phase 1 replication. Error bars are 95% confidence intervals of the means."
+#| fig-width: 8
 #| fig-height: 4
-comparison_plot(Original = original, `Phase 1: replication` = risky)
+comparison_plot(`Original (Exp 3)` = original_pred,
+                `Phase 1: replication` = cell_summary(prediction_data(phase1)))
 ```
 
 ### Exploratory analyses
@@ -571,21 +658,84 @@ they generate hypotheses rather than test them.
 :::
 
 ```{r}
-#| label: exploratory-rt
+#| label: exploratory
 #| eval: !expr have_data
-ld <- trials |>
-  filter(task == "lexical_decision", participant_id %in% keep$participant_id) |>
-  mutate(correct = as.logical(correct), is_word = as.logical(is_word), rt = as.numeric(rt)) |>
-  filter(correct, !is.na(rt))
-
-if (nrow(ld) > 0) {
-  ld |>
-    group_by(`Real word` = is_word) |>
-    summarise(`Mean RT (ms)` = round(mean(rt)), `SD (ms)` = round(sd(rt)), Trials = n(), .groups = "drop") |>
-    knitr::kable(caption = "Exploratory: lexical-decision response times, correct trials only.")
-} else {
-  message("No correct lexical-decision trials with a response time yet.")
+# Exploratory. (1) The pretesting effect on recall, which the predictions are supposed to track.
+rec <- recall_data(phase1)
+rw  <- wide_cells(rec)
+if (nrow(rw) >= 2 && all(c("read_1", "pretest_1", "read_2", "pretest_2") %in% names(rw))) {
+  rec_tests <- bind_rows(
+    labelled_test(rw$pretest_1 - rw$read_1, Cycle = 1),
+    labelled_test(rw$pretest_2 - rw$read_2, Cycle = 2)
+  )
+  if (nrow(rec_tests) > 0) rec_tests |>
+    transmute(Cycle, N, `Pretest − read (proportion)` = sprintf("%.3f", estimate),
+              `95% CI` = sprintf("[%.3f, %.3f]", ci_low, ci_high),
+              t = sprintf("t(%d) = %.2f", df, t), p = format.pval(p, digits = 2, eps = 0.001),
+              d = sprintf("%.2f", dz)) |>
+    knitr::kable(caption = "Exploratory: criterial-test recall advantage for pretested pairs (original: t(51) = 6.67 and 5.99).")
 }
+
+# (2) The original's subgroup analysis: participants who showed a pretesting effect on recall in Cycle 1.
+if (nrow(rw) >= 2) {
+  sub_ids <- rw$participant_id[(rw$pretest_1 - rw$read_1) > 0]
+  sub <- contrast_test({
+    pw <- wide_cells(prediction_data(phase1)) |> filter(participant_id %in% sub_ids)
+    (pw$pretest_2 - pw$read_2) - (pw$pretest_1 - pw$read_1)
+  })
+  if (!is.null(sub)) {
+    sub |>
+      transmute(N, `Interaction (points)` = sprintf("%.2f", estimate),
+                F = sprintf("F(1, %d) = %.2f", df, F), p = format.pval(p, digits = 2, eps = 0.001),
+                `ηp²` = sprintf("%.2f", pes)) |>
+      knitr::kable(caption = "Exploratory: key interaction among participants with a Cycle 1 pretesting effect on recall (original: F(1, 38) = 18.23, ηp² = .32).")
+  }
+}
+
+# (3) Pretest guesses and data quality.
+trials |>
+  filter(participant_id %in% keep$participant_id, task == "pretest_guess") |>
+  group_by(Cycle = cycle) |>
+  summarise(`Guessed correctly` = mean(as.logical(guess_correct)),
+            `Left blank` = mean(as.logical(guess_empty)), .groups = "drop") |>
+  knitr::kable(digits = 3, caption = "Pretest guesses (original: .035 correct in Cycle 1, .053 in Cycle 2).")
+
+trials |>
+  filter(participant_id %in% keep$participant_id, task == "distractor") |>
+  group_by(Cycle = cycle) |>
+  summarise(`Mean Tetris lines` = mean(tetris_lines), `Mean keypresses` = mean(tetris_keypresses),
+            `No keypresses` = sum(tetris_keypresses == 0), .groups = "drop") |>
+  knitr::kable(digits = 1, caption = "Distractor task engagement.")
+
+# (4) Exit questions and the Cycle 2 attribution question.
+exit <- trials |>
+  filter(task == "exit_questions", participant_id %in% keep$participant_id) |>
+  mutate(resp = map(response, ~ fromJSON(.x))) |>
+  transmute(read_eff    = map_dbl(resp, ~ as.numeric(.x$read_effectiveness %||% NA)),
+            pretest_eff = map_dbl(resp, ~ as.numeric(.x$pretest_effectiveness %||% NA)),
+            preference  = map_chr(resp, ~ as.character(.x$preference %||% NA)))
+if (nrow(exit) > 0) {
+  exit |>
+    summarise(N = n(), `Reading effectiveness (0-10)` = mean(read_eff, na.rm = TRUE),
+              `Pretesting effectiveness (0-10)` = mean(pretest_eff, na.rm = TRUE),
+              `Prefer pretesting` = mean(preference == "pretest", na.rm = TRUE)) |>
+    knitr::kable(digits = 2, caption = "Exit questions (original: reading 5.87, pretesting 6.35).")
+}
+trials |>
+  filter(task == "attribution", participant_id %in% keep$participant_id) |>
+  count(Attribution = attribution) |>
+  knitr::kable(caption = "Cycle 2 attribution question.")
+```
+
+```{r}
+#| label: fig-recall
+#| eval: !expr have_data
+#| fig-cap: "Exploratory: proportion of pairs recalled on the criterial test (pretested pairs guessed correctly at pretest removed), original Experiment 3 and Phase 1 replication. Error bars are 95% confidence intervals."
+#| fig-width: 8
+#| fig-height: 4
+comparison_plot(`Original (Exp 3)` = original_recall,
+                `Phase 1: replication` = cell_summary(recall_data(phase1)),
+                ylab = "Proportion recalled", ylim = c(0, 1))
 ```
 
 ```{r}
@@ -694,43 +844,38 @@ have it and the original's otherwise.
 
 ```{r}
 #| label: phase2-power
-phase2_n_per_group <- 150   # planned analysed participants per condition in Phase 2
+phase2_n <- 130   # planned analysed participants in Phase 2
 
-p1_counts <- if (have_data) risky_counts(phase1)
-p1_stats  <- if (have_data) diff_ci(p1_counts)
-basis <- if (!is.null(p1_stats)) {
-  list(gain = p1_counts$risky[p1_counts$condition == "gain"] / p1_counts$n[p1_counts$condition == "gain"],
-       loss = p1_counts$risky[p1_counts$condition == "loss"] / p1_counts$n[p1_counts$condition == "loss"],
-       source = "Phase 1")
-} else {
-  list(gain = original_p_gain, loss = original_p_loss, source = "the original study")
-}
+p1_key <- if (have_data) key_contrast(phase1)
+basis  <- if (!is.null(p1_key)) list(sd = p1_key$sd, source = "Phase 1") else
+  list(sd = original_key$sd, source = "the original study")
 
-# Expected 95% CI half-width on the difference at n per condition.
-half_width <- function(n) 1.96 * sqrt(basis$gain * (1 - basis$gain) / n + basis$loss * (1 - basis$loss) / n)
-power_at <- function(n, p1, p2) {
-  tryCatch(power.prop.test(n = n, p1 = p1, p2 = p2, sig.level = 0.05)$power, error = function(e) NA)
+# Expected 95% CI half-width on the interaction contrast at N participants.
+half_width <- function(n) qt(0.975, n - 1) * basis$sd / sqrt(n)
+power_at <- function(n, dz) {
+  tryCatch(power.t.test(n = n, delta = dz, sd = 1, sig.level = 0.05, type = "one.sample")$power,
+           error = function(e) NA)
 }
 
 rows <- tibble(
-  Study = c(if (!is.null(p1_stats)) "Phase 1 (actual)", "Phase 2 (planned)"),
-  `N analysed` = c(if (!is.null(p1_stats)) p1_stats$N, 2 * phase2_n_per_group),
-  `95% CI half-width` = c(if (!is.null(p1_stats)) sprintf("±%.0f points", 100 * (p1_stats$ci_high - p1_stats$ci_low) / 2),
-                          sprintf("±%.0f points (expected)", 100 * half_width(phase2_n_per_group)))
+  Study = c(if (!is.null(p1_key)) "Phase 1 (actual)", "Phase 2 (planned)"),
+  `N analysed` = c(if (!is.null(p1_key)) p1_key$N, phase2_n),
+  `95% CI half-width` = c(if (!is.null(p1_key)) sprintf("±%.2f points", (p1_key$ci_high - p1_key$ci_low) / 2),
+                          sprintf("±%.2f points (expected)", half_width(phase2_n)))
 )
 knitr::kable(rows, caption = sprintf("Precision of the key estimate, Phase 2 expected values based on %s.", basis$source))
 
 tibble(
-  `Effect to detect` = c(sprintf("Original: %.0f points", 100 * (original_p_loss - original_p_gain)),
-                         if (!is.null(p1_stats)) sprintf("Phase 1: %.0f points", 100 * p1_stats$estimate),
-                         sprintf("Half the original: %.0f points", 50 * (original_p_loss - original_p_gain))),
+  `Effect to detect` = c(sprintf("Original: d_z = %.2f", original_key$dz),
+                         if (!is.null(p1_key)) sprintf("Phase 1: d_z = %.2f", p1_key$dz),
+                         sprintf("Half the original: d_z = %.2f", original_key$dz / 2)),
   `Power at planned N` = scales::percent(c(
-    power_at(phase2_n_per_group, original_p_gain, original_p_loss),
-    if (!is.null(p1_stats)) power_at(phase2_n_per_group, basis$gain, basis$loss),
-    power_at(phase2_n_per_group, original_p_gain, original_p_gain + (original_p_loss - original_p_gain) / 2)
+    power_at(phase2_n, original_key$dz),
+    if (!is.null(p1_key)) power_at(phase2_n, p1_key$dz),
+    power_at(phase2_n, original_key$dz / 2)
   ), accuracy = 1)
 ) |>
-  knitr::kable(caption = sprintf("Power of the Phase 2 key test at %d per condition, two-sided alpha = .05.", phase2_n_per_group))
+  knitr::kable(caption = sprintf("Power of the Phase 2 key test at N = %d, two-sided alpha = .05.", phase2_n))
 ```
 
 ## Analysis plan
@@ -768,27 +913,25 @@ if (!have_phase2) {
 ```{r}
 #| label: phase2-results
 #| eval: !expr have_phase2
-p2_counts <- risky_counts(phase2)
-p2_stats  <- diff_ci(p2_counts)
+p2_key <- key_contrast(phase2)
 cat(sprintf("Phase 2: %d started, %d completed, %d analysed.\n",
             nrow(phase2$participants), nrow(phase2$complete), nrow(phase2$keep)))
-if (!is.null(p2_stats)) {
-  p_text <- if (p2_stats$p < 0.001) "p < .001" else sprintf("p = %.3f", p2_stats$p)
-  cat(sprintf("Key comparison: %.0f points [%.0f, %.0f], chi-square(1) = %.2f, %s.\n",
-              100 * p2_stats$estimate, 100 * p2_stats$ci_low, 100 * p2_stats$ci_high,
-              p2_stats$statistic, p_text))
+if (!is.null(p2_key)) {
+  p_text <- if (p2_key$p < 0.001) "p < .001" else sprintf("p = %.3f", p2_key$p)
+  cat(sprintf("Key interaction: %.2f points [%.2f, %.2f], F(1, %d) = %.2f, %s, partial eta squared = %.2f.\n",
+              p2_key$estimate, p2_key$ci_low, p2_key$ci_high, p2_key$df, p2_key$F, p_text, p2_key$pes))
 }
 ```
 
 ```{r}
 #| label: fig-phase2
 #| eval: !expr have_phase2
-#| fig-cap: "Percentage choosing the risky program in each frame: original study, Phase 1 replication, and Phase 2 extension. Error bars are 95% confidence intervals."
-#| fig-width: 8
+#| fig-cap: "Predicted number of pairs recalled (out of 16) by cycle and condition: original Experiment 3, Phase 1 replication, and Phase 2 extension. Error bars are 95% confidence intervals of the means."
+#| fig-width: 10
 #| fig-height: 4
-comparison_plot(Original = original,
-                `Phase 1: replication` = if (have_data) risky_counts(phase1),
-                `Phase 2: extension` = risky_counts(phase2))
+comparison_plot(`Original (Exp 3)` = original_pred,
+                `Phase 1: replication` = if (have_data) cell_summary(prediction_data(phase1)),
+                `Phase 2: extension` = cell_summary(prediction_data(phase2)))
 ```
 
 ## Discussion
