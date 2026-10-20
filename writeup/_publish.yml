@@ -1,0 +1,4 @@
+- source: replication-report.qmd
+  posit-connect-cloud:
+    - id: 01a109a8-4196-656d-0511-9a63623133be
+      url: https://connect.posit.cloud/jaygorr/content/01a109a8-4196-656d-0511-9a63623133be

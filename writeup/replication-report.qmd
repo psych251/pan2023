@@ -292,19 +292,9 @@ An extension possibility I am considering is assigning a control group with no f
 
 ### Power analysis
 
-::: {.callout-tip icon=false}
-## Guidance
+:The key effect in the original experiment (for part 3 that I'm specifically replicating) is the practice condition, or how a word pair was studied with either pre-testing or pure reading, and which cycle round of the experiment the participant was in, and applying analysis to the participant's predictions for each. This results in a 2x2 ANOVA with two factors and two levels for each factor for cycle and testing condition, with key statistics of $F(1, 51) = 10.92$, $p = .0017$, $\eta_p^2 = .18$. The table shows that to detect the effect with .5, it would require n to be 40, 52, & 64 for 80%, 90%, & 95% power, respectively. For avoiding an underpowered study, budget constraints limit a full 2.5x sample size analysis, which would be 130 participants taking a ~30 minute test(with 10 minutes of tetris). 
 
-Report the original effect size, the sample needed for 80%, 90% and 95% power to detect it,
-and the sample you chose and why. The table below is computed from the original study's
-numbers entered at the top of this file.
-
-Original effects are usually overestimates, so powering to the original effect tends to
-produce an underpowered replication. One widely used alternative is to collect 2.5 times the
-original sample, which gives 80% power to detect an effect the original study had only 33%
-power to detect (Simonsohn, 2015; Experimentology §10.4). Say which approach you used, and
-what the course's participant budget allowed.
-:::
+Since our budget constraints would be around ~70 participants for this study, power analysis at that sample size would vary in how much the original effect is shown. If the effect is equal to the original study's amount, a replication with n = 70(assuming a similar 13.6% exclusion rate as original experiment, so payment would be for n = 81) would yield 97% power, but only 47% if the effect size is half as such. Therefore, if the study is ran, it would only be able to detect the original effect size from it's original amount to about a 25% smaller effect(at 81% power), but would be fairly underpowered to meaningfully detect a smaller effect size. An option I can use to maximize budget and  use is Prolific's running slots for participants, adding participants that meet exclusion criteria until I have enough sampling to meet 70, as well as using confidence intervals along with p values in my analysis to help take this into account.
 
 ```{r}
 #| label: power
@@ -325,83 +315,47 @@ knitr::kable(power_rows, col.names = c("Power", "N analysed"),
                original_key$dz, original_key$pes, original_key$df, original_key$F))
 ```
 
-For comparison, 2.5 times the original sample would be `r two_and_half[1]` in the gain frame
-and `r two_and_half[2]` in the loss frame (`r sum(two_and_half)` in total).
 
 ### Planned sample
 
-::: {.callout-tip icon=false}
-## Guidance
+I will recruit participants on Prolific until at least 70 individuals completed the study passing exclusion criteria. Eligibility requirements in selection match the original Experiment 3 as much as possible, meaning residents of North America, the UK, Austrialia, or New Zealand that are fluent in english with a ≥90% approval rating. 
 
-Planned sample size and stopping rule, sampling frame (for example, "US residents on Prolific,
-fluent in English, 18 or older"), known demographics, and any preselection or screening. The
-stopping rule should be data-independent: "collect until N participants pass the exclusion
-criteria below" rather than "until the result is clear".
-:::
 
 ### Materials
 
-::: {.callout-tip icon=false}
-## Guidance
+I will use the materials Pan & Rivers used, which were 64 cue and target word pairs from Huelser & Metcalfe (2012), who drew them from the Nelson et al. (1998) norms. Each word pair contained words of at least four letters with associative strengths of .5-.54, and backward associative strengths of 0, which I obtained from their OSF stimuli file.
 
-All materials. You can quote the original article directly: put the text in quotation marks
-and note that it was followed precisely, or quote it and point out the exceptions. Link to the
-live experiment above rather than pasting screenshots of every screen.
-:::
+The instructional screens were also followed closely as well as prediction screens from the original experiment (Experiment 1 is the only published live video, but it's word pairs are structured the same and the video is linked below)
+
+https://osf.io/htjqz/files/24efh
+
 
 ### Procedure
 
-::: {.callout-tip icon=false}
-## Guidance
+The overall experiment takes around ~30 minutes for participants, starting off with informed consent and demographic questions(including age, gender, and english proficiency confirmation)
 
-As for Materials: quote the original where you can and point out the exceptions. Describe the
-sequence a participant experiences, from consent to debrief, and how long it takes.
-:::
+In the first cycle, 32 pairs are presented in random order, with half of them shown through reading and the other half through pretesting. Both reading and pretesting conditions here showed the words and option to type in a word for 5 seconds, with the full pair appearing after that time for the pretesting pairs. After this session, participants made two predictions in random order predicting from 0-16 how well they could do next test. They then play Tetris for 5 minutes as a distractor activity with no words, after which they undergo the recall test on the same 32 pairs all at once, with no feedback after each pair, and paced at their own level, allowing as much time as needed to complete the pair. After this, the cycle is complete and participants are shown their scores for each part of the cycle. This is where participants are required to answer a question that asks them to place whether their prediction was higher, lower than, or the same as their performance for each condition. This is helpful because it functions as an attention check, and also helps emphasize to participants their performance on read pairs and pretested pairs. After this, participants are shown are shown their performance feedback screen once more, and they continue to Cycle 2.
+
+Cycle 2 is the same structure as Cycle 1, with 32 new pairs of words, and ending with feedback only of their scores, no reminders of predictions. They are then asked a question about where they attribute their performance, likely improved performance, to testing conditions, performance over time, and others.
 
 ### Analysis plan
 
-::: {.callout-tip icon=false}
-## Guidance
+The main analysis that will be used is the cycle and testing condition in a repeated measure ANOVA of the four differentiated predictions, where the prediction is that the amount of positive difference between pretesting over reading conditions will increase from Cycle 1 to Cycle 2. 
 
-The analysis strategy, as close to the original as possible: data cleaning rules, exclusion
-rules, covariates, and the model or test. Original papers often do not spell this out; say
-where you had to make a choice and what you chose.
+Participants will be excluded if they didn't complete the study, failed the Cycle 1 attention check, or missed any of the four predictions. For analysis that excludes specific pairs, Pan & Rivers, along with Huelser & Metcalfe excluded pretested pairs that were guessed correctly from scoring in recall portions. I have also made the main recall scoring lenient for case, typographical, and punctuation errors, but a strict raw scoring basis is also scored in case.
 
-**State the key analysis of interest explicitly.** That is the single test your replication
-stands or falls on, and it must match your preregistration. You can pre-specify additional
-analyses here too.
-:::
+Analyses along with the paired 2x2 ANOVA would be t-tests within each of the cycles, the pretesting effect itself within recall, and an analysis for a subgroup of participants that showed the effect itself substantively on the Cycle 1 criteria test. I'll also compare my confidence intervals to zero and the original's estimate, and whether my 95% interval excludes or includes 1.4 points from the original experiment.
 
-**Key analysis of interest.** The proportion of participants choosing the risky program is
-higher in the loss frame than in the gain frame, tested with a chi-square test of independence
-on the 2 × 2 table of frame by choice. The effect size is the difference in the proportion
-choosing the risky program (loss minus gain), with a 95% confidence interval.
-
-**Exclusions.** Participants are excluded if they did not complete the study, if they answered
-no speeded trial at all (every lexical-decision trial timed out, the signature of a device
-without a keyboard), or if they answered fewer than 6 of the 8 lexical-decision trials
-correctly.
 
 ### Differences from the original study
 
-::: {.callout-tip icon=false}
-## Guidance
 
-Every known difference in sample, setting, procedure, materials, and analysis, one per row.
-Minimizing differences is the goal, but some always remain. For each one, say whether it is
-expected to matter, based on claims in the original article or later research on when the
-effect does and does not appear. The rows below are the demo's real differences and show the
-level of detail expected; replace them with yours.
-:::
 
 | Aspect | Original study | This replication | Expected to matter? |
 |---|---|---|---|
-| Sample | University students in Stanford and British Columbia classrooms | Adults recruited on Prolific | Possibly. Framing effects have been found in both student and general samples, but their size varies across populations. |
-| Setting | Paper questionnaire in class | Online, unsupervised, on the participant's own computer | Unlikely for a single vignette, though attention may be lower online. |
-| Wording | "an unusual Asian disease" | "an unusual disease" | Unlikely. The ethnonym is incidental to the manipulation and dated. |
-| Design | Between subjects: each participant saw one frame | Between subjects, randomly assigned | No. |
-| Response | Circle a program on paper | Click a button | Unlikely. |
-| Other tasks | Problems presented alongside other questionnaire items | Followed by a short lexical-decision task used as an attention check | Unlikely: the check comes after the choice. |
+| Sample | Used open-source collector (https://github.com/gikeymarcia/Collector) | jsPsych on Github Pages + Firebase | Unlikely, interface for participants is the same |
+| Attribution options in final question | 5 categories | Reconstructed clearer wording of two main options | No, attribution input from participants is not used in analysis |
+| Spelling/Grammar Leniency | Not specified | allows minute mistakes | Unlikely, leniency is not strict enough to where participants could cite words entirely different |
 
 ### Methods addendum (post data collection)
 
