@@ -1,0 +1,834 @@
+participant_id,trial_index,task,condition,trial_type,rt,response,time_elapsed,stimulus,plugin_version,experiment_id,list_order,consented,view_history,cycle,cue,target,list,item,rt_key_duration,guess,guess_empty,guess_correct,guess_correct_strict,phase_step,prediction_order,prediction,duration_ms,tetris_lines,tetris_pieces,tetris_games,tetris_score,tetris_keypresses,answer,correct,correct_strict,read_correct,pretest_correct,read_prediction,pretest_prediction,with_predictions,viewing,choice,actual,expected,passed,attribution,attribution_other,question_order
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,0,consent,,html-button-response,6768,0,6775,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:stanfordpsych251@gmail.com"">stanfordpsych251@gmail.com</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,pan2023-pilot-a,dcba,true,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,1,instructions,,instructions,1992,,8769,,2.1.0,pan2023-pilot-a,dcba,,"[{""page_index"":0,""viewing_time"":1167},{""page_index"":1,""viewing_time"":825}]",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,2,demographics,,survey,3433,"{""gender"":""Man"",""native_english"":true,""age"":null}",12239,,4.0.0,pan2023-pilot-a,dcba,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,3,instructions,,instructions,26872,,39112,,2.1.0,pan2023-pilot-a,dcba,,"[{""page_index"":0,""viewing_time"":25758},{""page_index"":1,""viewing_time"":1114}]",1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,4,pretest_guess,pretest,html-keyboard-response,,,44116,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""sneak"">
+              <span class=""cue"">sneak</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,1,sneak,hide,c,12,,hide,false,true,true,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,5,study,pretest,html-keyboard-response,,,49120,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">sneak</span><span class=""dash"">–</span><span class=""target"">hide</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,sneak,hide,c,12,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,6,study,read,html-keyboard-response,,,54123,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">nitrogen</span><span class=""dash"">–</span><span class=""target"">chemistry</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,nitrogen,chemistry,d,8,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,7,study,read,html-keyboard-response,,,59127,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">chisel</span><span class=""dash"">–</span><span class=""target"">sculpture</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,chisel,sculpture,d,2,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,8,study,read,html-keyboard-response,,,64131,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">attic</span><span class=""dash"">–</span><span class=""target"">dust</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,attic,dust,d,0,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,9,study,read,html-keyboard-response,,,69136,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">wine</span><span class=""dash"">–</span><span class=""target"">dinner</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,wine,dinner,d,15,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,10,study,read,html-keyboard-response,,,74139,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">decompose</span><span class=""dash"">–</span><span class=""target"">body</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,decompose,body,d,3,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,11,study,read,html-keyboard-response,,,79143,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">elevator</span><span class=""dash"">–</span><span class=""target"">building</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,elevator,building,d,4,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,12,study,read,html-keyboard-response,,,84146,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">matter</span><span class=""dash"">–</span><span class=""target"">gray</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,matter,gray,d,7,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,13,pretest_guess,pretest,html-keyboard-response,,,89149,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""olive"">
+              <span class=""cue"">olive</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,1,olive,branch,c,9,,branch,false,true,true,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,14,study,pretest,html-keyboard-response,,,94153,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">olive</span><span class=""dash"">–</span><span class=""target"">branch</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,olive,branch,c,9,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,15,study,read,html-keyboard-response,,,99157,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">scrub</span><span class=""dash"">–</span><span class=""target"">brush</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,scrub,brush,d,11,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,16,study,read,html-keyboard-response,,,104160,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">stick</span><span class=""dash"">–</span><span class=""target"">wood</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,stick,wood,d,12,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,17,pretest_guess,pretest,html-keyboard-response,,,109165,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""impossible"">
+              <span class=""cue"">impossible</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,1,impossible,difficult,c,6,,burger,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,18,study,pretest,html-keyboard-response,,,114170,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">impossible</span><span class=""dash"">–</span><span class=""target"">difficult</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,impossible,difficult,c,6,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,19,pretest_guess,pretest,html-keyboard-response,,,119173,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""frosted"">
+              <span class=""cue"">frosted</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,1,frosted,cake,c,5,,ice,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,20,study,pretest,html-keyboard-response,,,124177,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">frosted</span><span class=""dash"">–</span><span class=""target"">cake</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,frosted,cake,c,5,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,21,pretest_guess,pretest,html-keyboard-response,,,129181,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""balloon"">
+              <span class=""cue"">balloon</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,1,balloon,float,c,1,,gas,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,22,study,pretest,html-keyboard-response,,,134184,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">balloon</span><span class=""dash"">–</span><span class=""target"">float</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,balloon,float,c,1,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,23,pretest_guess,pretest,html-keyboard-response,,,139188,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""dracula"">
+              <span class=""cue"">dracula</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,1,dracula,scary,c,4,,vampire,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,24,study,pretest,html-keyboard-response,,,144192,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">dracula</span><span class=""dash"">–</span><span class=""target"">scary</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,dracula,scary,c,4,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,25,pretest_guess,pretest,html-keyboard-response,,,149196,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""swing"">
+              <span class=""cue"">swing</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,1,swing,tree,c,13,,,true,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,26,study,pretest,html-keyboard-response,,,154199,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">swing</span><span class=""dash"">–</span><span class=""target"">tree</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,swing,tree,c,13,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,27,study,read,html-keyboard-response,,,159203,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">plasma</span><span class=""dash"">–</span><span class=""target"">cell</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,plasma,cell,d,9,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,28,pretest_guess,pretest,html-keyboard-response,,,164207,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""tide"">
+              <span class=""cue"">tide</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,1,tide,beach,c,14,,wave,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,29,study,pretest,html-keyboard-response,,,169210,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">tide</span><span class=""dash"">–</span><span class=""target"">beach</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,tide,beach,c,14,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,30,pretest_guess,pretest,html-keyboard-response,,,174214,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""attack"">
+              <span class=""cue"">attack</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,1,attack,defend,c,0,,damage,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,31,study,pretest,html-keyboard-response,,,179217,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">attack</span><span class=""dash"">–</span><span class=""target"">defend</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,attack,defend,c,0,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,32,pretest_guess,pretest,html-keyboard-response,,,184222,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""potato"">
+              <span class=""cue"">potato</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,1,potato,vegetables,c,10,,tomato,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,33,study,pretest,html-keyboard-response,,,189225,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">potato</span><span class=""dash"">–</span><span class=""target"">vegetables</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,potato,vegetables,c,10,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,34,study,read,html-keyboard-response,,,194229,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">prepare</span><span class=""dash"">–</span><span class=""target"">study</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,prepare,study,d,10,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,35,study,read,html-keyboard-response,,,199232,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">together</span><span class=""dash"">–</span><span class=""target"">love</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,together,love,d,14,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,36,pretest_guess,pretest,html-keyboard-response,,,204236,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""crocodile"">
+              <span class=""cue"">crocodile</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,1,crocodile,reptile,c,3,,alligator,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,37,study,pretest,html-keyboard-response,,,209240,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">crocodile</span><span class=""dash"">–</span><span class=""target"">reptile</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,crocodile,reptile,c,3,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,38,pretest_guess,pretest,html-keyboard-response,,,214244,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""well"">
+              <span class=""cue"">well</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,1,well,done,c,15,,good,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,39,study,pretest,html-keyboard-response,,,219247,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">well</span><span class=""dash"">–</span><span class=""target"">done</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,well,done,c,15,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,40,pretest_guess,pretest,html-keyboard-response,,,224251,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""canyon"">
+              <span class=""cue"">canyon</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,1,canyon,mountain,c,2,,,true,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,41,study,pretest,html-keyboard-response,,,229253,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">canyon</span><span class=""dash"">–</span><span class=""target"">mountain</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,canyon,mountain,c,2,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,42,pretest_guess,pretest,html-keyboard-response,,,234254,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""mussel"">
+              <span class=""cue"">mussel</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,1,mussel,fish,c,8,,clam,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,43,study,pretest,html-keyboard-response,,,239258,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">mussel</span><span class=""dash"">–</span><span class=""target"">fish</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,mussel,fish,c,8,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,44,study,read,html-keyboard-response,,,244262,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">innocent</span><span class=""dash"">–</span><span class=""target"">young</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,innocent,young,d,6,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,45,study,read,html-keyboard-response,,,249264,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">syringe</span><span class=""dash"">–</span><span class=""target"">doctor</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,syringe,doctor,d,13,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,46,pretest_guess,pretest,html-keyboard-response,,,254269,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""loft"">
+              <span class=""cue"">loft</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,1,loft,room,c,7,,cradle,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,47,study,pretest,html-keyboard-response,,,259271,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">loft</span><span class=""dash"">–</span><span class=""target"">room</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,loft,room,c,7,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,48,pretest_guess,pretest,html-keyboard-response,,,264276,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""satin"">
+              <span class=""cue"">satin</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,1,satin,cloth,c,11,,red,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,49,study,pretest,html-keyboard-response,,,269279,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">satin</span><span class=""dash"">–</span><span class=""target"">cloth</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,satin,cloth,c,11,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,50,study,read,html-keyboard-response,,,274282,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">behavior</span><span class=""dash"">–</span><span class=""target"">action</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,behavior,action,d,1,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,51,study,read,html-keyboard-response,,,279287,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">goodness</span><span class=""dash"">–</span><span class=""target"">kindness</span></div>",2.2.0,pan2023-pilot-a,dcba,,,1,goodness,kindness,d,5,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,52,prediction,read,survey,8112,"{""prediction"":8}",287416,,4.0.0,pan2023-pilot-a,dcba,,,1,,,,,,,,,,,1,8,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,53,prediction,pretest,survey,3275,"{""prediction"":8}",290699,,4.0.0,pan2023-pilot-a,dcba,,,1,,,,,,,,,,,2,8,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,54,instructions,,instructions,2575,,293275,,2.1.0,pan2023-pilot-a,dcba,,"[{""page_index"":0,""viewing_time"":2575}]",1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,55,distractor,,html-keyboard-response,,,593278,"<div class=""tetris"">
+          <canvas id=""tetris-board"" width=""260"" height=""520""></canvas>
+          <div class=""tetris-side"">
+            <p>Time left</p><p id=""tetris-clock"" class=""tetris-big"">5:00</p>
+            <p>Lines</p><p id=""tetris-lines"" class=""tetris-big"">0</p>
+          </div>
+        </div>",2.2.0,pan2023-pilot-a,dcba,,,1,,,,,,,,,,,,,300000,12,78,2,500,1072,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,56,instructions,,instructions,2065,,595345,,2.1.0,pan2023-pilot-a,dcba,,"[{""page_index"":0,""viewing_time"":2065}]",1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,57,test,pretest,survey-text,13473,"{""answer"":""tree""}",608822,,2.1.1,pan2023-pilot-a,dcba,,,1,swing,tree,c,13,,,,false,,,,,,,,,,,tree,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,58,test,read,survey-text,2705,"{""answer"":""""}",611529,,2.1.1,pan2023-pilot-a,dcba,,,1,behavior,action,d,1,,,,,,,,,,,,,,,,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,59,test,pretest,survey-text,4095,"{""answer"":""defend""}",615629,,2.1.1,pan2023-pilot-a,dcba,,,1,attack,defend,c,0,,,,false,,,,,,,,,,,defend,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,60,test,read,survey-text,3536,"{""answer"":""bottle""}",619171,,2.1.1,pan2023-pilot-a,dcba,,,1,syringe,doctor,d,13,,,,,,,,,,,,,,,bottle,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,61,test,read,survey-text,2840,"{""answer"":""love""}",622013,,2.1.1,pan2023-pilot-a,dcba,,,1,together,love,d,14,,,,,,,,,,,,,,,love,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,62,test,read,survey-text,2938,"{""answer"":""building""}",624955,,2.1.1,pan2023-pilot-a,dcba,,,1,elevator,building,d,4,,,,,,,,,,,,,,,building,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,63,test,pretest,survey-text,1960,"{""answer"":""branch""}",626918,,2.1.1,pan2023-pilot-a,dcba,,,1,olive,branch,c,9,,,,true,,,,,,,,,,,branch,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,64,test,pretest,survey-text,3741,"{""answer"":""crevice""}",630662,,2.1.1,pan2023-pilot-a,dcba,,,1,canyon,mountain,c,2,,,,false,,,,,,,,,,,crevice,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,65,test,read,survey-text,1939,"{""answer"":""chemistry""}",632605,,2.1.1,pan2023-pilot-a,dcba,,,1,nitrogen,chemistry,d,8,,,,,,,,,,,,,,,chemistry,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,66,test,read,survey-text,5593,"{""answer"":""love""}",638202,,2.1.1,pan2023-pilot-a,dcba,,,1,goodness,kindness,d,5,,,,,,,,,,,,,,,love,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,67,test,pretest,survey-text,4733,"{""answer"":""clam""}",642939,,2.1.1,pan2023-pilot-a,dcba,,,1,mussel,fish,c,8,,,,false,,,,,,,,,,,clam,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,68,test,pretest,survey-text,6233,"{""answer"":""hide""}",649176,,2.1.1,pan2023-pilot-a,dcba,,,1,sneak,hide,c,12,,,,true,,,,,,,,,,,hide,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,69,test,pretest,survey-text,2877,"{""answer"":""float""}",652056,,2.1.1,pan2023-pilot-a,dcba,,,1,balloon,float,c,1,,,,false,,,,,,,,,,,float,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,70,test,read,survey-text,3173,"{""answer"":""cell""}",655233,,2.1.1,pan2023-pilot-a,dcba,,,1,plasma,cell,d,9,,,,,,,,,,,,,,,cell,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,71,test,read,survey-text,2959,"{""answer"":""body""}",658196,,2.1.1,pan2023-pilot-a,dcba,,,1,decompose,body,d,3,,,,,,,,,,,,,,,body,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,72,test,pretest,survey-text,4463,"{""answer"":""hide""}",662663,,2.1.1,pan2023-pilot-a,dcba,,,1,loft,room,c,7,,,,false,,,,,,,,,,,hide,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,73,test,read,survey-text,1662,"{""answer"":""stone""}",664330,,2.1.1,pan2023-pilot-a,dcba,,,1,chisel,sculpture,d,2,,,,,,,,,,,,,,,stone,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,74,test,read,survey-text,2259,"{""answer"":""ceiling""}",666593,,2.1.1,pan2023-pilot-a,dcba,,,1,attic,dust,d,0,,,,,,,,,,,,,,,ceiling,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,75,test,read,survey-text,2043,"{""answer"":""building""}",668640,,2.1.1,pan2023-pilot-a,dcba,,,1,stick,wood,d,12,,,,,,,,,,,,,,,building,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,76,test,pretest,survey-text,2893,"{""answer"":""ice""}",671536,,2.1.1,pan2023-pilot-a,dcba,,,1,frosted,cake,c,5,,,,false,,,,,,,,,,,ice,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,77,test,read,survey-text,2104,"{""answer"":""study""}",673644,,2.1.1,pan2023-pilot-a,dcba,,,1,prepare,study,d,10,,,,,,,,,,,,,,,study,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,78,test,pretest,survey-text,5487,"{""answer"":""reptile""}",679134,,2.1.1,pan2023-pilot-a,dcba,,,1,crocodile,reptile,c,3,,,,false,,,,,,,,,,,reptile,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,79,test,read,survey-text,2037,"{""answer"":""clean""}",681175,,2.1.1,pan2023-pilot-a,dcba,,,1,scrub,brush,d,11,,,,,,,,,,,,,,,clean,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,80,test,read,survey-text,1896,"{""answer"":""gray""}",683076,,2.1.1,pan2023-pilot-a,dcba,,,1,matter,gray,d,7,,,,,,,,,,,,,,,gray,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,81,test,pretest,survey-text,2122,"{""answer"":""ocean""}",685202,,2.1.1,pan2023-pilot-a,dcba,,,1,tide,beach,c,14,,,,false,,,,,,,,,,,ocean,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,82,test,read,survey-text,7372,"{""answer"":""child""}",692578,,2.1.1,pan2023-pilot-a,dcba,,,1,innocent,young,d,6,,,,,,,,,,,,,,,child,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,83,test,read,survey-text,4366,"{""answer"":""drunk""}",696948,,2.1.1,pan2023-pilot-a,dcba,,,1,wine,dinner,d,15,,,,,,,,,,,,,,,drunk,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,84,test,pretest,survey-text,2546,"{""answer"":""vegetable""}",699498,,2.1.1,pan2023-pilot-a,dcba,,,1,potato,vegetables,c,10,,,,false,,,,,,,,,,,vegetable,true,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,85,test,pretest,survey-text,2761,"{""answer"":""vampire""}",702264,,2.1.1,pan2023-pilot-a,dcba,,,1,dracula,scary,c,4,,,,false,,,,,,,,,,,vampire,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,86,test,pretest,survey-text,1292,"{""answer"":""red""}",703559,,2.1.1,pan2023-pilot-a,dcba,,,1,satin,cloth,c,11,,,,false,,,,,,,,,,,red,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,87,test,pretest,survey-text,1666,"{""answer"":""being""}",705229,,2.1.1,pan2023-pilot-a,dcba,,,1,well,done,c,15,,,,false,,,,,,,,,,,being,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,88,test,pretest,survey-text,1992,"{""answer"":""difficult""}",707225,,2.1.1,pan2023-pilot-a,dcba,,,1,impossible,difficult,c,6,,,,false,,,,,,,,,,,difficult,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,89,score_summary,,html-keyboard-response,,,707228,,2.2.0,pan2023-pilot-a,dcba,,,1,,,,,,,,,,,,,,,,,,,,,,7,8,8,8,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,90,feedback_display,,html-button-response,11432,0,718663,"<h2>Your Round 1 results</h2>
+          <table class=""feedback-table"">
+            <thead><tr><th></th><th>Read pairs</th><th>Pretested pairs</th></tr></thead>
+            <tbody>
+              <tr><th>Correctly recalled</th><td class=""read-score"">7 out of 16</td>
+                  <td class=""pretest-score"">8 out of 16</td></tr>
+              <tr><th>Your prediction</th><td>8 out of 16</td><td>8 out of 16</td></tr>
+            </tbody>
+          </table><p>Please check how closely your predictions matched your actual performance.</p>",2.1.0,pan2023-pilot-a,dcba,,,1,,,,,,,,,,,,,,,,,,,,,,7,8,8,8,true,1,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,91,attention_check,read,html-button-response,7338,2,726002,"<p class=""question"">For the <strong>read</strong> word pairs, which statement is true?</p>",2.1.0,pan2023-pilot-a,dcba,,,1,,,,,,,,,,,,8,,,,,,,,,,,,,,,,same,7,higher,false,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,92,attention_check,pretest,html-button-response,964,2,726968,"<p class=""question"">For the <strong>pretested</strong> word pairs, which statement is true?</p>",2.1.0,pan2023-pilot-a,dcba,,,1,,,,,,,,,,,,8,,,,,,,,,,,,,,,,same,8,same,true,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,93,feedback_display,,html-button-response,11643,0,738613,"<h2>Your Round 1 results, once more</h2><p>Please look over your results again before Round 2 begins.</p>
+          <table class=""feedback-table"">
+            <thead><tr><th></th><th>Read pairs</th><th>Pretested pairs</th></tr></thead>
+            <tbody>
+              <tr><th>Correctly recalled</th><td class=""read-score"">7 out of 16</td>
+                  <td class=""pretest-score"">8 out of 16</td></tr>
+              <tr><th>Your prediction</th><td>8 out of 16</td><td>8 out of 16</td></tr>
+            </tbody>
+          </table><p>Please check how closely your predictions matched your actual performance.</p>",2.1.0,pan2023-pilot-a,dcba,,,1,,,,,,,,,,,,,,,,,,,,,,7,8,8,8,true,2,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,94,instructions,,instructions,3514,,742128,,2.1.0,pan2023-pilot-a,dcba,,"[{""page_index"":0,""viewing_time"":3514}]",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,95,instructions,,instructions,28950,,771079,,2.1.0,pan2023-pilot-a,dcba,,"[{""page_index"":0,""viewing_time"":25851},{""page_index"":1,""viewing_time"":3099}]",2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,96,pretest_guess,pretest,html-keyboard-response,,,776081,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""intake"">
+              <span class=""cue"">intake</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,2,intake,swallow,a,7,,ingress,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,97,study,pretest,html-keyboard-response,,,781085,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">intake</span><span class=""dash"">–</span><span class=""target"">swallow</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,intake,swallow,a,7,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,98,study,read,html-keyboard-response,,,786087,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">inventor</span><span class=""dash"">–</span><span class=""target"">smart</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,inventor,smart,b,7,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,99,pretest_guess,pretest,html-keyboard-response,,,791089,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""show"">
+              <span class=""cue"">show</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,2,show,play,a,12,,tell,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,100,study,pretest,html-keyboard-response,,,796093,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">show</span><span class=""dash"">–</span><span class=""target"">play</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,show,play,a,12,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,101,pretest_guess,pretest,html-keyboard-response,,,801096,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""molten"">
+              <span class=""cue"">molten</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,2,molten,melt,a,8,,lava,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,102,study,pretest,html-keyboard-response,,,806101,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">molten</span><span class=""dash"">–</span><span class=""target"">melt</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,molten,melt,a,8,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,103,study,read,html-keyboard-response,,,811104,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">relationship</span><span class=""dash"">–</span><span class=""target"">boyfriend</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,relationship,boyfriend,b,11,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,104,pretest_guess,pretest,html-keyboard-response,,,816107,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""blockade"">
+              <span class=""cue"">blockade</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,2,blockade,wall,a,2,,,true,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,105,study,pretest,html-keyboard-response,,,821110,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">blockade</span><span class=""dash"">–</span><span class=""target"">wall</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,blockade,wall,a,2,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,106,study,read,html-keyboard-response,,,826113,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">athletic</span><span class=""dash"">–</span><span class=""target"">muscle</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,athletic,muscle,b,0,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,107,pretest_guess,pretest,html-keyboard-response,,,831117,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""playground"">
+              <span class=""cue"">playground</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,2,playground,school,a,10,,play,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,108,study,pretest,html-keyboard-response,,,836121,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">playground</span><span class=""dash"">–</span><span class=""target"">school</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,playground,school,a,10,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,109,pretest_guess,pretest,html-keyboard-response,,,841124,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""gymnastics"">
+              <span class=""cue"">gymnastics</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,2,gymnastics,jump,a,6,,playing,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,110,study,pretest,html-keyboard-response,,,846128,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">gymnastics</span><span class=""dash"">–</span><span class=""target"">jump</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,gymnastics,jump,a,6,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,111,pretest_guess,pretest,html-keyboard-response,,,851132,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""topic"">
+              <span class=""cue"">topic</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,2,topic,title,a,15,,,true,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,112,study,pretest,html-keyboard-response,,,856134,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">topic</span><span class=""dash"">–</span><span class=""target"">title</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,topic,title,a,15,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,113,pretest_guess,pretest,html-keyboard-response,,,861138,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""summary"">
+              <span class=""cue"">summary</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,2,summary,brief,a,13,,dialogue,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,114,study,pretest,html-keyboard-response,,,866142,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">summary</span><span class=""dash"">–</span><span class=""target"">brief</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,summary,brief,a,13,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,115,study,read,html-keyboard-response,,,871144,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">notebook</span><span class=""dash"">–</span><span class=""target"">pencil</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,notebook,pencil,b,9,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,116,pretest_guess,pretest,html-keyboard-response,,,876147,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""depart"">
+              <span class=""cue"">depart</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,2,depart,airplane,a,4,,p,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,117,study,pretest,html-keyboard-response,,,881149,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">depart</span><span class=""dash"">–</span><span class=""target"">airplane</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,depart,airplane,a,4,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,118,pretest_guess,pretest,html-keyboard-response,,,886153,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""bacon"">
+              <span class=""cue"">bacon</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,2,bacon,meat,a,1,,breakfast,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,119,study,pretest,html-keyboard-response,,,891156,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">bacon</span><span class=""dash"">–</span><span class=""target"">meat</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,bacon,meat,a,1,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,120,study,read,html-keyboard-response,,,896160,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">unequal</span><span class=""dash"">–</span><span class=""target"">unfair</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,unequal,unfair,b,15,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,121,study,read,html-keyboard-response,,,901164,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">theorem</span><span class=""dash"">–</span><span class=""target"">science</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,theorem,science,b,14,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,122,study,read,html-keyboard-response,,,906168,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">shuttle</span><span class=""dash"">–</span><span class=""target"">plane</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,shuttle,plane,b,12,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,123,study,read,html-keyboard-response,,,911172,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">envy</span><span class=""dash"">–</span><span class=""target"">like</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,envy,like,b,5,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,124,study,read,html-keyboard-response,,,916175,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">bagel</span><span class=""dash"">–</span><span class=""target"">breakfast</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,bagel,breakfast,b,1,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,125,pretest_guess,pretest,html-keyboard-response,,,921178,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""ashes"">
+              <span class=""cue"">ashes</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,2,ashes,smoke,a,0,,tray,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,126,study,pretest,html-keyboard-response,,,926182,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">ashes</span><span class=""dash"">–</span><span class=""target"">smoke</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,ashes,smoke,a,0,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,127,study,read,html-keyboard-response,,,931185,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">pocketbook</span><span class=""dash"">–</span><span class=""target"">wallet</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,pocketbook,wallet,b,10,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,128,study,read,html-keyboard-response,,,936188,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">humid</span><span class=""dash"">–</span><span class=""target"">weather</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,humid,weather,b,6,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,129,study,read,html-keyboard-response,,,941191,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">dominant</span><span class=""dash"">–</span><span class=""target"">control</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,dominant,control,b,4,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,130,pretest_guess,pretest,html-keyboard-response,,,946195,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""empire"">
+              <span class=""cue"">empire</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,2,empire,state,a,5,,king,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,131,study,pretest,html-keyboard-response,,,951198,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">empire</span><span class=""dash"">–</span><span class=""target"">state</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,empire,state,a,5,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,132,study,read,html-keyboard-response,,,956201,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">sweater</span><span class=""dash"">–</span><span class=""target"">winter</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,sweater,winter,b,13,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,133,pretest_guess,pretest,html-keyboard-response,,,961204,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""chop"">
+              <span class=""cue"">chop</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,2,chop,dice,a,3,,hack,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,134,study,pretest,html-keyboard-response,,,966207,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">chop</span><span class=""dash"">–</span><span class=""target"">dice</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,chop,dice,a,3,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,135,study,read,html-keyboard-response,,,971209,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">blunt</span><span class=""dash"">–</span><span class=""target"">forward</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,blunt,forward,b,2,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,136,pretest_guess,pretest,html-keyboard-response,,,976213,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""nonsense"">
+              <span class=""cue"">nonsense</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,2,nonsense,ridiculous,a,9,,bu,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,137,study,pretest,html-keyboard-response,,,981216,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">nonsense</span><span class=""dash"">–</span><span class=""target"">ridiculous</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,nonsense,ridiculous,a,9,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,138,pretest_guess,pretest,html-keyboard-response,,,986220,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""tension"">
+              <span class=""cue"">tension</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,2,tension,tight,a,14,,,true,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,139,study,pretest,html-keyboard-response,,,991223,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">tension</span><span class=""dash"">–</span><span class=""target"">tight</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,tension,tight,a,14,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,140,study,read,html-keyboard-response,,,996228,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">moss</span><span class=""dash"">–</span><span class=""target"">grass</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,moss,grass,b,8,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,141,pretest_guess,pretest,html-keyboard-response,,,1001231,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""pronoun"">
+              <span class=""cue"">pronoun</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,dcba,,,2,pronoun,english,a,11,,verb,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,142,study,pretest,html-keyboard-response,,,1006236,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">pronoun</span><span class=""dash"">–</span><span class=""target"">english</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,pronoun,english,a,11,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,143,study,read,html-keyboard-response,,,1011240,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">crackle</span><span class=""dash"">–</span><span class=""target"">cereal</span></div>",2.2.0,pan2023-pilot-a,dcba,,,2,crackle,cereal,b,3,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,144,prediction,read,survey,4476,"{""prediction"":8}",1015736,,4.0.0,pan2023-pilot-a,dcba,,,2,,,,,,,,,,,1,8,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,145,prediction,pretest,survey,1184,"{""prediction"":8}",1016927,,4.0.0,pan2023-pilot-a,dcba,,,2,,,,,,,,,,,2,8,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,146,instructions,,instructions,895,,1017823,,2.1.0,pan2023-pilot-a,dcba,,"[{""page_index"":0,""viewing_time"":895}]",2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,147,distractor,,html-keyboard-response,,,1317826,"<div class=""tetris"">
+          <canvas id=""tetris-board"" width=""260"" height=""520""></canvas>
+          <div class=""tetris-side"">
+            <p>Time left</p><p id=""tetris-clock"" class=""tetris-big"">5:00</p>
+            <p>Lines</p><p id=""tetris-lines"" class=""tetris-big"">0</p>
+          </div>
+        </div>",2.2.0,pan2023-pilot-a,dcba,,,2,,,,,,,,,,,,,300000,6,53,3,240,501,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,148,instructions,,instructions,1316,,1319144,,2.1.0,pan2023-pilot-a,dcba,,"[{""page_index"":0,""viewing_time"":1316}]",2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,149,test,read,survey-text,3608,"{""answer"":""grass""}",1322754,,2.1.1,pan2023-pilot-a,dcba,,,2,moss,grass,b,8,,,,,,,,,,,,,,,grass,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,150,test,pretest,survey-text,3506,"{""answer"":""subject""}",1326265,,2.1.1,pan2023-pilot-a,dcba,,,2,topic,title,a,15,,,,false,,,,,,,,,,,subject,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,151,test,pretest,survey-text,1904,"{""answer"":""swallow""}",1328173,,2.1.1,pan2023-pilot-a,dcba,,,2,intake,swallow,a,7,,,,false,,,,,,,,,,,swallow,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,152,test,read,survey-text,5717,"{""answer"":""together""}",1333894,,2.1.1,pan2023-pilot-a,dcba,,,2,relationship,boyfriend,b,11,,,,,,,,,,,,,,,together,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,153,test,pretest,survey-text,1421,"{""answer"":""smoke""}",1335318,,2.1.1,pan2023-pilot-a,dcba,,,2,ashes,smoke,a,0,,,,false,,,,,,,,,,,smoke,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,154,test,pretest,survey-text,1931,"{""answer"":""""}",1337252,,2.1.1,pan2023-pilot-a,dcba,,,2,gymnastics,jump,a,6,,,,false,,,,,,,,,,,,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,155,test,read,survey-text,2620,"{""answer"":""pastry""}",1339877,,2.1.1,pan2023-pilot-a,dcba,,,2,bagel,breakfast,b,1,,,,,,,,,,,,,,,pastry,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,156,test,pretest,survey-text,2425,"{""answer"":""""}",1342305,,2.1.1,pan2023-pilot-a,dcba,,,2,playground,school,a,10,,,,false,,,,,,,,,,,,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,157,test,pretest,survey-text,2773,"{""answer"":""leave""}",1345082,,2.1.1,pan2023-pilot-a,dcba,,,2,depart,airplane,a,4,,,,false,,,,,,,,,,,leave,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,158,test,read,survey-text,4458,"{""answer"":""work""}",1349543,,2.1.1,pan2023-pilot-a,dcba,,,2,blunt,forward,b,2,,,,,,,,,,,,,,,work,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,159,test,pretest,survey-text,3235,"{""answer"":""dice""}",1352781,,2.1.1,pan2023-pilot-a,dcba,,,2,chop,dice,a,3,,,,false,,,,,,,,,,,dice,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,160,test,read,survey-text,1901,"{""answer"":""words""}",1354686,,2.1.1,pan2023-pilot-a,dcba,,,2,notebook,pencil,b,9,,,,,,,,,,,,,,,words,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,161,test,pretest,survey-text,18650,"{""answer"":""impossible""}",1373339,,2.1.1,pan2023-pilot-a,dcba,,,2,nonsense,ridiculous,a,9,,,,false,,,,,,,,,,,impossible,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,162,test,read,survey-text,10286,"{""answer"":""control""}",1383629,,2.1.1,pan2023-pilot-a,dcba,,,2,dominant,control,b,4,,,,,,,,,,,,,,,control,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,163,test,read,survey-text,1876,"{""answer"":""smart""}",1385509,,2.1.1,pan2023-pilot-a,dcba,,,2,inventor,smart,b,7,,,,,,,,,,,,,,,smart,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,164,test,read,survey-text,5024,"{""answer"":""water""}",1390535,,2.1.1,pan2023-pilot-a,dcba,,,2,humid,weather,b,6,,,,,,,,,,,,,,,water,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,165,test,read,survey-text,11827,"{""answer"":""""}",1402366,,2.1.1,pan2023-pilot-a,dcba,,,2,unequal,unfair,b,15,,,,,,,,,,,,,,,,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,166,test,read,survey-text,2667,"{""answer"":""""}",1405037,,2.1.1,pan2023-pilot-a,dcba,,,2,athletic,muscle,b,0,,,,,,,,,,,,,,,,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,167,test,pretest,survey-text,3132,"{""answer"":""lave""}",1408173,,2.1.1,pan2023-pilot-a,dcba,,,2,molten,melt,a,8,,,,false,,,,,,,,,,,lave,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,168,test,read,survey-text,1996,"{""answer"":""desire""}",1410176,,2.1.1,pan2023-pilot-a,dcba,,,2,envy,like,b,5,,,,,,,,,,,,,,,desire,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,169,test,pretest,survey-text,2061,"{""answer"":""""}",1412241,,2.1.1,pan2023-pilot-a,dcba,,,2,summary,brief,a,13,,,,false,,,,,,,,,,,,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,170,test,read,survey-text,1669,"{""answer"":""pop""}",1413914,,2.1.1,pan2023-pilot-a,dcba,,,2,crackle,cereal,b,3,,,,,,,,,,,,,,,pop,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,171,test,pretest,survey-text,1661,"{""answer"":""""}",1415579,,2.1.1,pan2023-pilot-a,dcba,,,2,tension,tight,a,14,,,,false,,,,,,,,,,,,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,172,test,pretest,survey-text,2028,"{""answer"":""english""}",1417611,,2.1.1,pan2023-pilot-a,dcba,,,2,pronoun,english,a,11,,,,false,,,,,,,,,,,english,true,true,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,173,test,read,survey-text,3924,"{""answer"":""clothing""}",1421539,,2.1.1,pan2023-pilot-a,dcba,,,2,sweater,winter,b,13,,,,,,,,,,,,,,,clothing,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,174,test,read,survey-text,1176,"{""answer"":""""}",1422718,,2.1.1,pan2023-pilot-a,dcba,,,2,pocketbook,wallet,b,10,,,,,,,,,,,,,,,,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,175,test,pretest,survey-text,2391,"{""answer"":""""}",1425110,,2.1.1,pan2023-pilot-a,dcba,,,2,blockade,wall,a,2,,,,false,,,,,,,,,,,,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,176,test,read,survey-text,5864,"{""answer"":""vehicle""}",1430976,,2.1.1,pan2023-pilot-a,dcba,,,2,shuttle,plane,b,12,,,,,,,,,,,,,,,vehicle,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,177,test,pretest,survey-text,6861,"{""answer"":""kingdom""}",1437841,,2.1.1,pan2023-pilot-a,dcba,,,2,empire,state,a,5,,,,false,,,,,,,,,,,kingdom,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,178,test,read,survey-text,6778,"{""answer"":""formula""}",1444622,,2.1.1,pan2023-pilot-a,dcba,,,2,theorem,science,b,14,,,,,,,,,,,,,,,formula,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,179,test,pretest,survey-text,4149,"{""answer"":""breakfast""}",1448773,,2.1.1,pan2023-pilot-a,dcba,,,2,bacon,meat,a,1,,,,false,,,,,,,,,,,breakfast,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,180,test,pretest,survey-text,1987,"{""answer"":""hide""}",1450764,,2.1.1,pan2023-pilot-a,dcba,,,2,show,play,a,12,,,,false,,,,,,,,,,,hide,false,false,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,181,score_summary,,html-keyboard-response,,,1450768,,2.2.0,pan2023-pilot-a,dcba,,,2,,,,,,,,,,,,,,,,,,,,,,3,4,8,8,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,182,feedback_display,,html-button-response,3774,0,1454544,"<h2>Your Round 2 results</h2>
+          <table class=""feedback-table"">
+            <thead><tr><th></th><th>Read pairs</th><th>Pretested pairs</th></tr></thead>
+            <tbody>
+              <tr><th>Correctly recalled</th><td class=""read-score"">3 out of 16</td>
+                  <td class=""pretest-score"">4 out of 16</td></tr>
+              
+            </tbody>
+          </table>",2.1.0,pan2023-pilot-a,dcba,,,2,,,,,,,,,,,,,,,,,,,,,,3,4,8,8,false,1,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,183,attribution,,survey,14959,"{""attribution"":""attention""}",1469523,,4.0.0,pan2023-pilot-a,dcba,,,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,attention,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,184,exit_questions,,survey,11205,"{""pretest_effectiveness"":8,""preference"":""pretest"",""read_effectiveness"":4}",1480746,,4.0.0,pan2023-pilot-a,dcba,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,185,feedback_likert,,survey-likert,3508,"{""instructions_clear"":4}",1484256,,2.2.0,pan2023-pilot-a,dcba,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,[0]
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,186,feedback_text,,survey-text,1369,"{""comments"":""""}",1485634,,2.1.1,pan2023-pilot-a,dcba,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+dOkxEMzHtCPzs46ac3AJZLX6sDC2-c398fd24,187,debrief,,html-button-response,8461,0,1494096,"
+      <h2>Debrief</h2>
+      <p>Thank you for taking part. This study examined whether people come to recognize the
+      benefit of ""pretesting"" (trying to guess an answer before seeing it), which usually improves
+      memory more than reading does, after seeing their own results compared with their predictions.</p>
+      <p>Please do not share what this study is about with anyone who might take part, so that their
+      responses are not affected. If you have questions about this research, contact
+      <a href=""mailto:stanfordpsych251@gmail.com"">stanfordpsych251@gmail.com</a>.</p>
+      <p>Press the button to save your responses and finish.</p>",2.1.0,pan2023-pilot-a,dcba,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-bda6f0d8,0,consent,,html-button-response,13023,0,13032,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:stanfordpsych251@gmail.com"">stanfordpsych251@gmail.com</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,pan2023-pilot-a,cdba,true,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-bda6f0d8,1,instructions,,instructions,1744,,14778,,2.1.0,pan2023-pilot-a,cdba,,"[{""page_index"":0,""viewing_time"":927},{""page_index"":1,""viewing_time"":817}]",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-bda6f0d8,2,demographics,,survey,143429,"{""gender"":""Man"",""native_english"":true,""age"":19}",158255,,4.0.0,pan2023-pilot-a,cdba,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-bda6f0d8,3,instructions,,instructions,4295,,162551,,2.1.0,pan2023-pilot-a,cdba,,"[{""page_index"":0,""viewing_time"":2796},{""page_index"":1,""viewing_time"":1499}]",1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-bda6f0d8,4,pretest_guess,pretest,html-keyboard-response,,,167556,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""stick"">
+              <span class=""cue"">stick</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,cdba,,,1,stick,wood,d,12,,twig,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-bda6f0d8,5,study,pretest,html-keyboard-response,,,172559,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">stick</span><span class=""dash"">–</span><span class=""target"">wood</span></div>",2.2.0,pan2023-pilot-a,cdba,,,1,stick,wood,d,12,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-bda6f0d8,6,study,read,html-keyboard-response,,,177562,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">olive</span><span class=""dash"">–</span><span class=""target"">branch</span></div>",2.2.0,pan2023-pilot-a,cdba,,,1,olive,branch,c,9,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-bda6f0d8,7,study,read,html-keyboard-response,,,182566,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">potato</span><span class=""dash"">–</span><span class=""target"">vegetables</span></div>",2.2.0,pan2023-pilot-a,cdba,,,1,potato,vegetables,c,10,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-bda6f0d8,8,study,read,html-keyboard-response,,,187568,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">tide</span><span class=""dash"">–</span><span class=""target"">beach</span></div>",2.2.0,pan2023-pilot-a,cdba,,,1,tide,beach,c,14,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-bda6f0d8,9,study,read,html-keyboard-response,,,192571,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">frosted</span><span class=""dash"">–</span><span class=""target"">cake</span></div>",2.2.0,pan2023-pilot-a,cdba,,,1,frosted,cake,c,5,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-bda6f0d8,10,study,read,html-keyboard-response,,,197573,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">mussel</span><span class=""dash"">–</span><span class=""target"">fish</span></div>",2.2.0,pan2023-pilot-a,cdba,,,1,mussel,fish,c,8,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,0,consent,,html-button-response,2112,0,2122,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:stanfordpsych251@gmail.com"">stanfordpsych251@gmail.com</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,pan2023-pilot-a,bacd,true,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,1,instructions,,instructions,3050,,5176,,2.1.0,pan2023-pilot-a,bacd,,"[{""page_index"":0,""viewing_time"":2054},{""page_index"":1,""viewing_time"":996}]",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,2,demographics,,survey,8106,"{""age"":20,""gender"":""Man"",""native_english"":true}",13341,,4.0.0,pan2023-pilot-a,bacd,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,3,instructions,,instructions,3245,,16588,,2.1.0,pan2023-pilot-a,bacd,,"[{""page_index"":0,""viewing_time"":1496},{""page_index"":1,""viewing_time"":1748}]",1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,4,study,read,html-keyboard-response,,,21593,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">humid</span><span class=""dash"">–</span><span class=""target"">weather</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,humid,weather,b,6,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,5,study,read,html-keyboard-response,,,26596,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">blunt</span><span class=""dash"">–</span><span class=""target"">forward</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,blunt,forward,b,2,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,6,study,read,html-keyboard-response,,,31601,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">athletic</span><span class=""dash"">–</span><span class=""target"">muscle</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,athletic,muscle,b,0,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,7,pretest_guess,pretest,html-keyboard-response,,,36606,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""molten"">
+              <span class=""cue"">molten</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,1,molten,melt,a,8,,lava,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,8,study,pretest,html-keyboard-response,,,41611,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">molten</span><span class=""dash"">–</span><span class=""target"">melt</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,molten,melt,a,8,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,9,pretest_guess,pretest,html-keyboard-response,,,46614,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""intake"">
+              <span class=""cue"">intake</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,1,intake,swallow,a,7,,output,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,10,study,pretest,html-keyboard-response,,,51618,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">intake</span><span class=""dash"">–</span><span class=""target"">swallow</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,intake,swallow,a,7,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,11,pretest_guess,pretest,html-keyboard-response,,,56622,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""summary"">
+              <span class=""cue"">summary</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,1,summary,brief,a,13,,book,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,12,study,pretest,html-keyboard-response,,,61624,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">summary</span><span class=""dash"">–</span><span class=""target"">brief</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,summary,brief,a,13,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,13,study,read,html-keyboard-response,,,66628,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">theorem</span><span class=""dash"">–</span><span class=""target"">science</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,theorem,science,b,14,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,14,pretest_guess,pretest,html-keyboard-response,,,71631,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""pronoun"">
+              <span class=""cue"">pronoun</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,1,pronoun,english,a,11,,person,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,15,study,pretest,html-keyboard-response,,,76634,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">pronoun</span><span class=""dash"">–</span><span class=""target"">english</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,pronoun,english,a,11,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,16,pretest_guess,pretest,html-keyboard-response,,,81637,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""playground"">
+              <span class=""cue"">playground</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,1,playground,school,a,10,,structure,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,17,study,pretest,html-keyboard-response,,,86640,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">playground</span><span class=""dash"">–</span><span class=""target"">school</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,playground,school,a,10,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,18,study,read,html-keyboard-response,,,91642,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">dominant</span><span class=""dash"">–</span><span class=""target"">control</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,dominant,control,b,4,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,19,study,read,html-keyboard-response,,,96645,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">shuttle</span><span class=""dash"">–</span><span class=""target"">plane</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,shuttle,plane,b,12,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,20,study,read,html-keyboard-response,,,101649,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">unequal</span><span class=""dash"">–</span><span class=""target"">unfair</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,unequal,unfair,b,15,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,21,study,read,html-keyboard-response,,,106651,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">notebook</span><span class=""dash"">–</span><span class=""target"">pencil</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,notebook,pencil,b,9,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,22,study,read,html-keyboard-response,,,111653,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">bagel</span><span class=""dash"">–</span><span class=""target"">breakfast</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,bagel,breakfast,b,1,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,23,study,read,html-keyboard-response,,,116656,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">inventor</span><span class=""dash"">–</span><span class=""target"">smart</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,inventor,smart,b,7,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,24,pretest_guess,pretest,html-keyboard-response,,,121660,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""blockade"">
+              <span class=""cue"">blockade</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,1,blockade,wall,a,2,,wall,false,true,true,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,25,study,pretest,html-keyboard-response,,,126663,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">blockade</span><span class=""dash"">–</span><span class=""target"">wall</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,blockade,wall,a,2,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,26,pretest_guess,pretest,html-keyboard-response,,,131666,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""bacon"">
+              <span class=""cue"">bacon</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,1,bacon,meat,a,1,,pig,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,27,study,pretest,html-keyboard-response,,,136668,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">bacon</span><span class=""dash"">–</span><span class=""target"">meat</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,bacon,meat,a,1,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,28,study,read,html-keyboard-response,,,141671,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">envy</span><span class=""dash"">–</span><span class=""target"">like</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,envy,like,b,5,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,29,pretest_guess,pretest,html-keyboard-response,,,146675,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""empire"">
+              <span class=""cue"">empire</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,1,empire,state,a,5,,kingdom,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,30,study,pretest,html-keyboard-response,,,151678,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">empire</span><span class=""dash"">–</span><span class=""target"">state</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,empire,state,a,5,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,31,study,read,html-keyboard-response,,,156680,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">pocketbook</span><span class=""dash"">–</span><span class=""target"">wallet</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,pocketbook,wallet,b,10,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,32,pretest_guess,pretest,html-keyboard-response,,,161683,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""gymnastics"">
+              <span class=""cue"">gymnastics</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,1,gymnastics,jump,a,6,,mental,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,33,study,pretest,html-keyboard-response,,,166685,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">gymnastics</span><span class=""dash"">–</span><span class=""target"">jump</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,gymnastics,jump,a,6,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,34,study,read,html-keyboard-response,,,171687,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">sweater</span><span class=""dash"">–</span><span class=""target"">winter</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,sweater,winter,b,13,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,35,pretest_guess,pretest,html-keyboard-response,,,176691,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""show"">
+              <span class=""cue"">show</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,1,show,play,a,12,,time,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,36,study,pretest,html-keyboard-response,,,181693,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">show</span><span class=""dash"">–</span><span class=""target"">play</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,show,play,a,12,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,37,study,read,html-keyboard-response,,,186696,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">crackle</span><span class=""dash"">–</span><span class=""target"">cereal</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,crackle,cereal,b,3,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,38,pretest_guess,pretest,html-keyboard-response,,,191699,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""chop"">
+              <span class=""cue"">chop</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,1,chop,dice,a,3,,hair,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,39,study,pretest,html-keyboard-response,,,196701,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">chop</span><span class=""dash"">–</span><span class=""target"">dice</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,chop,dice,a,3,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,40,study,read,html-keyboard-response,,,201705,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">relationship</span><span class=""dash"">–</span><span class=""target"">boyfriend</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,relationship,boyfriend,b,11,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,41,pretest_guess,pretest,html-keyboard-response,,,206709,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""depart"">
+              <span class=""cue"">depart</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,1,depart,airplane,a,4,,leave,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,42,study,pretest,html-keyboard-response,,,211711,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">depart</span><span class=""dash"">–</span><span class=""target"">airplane</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,depart,airplane,a,4,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,43,study,read,html-keyboard-response,,,216714,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">moss</span><span class=""dash"">–</span><span class=""target"">grass</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,moss,grass,b,8,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,44,pretest_guess,pretest,html-keyboard-response,,,221716,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""nonsense"">
+              <span class=""cue"">nonsense</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,1,nonsense,ridiculous,a,9,,nothing,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,45,study,pretest,html-keyboard-response,,,226717,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">nonsense</span><span class=""dash"">–</span><span class=""target"">ridiculous</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,nonsense,ridiculous,a,9,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,46,pretest_guess,pretest,html-keyboard-response,,,231720,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""topic"">
+              <span class=""cue"">topic</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,1,topic,title,a,15,,test,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,47,study,pretest,html-keyboard-response,,,236722,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">topic</span><span class=""dash"">–</span><span class=""target"">title</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,topic,title,a,15,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,48,pretest_guess,pretest,html-keyboard-response,,,241725,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""tension"">
+              <span class=""cue"">tension</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,1,tension,tight,a,14,,break,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,49,study,pretest,html-keyboard-response,,,246727,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">tension</span><span class=""dash"">–</span><span class=""target"">tight</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,tension,tight,a,14,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,50,pretest_guess,pretest,html-keyboard-response,,,251731,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""ashes"">
+              <span class=""cue"">ashes</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,1,ashes,smoke,a,0,,burn,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,51,study,pretest,html-keyboard-response,,,256733,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">ashes</span><span class=""dash"">–</span><span class=""target"">smoke</span></div>",2.2.0,pan2023-pilot-a,bacd,,,1,ashes,smoke,a,0,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,52,prediction,pretest,survey,51115,"{""prediction"":9}",307874,,4.0.0,pan2023-pilot-a,bacd,,,1,,,,,,,,,,,1,9,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,53,prediction,read,survey,5349,"{""prediction"":5}",313234,,4.0.0,pan2023-pilot-a,bacd,,,1,,,,,,,,,,,2,5,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,54,instructions,,instructions,9631,,322866,,2.1.0,pan2023-pilot-a,bacd,,"[{""page_index"":0,""viewing_time"":9631}]",1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,55,distractor,,html-keyboard-response,,,622863,"<div class=""tetris"">
+          <canvas id=""tetris-board"" width=""260"" height=""520""></canvas>
+          <div class=""tetris-side"">
+            <p>Time left</p><p id=""tetris-clock"" class=""tetris-big"">5:00</p>
+            <p>Lines</p><p id=""tetris-lines"" class=""tetris-big"">0</p>
+          </div>
+        </div>",2.2.0,pan2023-pilot-a,bacd,,,1,,,,,,,,,,,,,300000,23,75,1,1360,1162,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,56,instructions,,instructions,9540,,632404,,2.1.0,pan2023-pilot-a,bacd,,"[{""page_index"":0,""viewing_time"":9540}]",1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,57,test,pretest,survey-text,7383,"{""answer"":""exit""}",639791,,2.1.1,pan2023-pilot-a,bacd,,,1,depart,airplane,a,4,,,,false,,,,,,,,,,,exit,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,58,test,pretest,survey-text,3461,"{""answer"":""bend""}",643254,,2.1.1,pan2023-pilot-a,bacd,,,1,gymnastics,jump,a,6,,,,false,,,,,,,,,,,bend,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,59,test,pretest,survey-text,22769,"{""answer"":""display""}",666025,,2.1.1,pan2023-pilot-a,bacd,,,1,show,play,a,12,,,,false,,,,,,,,,,,display,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,60,test,read,survey-text,2775,"{""answer"":""pen""}",668803,,2.1.1,pan2023-pilot-a,bacd,,,1,notebook,pencil,b,9,,,,,,,,,,,,,,,pen,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,61,test,read,survey-text,3690,"{""answer"":""jealousy""}",672494,,2.1.1,pan2023-pilot-a,bacd,,,1,envy,like,b,5,,,,,,,,,,,,,,,jealousy,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,62,test,pretest,survey-text,3158,"{""answer"":""melt""}",675654,,2.1.1,pan2023-pilot-a,bacd,,,1,molten,melt,a,8,,,,false,,,,,,,,,,,melt,true,true,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,63,test,read,survey-text,6984,"{""answer"":""control""}",682640,,2.1.1,pan2023-pilot-a,bacd,,,1,dominant,control,b,4,,,,,,,,,,,,,,,control,true,true,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,64,test,read,survey-text,3216,"{""answer"":""direct""}",685859,,2.1.1,pan2023-pilot-a,bacd,,,1,blunt,forward,b,2,,,,,,,,,,,,,,,direct,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,65,test,pretest,survey-text,3710,"{""answer"":""form""}",689570,,2.1.1,pan2023-pilot-a,bacd,,,1,intake,swallow,a,7,,,,false,,,,,,,,,,,form,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,66,test,read,survey-text,3452,"{""answer"":""hot""}",693024,,2.1.1,pan2023-pilot-a,bacd,,,1,humid,weather,b,6,,,,,,,,,,,,,,,hot,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,67,test,read,survey-text,3643,"{""answer"":""boyfriend""}",696668,,2.1.1,pan2023-pilot-a,bacd,,,1,relationship,boyfriend,b,11,,,,,,,,,,,,,,,boyfriend,true,true,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,68,test,read,survey-text,6412,"{""answer"":""grass""}",703081,,2.1.1,pan2023-pilot-a,bacd,,,1,moss,grass,b,8,,,,,,,,,,,,,,,grass,true,true,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,69,test,read,survey-text,10888,"{""answer"":""device""}",713971,,2.1.1,pan2023-pilot-a,bacd,,,1,inventor,smart,b,7,,,,,,,,,,,,,,,device,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,70,test,pretest,survey-text,3103,"{""answer"":""wood""}",717076,,2.1.1,pan2023-pilot-a,bacd,,,1,chop,dice,a,3,,,,false,,,,,,,,,,,wood,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,71,test,pretest,survey-text,3013,"{""answer"":""string""}",720091,,2.1.1,pan2023-pilot-a,bacd,,,1,tension,tight,a,14,,,,false,,,,,,,,,,,string,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,72,test,read,survey-text,3329,"{""answer"":""sport""}",723421,,2.1.1,pan2023-pilot-a,bacd,,,1,athletic,muscle,b,0,,,,,,,,,,,,,,,sport,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,73,test,read,survey-text,5714,"{""answer"":""science""}",729136,,2.1.1,pan2023-pilot-a,bacd,,,1,theorem,science,b,14,,,,,,,,,,,,,,,science,true,true,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,74,test,pretest,survey-text,4385,"{""answer"":""structure""}",733523,,2.1.1,pan2023-pilot-a,bacd,,,1,playground,school,a,10,,,,false,,,,,,,,,,,structure,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,75,test,pretest,survey-text,6928,"{""answer"":""kingdom""}",740453,,2.1.1,pan2023-pilot-a,bacd,,,1,empire,state,a,5,,,,false,,,,,,,,,,,kingdom,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,76,test,pretest,survey-text,6017,"{""answer"":""grease""}",746472,,2.1.1,pan2023-pilot-a,bacd,,,1,bacon,meat,a,1,,,,false,,,,,,,,,,,grease,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,77,test,pretest,survey-text,3002,"{""answer"":""wood""}",749475,,2.1.1,pan2023-pilot-a,bacd,,,1,ashes,smoke,a,0,,,,false,,,,,,,,,,,wood,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,78,test,read,survey-text,2249,"{""answer"":""power""}",751726,,2.1.1,pan2023-pilot-a,bacd,,,1,unequal,unfair,b,15,,,,,,,,,,,,,,,power,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,79,test,read,survey-text,3417,"{""answer"":""salt""}",755145,,2.1.1,pan2023-pilot-a,bacd,,,1,bagel,breakfast,b,1,,,,,,,,,,,,,,,salt,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,80,test,pretest,survey-text,15512,"{""answer"":""wall""}",770659,,2.1.1,pan2023-pilot-a,bacd,,,1,blockade,wall,a,2,,,,true,,,,,,,,,,,wall,true,true,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,81,test,pretest,survey-text,11968,"{""answer"":""words""}",782628,,2.1.1,pan2023-pilot-a,bacd,,,1,nonsense,ridiculous,a,9,,,,false,,,,,,,,,,,words,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,82,test,read,survey-text,3543,"{""answer"":""cold""}",786172,,2.1.1,pan2023-pilot-a,bacd,,,1,sweater,winter,b,13,,,,,,,,,,,,,,,cold,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,83,test,pretest,survey-text,3370,"{""answer"":""brief""}",789544,,2.1.1,pan2023-pilot-a,bacd,,,1,summary,brief,a,13,,,,false,,,,,,,,,,,brief,true,true,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,84,test,pretest,survey-text,2387,"{""answer"":""word""}",791932,,2.1.1,pan2023-pilot-a,bacd,,,1,topic,title,a,15,,,,false,,,,,,,,,,,word,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,85,test,read,survey-text,1594,"{""answer"":""fire""}",793528,,2.1.1,pan2023-pilot-a,bacd,,,1,crackle,cereal,b,3,,,,,,,,,,,,,,,fire,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,86,test,read,survey-text,2485,"{""answer"":""notes""}",796015,,2.1.1,pan2023-pilot-a,bacd,,,1,pocketbook,wallet,b,10,,,,,,,,,,,,,,,notes,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,87,test,read,survey-text,2879,"{""answer"":""airport""}",798896,,2.1.1,pan2023-pilot-a,bacd,,,1,shuttle,plane,b,12,,,,,,,,,,,,,,,airport,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,88,test,pretest,survey-text,3249,"{""answer"":""person""}",802146,,2.1.1,pan2023-pilot-a,bacd,,,1,pronoun,english,a,11,,,,false,,,,,,,,,,,person,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,89,score_summary,,html-keyboard-response,,,802148,,2.2.0,pan2023-pilot-a,bacd,,,1,,,,,,,,,,,,,,,,,,,,,,4,3,5,9,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,90,feedback_display,,html-button-response,35212,0,837362,"<h2>Your Round 1 results</h2>
+          <table class=""feedback-table"">
+            <thead><tr><th></th><th>Read pairs</th><th>Pretested pairs</th></tr></thead>
+            <tbody>
+              <tr><th>Correctly recalled</th><td class=""read-score"">4 out of 16</td>
+                  <td class=""pretest-score"">3 out of 16</td></tr>
+              <tr><th>Your prediction</th><td>5 out of 16</td><td>9 out of 16</td></tr>
+            </tbody>
+          </table><p>Please check how closely your predictions matched your actual performance.</p>",2.1.0,pan2023-pilot-a,bacd,,,1,,,,,,,,,,,,,,,,,,,,,,4,3,5,9,true,1,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,91,attention_check,pretest,html-button-response,33669,0,871031,"<p class=""question"">For the <strong>pretested</strong> word pairs, which statement is true?</p>",2.1.0,pan2023-pilot-a,bacd,,,1,,,,,,,,,,,,9,,,,,,,,,,,,,,,,higher,3,higher,true,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,92,attention_check,read,html-button-response,5116,0,876148,"<p class=""question"">For the <strong>read</strong> word pairs, which statement is true?</p>",2.1.0,pan2023-pilot-a,bacd,,,1,,,,,,,,,,,,5,,,,,,,,,,,,,,,,higher,4,higher,true,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,93,feedback_display,,html-button-response,10449,0,886598,"<h2>Your Round 1 results, once more</h2><p>Please look over your results again before Round 2 begins.</p>
+          <table class=""feedback-table"">
+            <thead><tr><th></th><th>Read pairs</th><th>Pretested pairs</th></tr></thead>
+            <tbody>
+              <tr><th>Correctly recalled</th><td class=""read-score"">4 out of 16</td>
+                  <td class=""pretest-score"">3 out of 16</td></tr>
+              <tr><th>Your prediction</th><td>5 out of 16</td><td>9 out of 16</td></tr>
+            </tbody>
+          </table><p>Please check how closely your predictions matched your actual performance.</p>",2.1.0,pan2023-pilot-a,bacd,,,1,,,,,,,,,,,,,,,,,,,,,,4,3,5,9,true,2,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,94,instructions,,instructions,1585,,888183,,2.1.0,pan2023-pilot-a,bacd,,"[{""page_index"":0,""viewing_time"":1585}]",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,95,instructions,,instructions,2331,,890515,,2.1.0,pan2023-pilot-a,bacd,,"[{""page_index"":0,""viewing_time"":1347},{""page_index"":1,""viewing_time"":983}]",2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,96,study,read,html-keyboard-response,,,895517,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">attack</span><span class=""dash"">–</span><span class=""target"">defend</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,attack,defend,c,0,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,97,pretest_guess,pretest,html-keyboard-response,,,900520,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""stick"">
+              <span class=""cue"">stick</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,2,stick,wood,d,12,,around,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,98,study,pretest,html-keyboard-response,,,905523,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">stick</span><span class=""dash"">–</span><span class=""target"">wood</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,stick,wood,d,12,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,99,study,read,html-keyboard-response,,,910525,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">impossible</span><span class=""dash"">–</span><span class=""target"">difficult</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,impossible,difficult,c,6,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,100,study,read,html-keyboard-response,,,915527,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">mussel</span><span class=""dash"">–</span><span class=""target"">fish</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,mussel,fish,c,8,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,101,pretest_guess,pretest,html-keyboard-response,,,920535,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""goodness"">
+              <span class=""cue"">goodness</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,2,goodness,kindness,d,5,,best,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,102,study,pretest,html-keyboard-response,,,925537,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">goodness</span><span class=""dash"">–</span><span class=""target"">kindness</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,goodness,kindness,d,5,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,103,pretest_guess,pretest,html-keyboard-response,,,930538,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""elevator"">
+              <span class=""cue"">elevator</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,2,elevator,building,d,4,,music,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,104,study,pretest,html-keyboard-response,,,935540,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">elevator</span><span class=""dash"">–</span><span class=""target"">building</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,elevator,building,d,4,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,105,pretest_guess,pretest,html-keyboard-response,,,940543,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""prepare"">
+              <span class=""cue"">prepare</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,2,prepare,study,d,10,,food,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,106,study,pretest,html-keyboard-response,,,945546,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">prepare</span><span class=""dash"">–</span><span class=""target"">study</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,prepare,study,d,10,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,107,study,read,html-keyboard-response,,,950548,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">satin</span><span class=""dash"">–</span><span class=""target"">cloth</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,satin,cloth,c,11,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,108,study,read,html-keyboard-response,,,955550,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">sneak</span><span class=""dash"">–</span><span class=""target"">hide</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,sneak,hide,c,12,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,109,pretest_guess,pretest,html-keyboard-response,,,960552,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""matter"">
+              <span class=""cue"">matter</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,2,matter,gray,d,7,,physics,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,110,study,pretest,html-keyboard-response,,,965555,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">matter</span><span class=""dash"">–</span><span class=""target"">gray</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,matter,gray,d,7,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,111,study,read,html-keyboard-response,,,970557,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">well</span><span class=""dash"">–</span><span class=""target"">done</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,well,done,c,15,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,112,study,read,html-keyboard-response,,,975559,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">dracula</span><span class=""dash"">–</span><span class=""target"">scary</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,dracula,scary,c,4,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,113,pretest_guess,pretest,html-keyboard-response,,,980561,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""together"">
+              <span class=""cue"">together</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,2,together,love,d,14,,,true,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,114,study,pretest,html-keyboard-response,,,985564,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">together</span><span class=""dash"">–</span><span class=""target"">love</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,together,love,d,14,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,115,study,read,html-keyboard-response,,,990566,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">swing</span><span class=""dash"">–</span><span class=""target"">tree</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,swing,tree,c,13,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,116,pretest_guess,pretest,html-keyboard-response,,,995570,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""plasma"">
+              <span class=""cue"">plasma</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,2,plasma,cell,d,9,,donation,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,117,study,pretest,html-keyboard-response,,,1000572,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">plasma</span><span class=""dash"">–</span><span class=""target"">cell</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,plasma,cell,d,9,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,118,study,read,html-keyboard-response,,,1005575,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">potato</span><span class=""dash"">–</span><span class=""target"">vegetables</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,potato,vegetables,c,10,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,119,study,read,html-keyboard-response,,,1010578,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">balloon</span><span class=""dash"">–</span><span class=""target"">float</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,balloon,float,c,1,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,120,study,read,html-keyboard-response,,,1015580,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">frosted</span><span class=""dash"">–</span><span class=""target"">cake</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,frosted,cake,c,5,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,121,study,read,html-keyboard-response,,,1020583,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">tide</span><span class=""dash"">–</span><span class=""target"">beach</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,tide,beach,c,14,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,122,study,read,html-keyboard-response,,,1025585,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">loft</span><span class=""dash"">–</span><span class=""target"">room</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,loft,room,c,7,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,123,study,read,html-keyboard-response,,,1030587,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">olive</span><span class=""dash"">–</span><span class=""target"">branch</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,olive,branch,c,9,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,124,pretest_guess,pretest,html-keyboard-response,,,1035590,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""wine"">
+              <span class=""cue"">wine</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,2,wine,dinner,d,15,,bottle,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,125,study,pretest,html-keyboard-response,,,1040593,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">wine</span><span class=""dash"">–</span><span class=""target"">dinner</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,wine,dinner,d,15,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,126,pretest_guess,pretest,html-keyboard-response,,,1045597,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""attic"">
+              <span class=""cue"">attic</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,2,attic,dust,d,0,,house,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,127,study,pretest,html-keyboard-response,,,1050599,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">attic</span><span class=""dash"">–</span><span class=""target"">dust</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,attic,dust,d,0,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,128,pretest_guess,pretest,html-keyboard-response,,,1055602,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""syringe"">
+              <span class=""cue"">syringe</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,2,syringe,doctor,d,13,,needle,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,129,study,pretest,html-keyboard-response,,,1060603,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">syringe</span><span class=""dash"">–</span><span class=""target"">doctor</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,syringe,doctor,d,13,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,130,pretest_guess,pretest,html-keyboard-response,,,1065606,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""nitrogen"">
+              <span class=""cue"">nitrogen</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,2,nitrogen,chemistry,d,8,,oxide,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,131,study,pretest,html-keyboard-response,,,1070609,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">nitrogen</span><span class=""dash"">–</span><span class=""target"">chemistry</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,nitrogen,chemistry,d,8,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,132,study,read,html-keyboard-response,,,1075611,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">canyon</span><span class=""dash"">–</span><span class=""target"">mountain</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,canyon,mountain,c,2,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,133,pretest_guess,pretest,html-keyboard-response,,,1080613,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""innocent"">
+              <span class=""cue"">innocent</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,2,innocent,young,d,6,,ex,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,134,study,pretest,html-keyboard-response,,,1085615,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">innocent</span><span class=""dash"">–</span><span class=""target"">young</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,innocent,young,d,6,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,135,pretest_guess,pretest,html-keyboard-response,,,1090617,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""scrub"">
+              <span class=""cue"">scrub</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,2,scrub,brush,d,11,,wash,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,136,study,pretest,html-keyboard-response,,,1095620,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">scrub</span><span class=""dash"">–</span><span class=""target"">brush</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,scrub,brush,d,11,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,137,pretest_guess,pretest,html-keyboard-response,,,1100624,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""chisel"">
+              <span class=""cue"">chisel</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,2,chisel,sculpture,d,2,,stone,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,138,study,pretest,html-keyboard-response,,,1105627,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">chisel</span><span class=""dash"">–</span><span class=""target"">sculpture</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,chisel,sculpture,d,2,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,139,study,read,html-keyboard-response,,,1110628,"<p class=""phase-label"">Read</p><div class=""pair""><span class=""cue"">crocodile</span><span class=""dash"">–</span><span class=""target"">reptile</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,crocodile,reptile,c,3,,,,,,read,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,140,pretest_guess,pretest,html-keyboard-response,,,1115633,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""decompose"">
+              <span class=""cue"">decompose</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,2,decompose,body,d,3,,dead,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,141,study,pretest,html-keyboard-response,,,1120635,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">decompose</span><span class=""dash"">–</span><span class=""target"">body</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,decompose,body,d,3,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,142,pretest_guess,pretest,html-keyboard-response,,,1125638,"<p class=""phase-label"">Pretest: type the missing word</p>
+            <div class=""pair"" data-cue=""behavior"">
+              <span class=""cue"">behavior</span><span class=""dash"">–</span>
+              <input id=""guess"" class=""answer"" type=""text"" autocomplete=""off"" autocorrect=""off""
+                autocapitalize=""off"" spellcheck=""false"" aria-label=""Your guess"">
+            </div>",2.2.0,pan2023-pilot-a,bacd,,,2,behavior,action,d,1,,strange,false,false,false,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,143,study,pretest,html-keyboard-response,,,1130641,"<p class=""phase-label"">Pretest: the correct pair</p><div class=""pair""><span class=""cue"">behavior</span><span class=""dash"">–</span><span class=""target"">action</span></div>",2.2.0,pan2023-pilot-a,bacd,,,2,behavior,action,d,1,,,,,,pretest_answer,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,144,prediction,pretest,survey,12546,"{""prediction"":9}",1143213,,4.0.0,pan2023-pilot-a,bacd,,,2,,,,,,,,,,,1,9,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,145,prediction,read,survey,19671,"{""prediction"":7}",1162894,,4.0.0,pan2023-pilot-a,bacd,,,2,,,,,,,,,,,2,7,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,146,instructions,,instructions,7788,,1170682,,2.1.0,pan2023-pilot-a,bacd,,"[{""page_index"":0,""viewing_time"":7788}]",2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,147,distractor,,html-keyboard-response,,,1470679,"<div class=""tetris"">
+          <canvas id=""tetris-board"" width=""260"" height=""520""></canvas>
+          <div class=""tetris-side"">
+            <p>Time left</p><p id=""tetris-clock"" class=""tetris-big"">5:00</p>
+            <p>Lines</p><p id=""tetris-lines"" class=""tetris-big"">0</p>
+          </div>
+        </div>",2.2.0,pan2023-pilot-a,bacd,,,2,,,,,,,,,,,,,300000,24,75,1,2080,1138,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,148,instructions,,instructions,4684,,1475363,,2.1.0,pan2023-pilot-a,bacd,,"[{""page_index"":0,""viewing_time"":4683}]",2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,149,test,read,survey-text,4985,"{""answer"":""bunch""}",1480349,,2.1.1,pan2023-pilot-a,bacd,,,2,balloon,float,c,1,,,,,,,,,,,,,,,bunch,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,150,test,read,survey-text,2786,"{""answer"":""silk""}",1483137,,2.1.1,pan2023-pilot-a,bacd,,,2,satin,cloth,c,11,,,,,,,,,,,,,,,silk,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,151,test,read,survey-text,4454,"{""answer"":""alligator""}",1487593,,2.1.1,pan2023-pilot-a,bacd,,,2,crocodile,reptile,c,3,,,,,,,,,,,,,,,alligator,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,152,test,pretest,survey-text,5400,"{""answer"":""people""}",1492994,,2.1.1,pan2023-pilot-a,bacd,,,2,together,love,d,14,,,,false,,,,,,,,,,,people,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,153,test,pretest,survey-text,14634,"{""answer"":""physics""}",1507630,,2.1.1,pan2023-pilot-a,bacd,,,2,plasma,cell,d,9,,,,false,,,,,,,,,,,physics,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,154,test,pretest,survey-text,3925,"{""answer"":""physics""}",1511556,,2.1.1,pan2023-pilot-a,bacd,,,2,matter,gray,d,7,,,,false,,,,,,,,,,,physics,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,155,test,pretest,survey-text,3337,"{""answer"":""doctor""}",1514895,,2.1.1,pan2023-pilot-a,bacd,,,2,syringe,doctor,d,13,,,,false,,,,,,,,,,,doctor,true,true,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,156,test,read,survey-text,2867,"{""answer"":""vampire""}",1517764,,2.1.1,pan2023-pilot-a,bacd,,,2,dracula,scary,c,4,,,,,,,,,,,,,,,vampire,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,157,test,read,survey-text,3825,"{""answer"":""strike""}",1521591,,2.1.1,pan2023-pilot-a,bacd,,,2,attack,defend,c,0,,,,,,,,,,,,,,,strike,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,158,test,read,survey-text,1784,"{""answer"":""being""}",1523376,,2.1.1,pan2023-pilot-a,bacd,,,2,well,done,c,15,,,,,,,,,,,,,,,being,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,159,test,pretest,survey-text,3826,"{""answer"":""sculpture""}",1527204,,2.1.1,pan2023-pilot-a,bacd,,,2,chisel,sculpture,d,2,,,,false,,,,,,,,,,,sculpture,true,true,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,160,test,read,survey-text,2190,"{""answer"":""ice""}",1529397,,2.1.1,pan2023-pilot-a,bacd,,,2,frosted,cake,c,5,,,,,,,,,,,,,,,ice,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,161,test,pretest,survey-text,2913,"{""answer"":""exam""}",1532311,,2.1.1,pan2023-pilot-a,bacd,,,2,prepare,study,d,10,,,,false,,,,,,,,,,,exam,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,162,test,pretest,survey-text,2269,"{""answer"":""building""}",1534582,,2.1.1,pan2023-pilot-a,bacd,,,2,elevator,building,d,4,,,,false,,,,,,,,,,,building,true,true,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,163,test,read,survey-text,1835,"{""answer"":""room""}",1536418,,2.1.1,pan2023-pilot-a,bacd,,,2,loft,room,c,7,,,,,,,,,,,,,,,room,true,true,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,164,test,pretest,survey-text,1539,"{""answer"":""young""}",1537959,,2.1.1,pan2023-pilot-a,bacd,,,2,innocent,young,d,6,,,,false,,,,,,,,,,,young,true,true,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,165,test,read,survey-text,2518,"{""answer"":""beach""}",1540479,,2.1.1,pan2023-pilot-a,bacd,,,2,mussel,fish,c,8,,,,,,,,,,,,,,,beach,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,166,test,read,survey-text,2698,"{""answer"":""task""}",1543179,,2.1.1,pan2023-pilot-a,bacd,,,2,impossible,difficult,c,6,,,,,,,,,,,,,,,task,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,167,test,pretest,survey-text,11640,"{""answer"":""wash""}",1554821,,2.1.1,pan2023-pilot-a,bacd,,,2,scrub,brush,d,11,,,,false,,,,,,,,,,,wash,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,168,test,pretest,survey-text,3778,"{""answer"":""chemistry""}",1558600,,2.1.1,pan2023-pilot-a,bacd,,,2,nitrogen,chemistry,d,8,,,,false,,,,,,,,,,,chemistry,true,true,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,169,test,read,survey-text,1766,"{""answer"":""branch""}",1560368,,2.1.1,pan2023-pilot-a,bacd,,,2,olive,branch,c,9,,,,,,,,,,,,,,,branch,true,true,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,170,test,pretest,survey-text,3867,"{""answer"":""wood""}",1564238,,2.1.1,pan2023-pilot-a,bacd,,,2,stick,wood,d,12,,,,false,,,,,,,,,,,wood,true,true,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,171,test,pretest,survey-text,5678,"{""answer"":""suspicious""}",1569918,,2.1.1,pan2023-pilot-a,bacd,,,2,behavior,action,d,1,,,,false,,,,,,,,,,,suspicious,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,172,test,read,survey-text,2340,"{""answer"":""chip""}",1572260,,2.1.1,pan2023-pilot-a,bacd,,,2,potato,vegetables,c,10,,,,,,,,,,,,,,,chip,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,173,test,read,survey-text,5485,"{""answer"":""gorge""}",1577746,,2.1.1,pan2023-pilot-a,bacd,,,2,canyon,mountain,c,2,,,,,,,,,,,,,,,gorge,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,174,test,read,survey-text,1675,"{""answer"":""wave""}",1579422,,2.1.1,pan2023-pilot-a,bacd,,,2,tide,beach,c,14,,,,,,,,,,,,,,,wave,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,175,test,pretest,survey-text,4094,"{""answer"":""grape""}",1583517,,2.1.1,pan2023-pilot-a,bacd,,,2,wine,dinner,d,15,,,,false,,,,,,,,,,,grape,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,176,test,pretest,survey-text,5770,"{""answer"":""ladder""}",1589289,,2.1.1,pan2023-pilot-a,bacd,,,2,attic,dust,d,0,,,,false,,,,,,,,,,,ladder,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,177,test,pretest,survey-text,2046,"{""answer"":""body""}",1591337,,2.1.1,pan2023-pilot-a,bacd,,,2,decompose,body,d,3,,,,false,,,,,,,,,,,body,true,true,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,178,test,pretest,survey-text,11270,"{""answer"":""kindness""}",1602609,,2.1.1,pan2023-pilot-a,bacd,,,2,goodness,kindness,d,5,,,,false,,,,,,,,,,,kindness,true,true,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,179,test,read,survey-text,5972,"{""answer"":""silent""}",1608582,,2.1.1,pan2023-pilot-a,bacd,,,2,sneak,hide,c,12,,,,,,,,,,,,,,,silent,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,180,test,read,survey-text,1990,"{""answer"":""set""}",1610574,,2.1.1,pan2023-pilot-a,bacd,,,2,swing,tree,c,13,,,,,,,,,,,,,,,set,false,false,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,181,score_summary,,html-keyboard-response,,,1610576,,2.2.0,pan2023-pilot-a,bacd,,,2,,,,,,,,,,,,,,,,,,,,,,2,8,7,9,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,182,feedback_display,,html-button-response,23556,0,1634133,"<h2>Your Round 2 results</h2>
+          <table class=""feedback-table"">
+            <thead><tr><th></th><th>Read pairs</th><th>Pretested pairs</th></tr></thead>
+            <tbody>
+              <tr><th>Correctly recalled</th><td class=""read-score"">2 out of 16</td>
+                  <td class=""pretest-score"">8 out of 16</td></tr>
+              
+            </tbody>
+          </table>",2.1.0,pan2023-pilot-a,bacd,,,2,,,,,,,,,,,,,,,,,,,,,,2,8,7,9,false,1,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,183,attribution,,survey,143327,"{""attribution"":""method""}",1777487,,4.0.0,pan2023-pilot-a,bacd,,,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,method,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,184,exit_questions,,survey,22125,"{""read_effectiveness"":8,""pretest_effectiveness"":9,""preference"":""read""}",1799636,,4.0.0,pan2023-pilot-a,bacd,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,185,feedback_likert,,survey-likert,3913,"{""instructions_clear"":1}",1803551,,2.2.0,pan2023-pilot-a,bacd,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,[0]
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,186,feedback_text,,survey-text,1596,"{""comments"":""""}",1805152,,2.1.1,pan2023-pilot-a,bacd,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+pSlJnkkJaxPDuwjcTdzM57nfibg2-c1620df4,187,debrief,,html-button-response,1149,0,1806302,"
+      <h2>Debrief</h2>
+      <p>Thank you for taking part. This study examined whether people come to recognize the
+      benefit of ""pretesting"" (trying to guess an answer before seeing it), which usually improves
+      memory more than reading does, after seeing their own results compared with their predictions.</p>
+      <p>Please do not share what this study is about with anyone who might take part, so that their
+      responses are not affected. If you have questions about this research, contact
+      <a href=""mailto:stanfordpsych251@gmail.com"">stanfordpsych251@gmail.com</a>.</p>
+      <p>Press the button to save your responses and finish.</p>",2.1.0,pan2023-pilot-a,bacd,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
