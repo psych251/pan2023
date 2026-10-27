@@ -30,7 +30,7 @@ window.TEMPLATE_VERSION = "0.1.0";
 const EXPERIMENT = {
   // Firestore path: experiments/<id>/participants/... Change it for each phase so pilot
   // data and real data never mix: pan2023-pilot-a -> pan2023-pilot-b -> pan2023-final.
-  id: "pan2023-pilot-a",
+  id: "pan2023-pilot-b",
 
   // ~185 trials per participant, so write every 10 trials (~22 writes per participant).
   chunk_size: 10,
@@ -38,7 +38,7 @@ const EXPERIMENT = {
   save_full_data_at_end: true,
 
   // Prolific: set this to the completion code from your Prolific study before Pilot B.
-  prolific_completion_code: "",
+  prolific_completion_code: "C9738RQA",
 
   contact_email: "stanfordpsych251@gmail.com",
 
