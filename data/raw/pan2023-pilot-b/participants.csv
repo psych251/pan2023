@@ -1,0 +1,11 @@
+participant_id,person_id,pilot_label,duration_minutes,completed,condition,n_trials,experiment_id,device_supported,requires_keyboard,design,list_order,speed,n_chunks,n_trials_exported,trials_source
+S01,U01,,,false,,,pan2023-pilot-b,true,true,within-subjects,dbca,1,,0,chunks
+S02,U02,,,false,,,pan2023-pilot-b,true,true,within-subjects,cdab,1,,18,chunks
+S03,U03,,0.16518333333333332,true,,1,pan2023-pilot-b,true,true,within-subjects,bacd,1,1,1,chunks
+S04,U03,,,false,,,pan2023-pilot-b,,,,,,,0,chunks
+S05,U03,P1,31.32023333333333,true,,188,pan2023-pilot-b,true,true,within-subjects,cbad,1,19,188,chunks
+S06,U04,P2,34.87198333333333,true,,188,pan2023-pilot-b,true,true,within-subjects,bcda,1,19,188,chunks
+S07,U05,P3,34.66565,true,,188,pan2023-pilot-b,true,true,within-subjects,dcba,1,20,188,chunks
+S08,U06,P4,33.09771666666667,true,,188,pan2023-pilot-b,true,true,within-subjects,bacd,1,20,188,chunks
+S09,U07,,,false,,,pan2023-pilot-b,false,true,,,,,0,chunks
+S10,U08,P5,28.762383333333332,true,,188,pan2023-pilot-b,true,true,within-subjects,abdc,1,20,188,chunks

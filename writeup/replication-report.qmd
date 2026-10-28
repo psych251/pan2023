@@ -50,7 +50,8 @@ library(jsonlite)
 # Must match EXPERIMENT.id in experiment.js, and the --experiment you passed to the export.
 # Phase 2 runs under its own id, so its data never mix with Phase 1's.
 # Change this to the final id (e.g. "pan2023-final") when you switch experiment.js for real data.
-experiment_id        <- "pan2023-pilot-a"
+experiment_id        <- "pan2023-final"
+experiment_id_pilot_b <- "pan2023-pilot-b"
 experiment_id_phase2 <- "pan2023-phase2"
 ```
 
@@ -130,7 +131,16 @@ read_phase <- function(id) {
   errors_path  <- file.path(dir, "errors.csv")
   errors <- if (file.exists(errors_path)) read_csv(errors_path, show_col_types = FALSE) else tibble()
 
-  complete <- participants |> filter(as.logical(completed))
+  # A consent decline also sets the saver completion flag. Count only consented
+  # sessions that reached debrief as completed experimental procedures.
+  consented_ids <- trials |>
+    filter(task == "consent", as.logical(consented) %in% TRUE) |>
+    distinct(participant_id)
+  debrief_ids <- trials |> filter(task == "debrief") |> distinct(participant_id)
+  complete <- participants |>
+    filter(as.logical(completed)) |>
+    semi_join(consented_ids, by = "participant_id") |>
+    semi_join(debrief_ids, by = "participant_id")
 
   # Exclusion rule (replace with the rule you preregister). As in the original: exclude anyone
   # who failed either Cycle 1 attention check (the two "my prediction was higher / lower / the
@@ -246,8 +256,10 @@ comparison_plot <- function(..., ylab = "Predicted number correct (out of 16)", 
 
 phase1 <- read_phase(experiment_id)
 phase2 <- read_phase(experiment_id_phase2)
+pilot_b <- read_phase(experiment_id_pilot_b)
 have_data   <- !is.null(phase1)
 have_phase2 <- !is.null(phase2)
+have_pilot_b <- !is.null(pilot_b)
 ```
 
 ```{r}
@@ -368,6 +380,162 @@ Two participants each left three predictions unanswered, so there were six missi
 While four participants rated the instructions as "very clear", and one rated them as "clear", of the ten comparison & attention check questions across participants, four were answered correctly, four incorrectly, and two couldn't be scored because the predictions themselves were missing. As a result, only one of five participants fully completed all four predictions and passed all comparison checks. 
 
 While comparison check questions followed Pan & Rivers original study, for participant understanding & ensuring focus on the true effect, prose for instructions/attention checks will be rewritten to be clearer for participants.
+
+```{r}
+#| label: pilot-b-preparation
+#| include: false
+#| eval: !expr have_pilot_b
+pb_participants <- pilot_b$participants
+pb_trials <- pilot_b$trials
+pb_full <- pilot_b$complete |> arrange(pilot_label)
+pb_full_trials <- pb_trials |> semi_join(pb_full, by = "participant_id")
+pb_predictions <- pb_full_trials |> filter(task == "prediction")
+pb_checks <- pb_full_trials |> filter(task == "attention_check")
+pb_recall <- pb_full_trials |> filter(task == "test")
+pb_guesses <- pb_full_trials |> filter(task == "pretest_guess")
+pb_games <- pb_full_trials |> filter(task == "distractor")
+
+# person_id is an anonymous grouping code used only to reconcile repeat page loads.
+# Prolific IDs and their lookup file are not included in this public snapshot.
+pb_consented_people <- pb_trials |>
+  filter(task == "consent", as.logical(consented) %in% TRUE) |>
+  distinct(participant_id) |>
+  left_join(select(pb_participants, participant_id, person_id), by = "participant_id") |>
+  distinct(person_id)
+pb_completed_people <- pb_full |> distinct(person_id)
+
+pb_session_summary <- pb_full |>
+  select(participant_id, pilot_label, duration_minutes) |>
+  left_join(pb_predictions |> group_by(participant_id) |>
+              summarise(predictions_present = sum(!is.na(prediction)), .groups = "drop"),
+            by = "participant_id") |>
+  left_join(pb_checks |> group_by(participant_id) |>
+              summarise(checks_correct = sum(as.logical(passed) %in% TRUE),
+                        checks_incorrect = sum(as.logical(passed) %in% FALSE),
+                        checks_unscorable = sum(is.na(passed)), .groups = "drop"),
+            by = "participant_id") |>
+  left_join(pb_recall |> group_by(participant_id) |>
+              summarise(recall_trials = n(),
+                        recall_blank = sum(is.na(answer) | trimws(answer) == ""),
+                        recall_lenient = sum(as.logical(correct) %in% TRUE),
+                        recall_strict = sum(as.logical(correct_strict) %in% TRUE), .groups = "drop"),
+            by = "participant_id") |>
+  left_join(pb_guesses |> group_by(participant_id) |>
+              summarise(guess_blank = sum(as.logical(guess_empty) %in% TRUE), .groups = "drop"),
+            by = "participant_id") |>
+  mutate(analysis_eligible = participant_id %in% pilot_b$keep$participant_id)
+
+pb_clarity <- pb_full_trials |>
+  filter(task == "feedback_likert") |>
+  mutate(clarity_index = map_dbl(response, ~ as.numeric(fromJSON(.x)$instructions_clear)))
+```
+
+```{r}
+#| label: pilot-b-session-audit
+#| echo: false
+#| eval: !expr have_pilot_b
+tibble(
+  Measure = c("Saved page-load records", "Unique anonymous visitor groups",
+              "Sessions flagged completed by saver (includes consent decline)",
+              "Consent-decline records", "Unique visitors with recorded consent",
+              "Full experimental completions", "Consented visitors without a full completion",
+              "Unsupported-device records", "Eligible under planned analysis rules"),
+  N = c(nrow(pb_participants), n_distinct(pb_participants$person_id),
+        sum(as.logical(pb_participants$completed) %in% TRUE),
+        sum(pb_trials$task == "consent" & as.logical(pb_trials$consented) %in% FALSE),
+        nrow(pb_consented_people), nrow(pb_full),
+        nrow(anti_join(pb_consented_people, pb_completed_people, by = "person_id")),
+        sum(as.logical(pb_participants$device_supported) %in% FALSE), nrow(pilot_b$keep))
+) |>
+  knitr::kable(caption = "Pilot B session audit. Visitor counts and dropout are provisional until preview/test visits and Prolific submission statuses are reconciled; page loads are not participant counts.")
+```
+
+```{r}
+#| label: pilot-b-completion-and-timing
+#| echo: false
+#| eval: !expr have_pilot_b
+pb_minutes <- pb_full$duration_minutes
+tibble(
+  Measure = c("Full completed sessions", "Trials per full session (range)",
+              "Median completion time (minutes)", "Mean completion time (minutes)",
+              "Completion time SD (minutes)", "Completion time range (minutes)",
+              "Recorded JavaScript errors", "Tetris periods with keypresses"),
+  Value = c(as.character(nrow(pb_full)),
+            paste(range(pb_full$n_trials_exported), collapse = " to "),
+            sprintf("%.1f", median(pb_minutes)), sprintf("%.1f", mean(pb_minutes)),
+            sprintf("%.1f", sd(pb_minutes)),
+            sprintf("%.1f to %.1f", min(pb_minutes), max(pb_minutes)),
+            as.character(nrow(pilot_b$errors)),
+            sprintf("%d / %d", sum(pb_games$tetris_keypresses > 0), nrow(pb_games)))
+) |>
+  knitr::kable(caption = "Pilot B completion and timing, restricted to the five full sessions. An empty error log does not establish that no interface problems occurred.")
+```
+
+```{r}
+#| label: pilot-b-comprehension
+#| echo: false
+#| eval: !expr have_pilot_b
+tibble(
+  Measure = c("Prediction opportunities", "Predictions supplied", "Predictions missing",
+              "Completers with any missing prediction", "Comparison checks correct",
+              "Comparison checks incorrect", "Comparison checks unscorable",
+              "Completers passing both comparison checks", "Completers eligible for analysis"),
+  N = c(nrow(pb_predictions), sum(!is.na(pb_predictions$prediction)),
+        sum(is.na(pb_predictions$prediction)),
+        sum(pb_session_summary$predictions_present < 4),
+        sum(as.logical(pb_checks$passed) %in% TRUE),
+        sum(as.logical(pb_checks$passed) %in% FALSE), sum(is.na(pb_checks$passed)),
+        sum(pb_session_summary$checks_correct == 2), nrow(pilot_b$keep))
+) |>
+  knitr::kable(caption = "Pilot B prediction completeness and comparison checks. Missing predictions make their associated comparison checks unscorable; they are not counted as incorrect answers.")
+
+pb_clarity |>
+  mutate(Rating = factor(clarity_index, levels = 0:4,
+                        labels = c("Very unclear", "Unclear", "Neutral", "Clear", "Very clear"))) |>
+  count(Rating, .drop = FALSE, name = "N") |>
+  knitr::kable(caption = "Pilot B self-reported instruction clarity, all five completers.")
+```
+
+```{r}
+#| label: pilot-b-participant-summary
+#| echo: false
+#| eval: !expr have_pilot_b
+pb_session_summary |>
+  transmute(Participant = pilot_label, `Time (min)` = round(duration_minutes, 1),
+            `Predictions / 4` = predictions_present, `Checks correct / 2` = checks_correct,
+            `Checks incorrect` = checks_incorrect, `Checks unscorable` = checks_unscorable,
+            `Analysis eligible` = if_else(analysis_eligible, "Yes", "No")) |>
+  knitr::kable(caption = "Pilot B completeness and eligibility by anonymous completer. Eligibility follows the existing exclusion rules, independently of payment decisions.")
+
+pb_session_summary |>
+  transmute(Participant = pilot_label, `Recall trials` = recall_trials,
+            `Blank recall` = recall_blank, `Correct: lenient` = recall_lenient,
+            `Correct: strict` = recall_strict, `Blank pretest guesses / 32` = guess_blank) |>
+  knitr::kable(caption = "Pilot B response diagnostics, all five completers. Raw recall counts include correctly guessed pretest items; those items are removed in the adjusted recall table below.")
+```
+
+```{r}
+#| label: pilot-b-recall-diagnostics
+#| echo: false
+#| eval: !expr have_pilot_b
+# Feasibility descriptives include all full sessions, including those excluded from
+# the planned analysis. They are not confirmatory replication results.
+pb_recall |>
+  filter(!(condition == "pretest" & as.logical(guess_correct) %in% TRUE)) |>
+  group_by(participant_id, cycle, condition) |>
+  summarise(lenient = mean(as.logical(correct)), strict = mean(as.logical(correct_strict)),
+            .groups = "drop") |>
+  group_by(Cycle = cycle, Condition = condition) |>
+  summarise(`N completers` = n(), `Recall: lenient` = mean(lenient),
+            `Recall: strict` = mean(strict), .groups = "drop") |>
+  knitr::kable(digits = 3, caption = "Pilot B descriptive recall proportions, all five completers, after removing pretested items guessed correctly. Participant proportions are averaged with equal weight.")
+
+tibble(`Eligible N` = nrow(pilot_b$keep),
+       `Primary interaction test` = if (is.null(key_contrast(pilot_b)))
+         "Not estimable: fewer than two eligible observations or zero contrast variance"
+       else "Estimable using the shared analysis functions") |>
+  knitr::kable(caption = "Pilot B analysis-pipeline check using the planned exclusions. No inferential replication conclusion is drawn from this pilot.")
+```
 
 #### Actual sample
 
