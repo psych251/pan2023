@@ -359,12 +359,15 @@ Analyses along with the paired 2x2 ANOVA would be t-tests within each of the cyc
 
 ### Methods addendum (post data collection)
 
-::: {.callout-tip icon=false}
-## Guidance
+### Pilot B
 
-Leave this section out of the version you preregister. After data collection, report the
-actual sample and any deviation from the plan above.
-:::
+Five participants completed Pilot B, where the median completion time was ~33 minutes, but there were structural issues in conduction of the study portions themselves that weren't apparent in Pilot A. 
+
+Two participants each left three predictions unanswered, so there were six missing predictions across the study. The interface will be changed to require an input from participants as a result.
+
+While four participants rated the instructions as "very clear", and one rated them as "clear", of the ten comparison & attention check questions across participants, four were answered correctly, four incorrectly, and two couldn't be scored because the predictions themselves were missing. As a result, only one of five participants fully completed all four predictions and passed all comparison checks. 
+
+While comparison check questions followed Pan & Rivers original study, for participant understanding & ensuring focus on the true effect, prose for instructions/attention checks will be rewritten to be clearer for participants.
 
 #### Actual sample
 
