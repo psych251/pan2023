@@ -88,8 +88,8 @@ async function runCycle(page, cycle) {
       await q.waitFor({ state: "visible" });
       const which = (await q.textContent()).trim();
       const actual = scores[which];
-      const word = 8 > actual ? "higher" : 8 < actual ? "lower" : "the same";
-      await page.getByRole("button", { name: `My prediction was ${word}` }).click();
+      const option = 8 > actual ? "My prediction was higher than my actual score." : 8 < actual ? "My prediction was lower than my actual score." : "My prediction equaled my actual score.";
+      await page.getByRole("button", { name: option, exact: true }).click();
       // The two check screens look alike, so wait for this one's condition word to go.
       await page.locator(".question strong", { hasText: new RegExp(`^${which}$`) }).waitFor({ state: "detached" });
     }
@@ -231,7 +231,7 @@ test.describe("experiment", () => {
       // Predictions: one per condition, both 8, in some order.
       const preds = inCycle("prediction");
       expect(preds.map((t) => t.condition).sort()).toEqual(["pretest", "read"]);
-      expect(preds.every((t) => t.prediction === 8)).toBe(true);
+      expect(preds.every((t) => t.prediction === 8 && t.prediction_declined === false)).toBe(true);
       // Distractor ran and logged the game.
       const tetris = inCycle("distractor");
       expect(tetris.length).toBe(1);
@@ -473,3 +473,45 @@ test.describe("experiment", () => {
     expect(mine[0].context.kind).toBe("uncaught");
   });
 });
+
+test("predictions require a whole number or an explicit decline", async ({ page }) => {
+  await page.goto(url());
+  await page.getByRole("button", { name: "I agree to participate", exact: true }).click();
+  await clickNext(page);
+  await clickNext(page);
+  await surveyContinue(page); // Optional demographics.
+  await clickNext(page);
+  await clickNext(page);
+  const box = page.locator('[data-name="prediction"] input[type="number"]');
+  await box.waitFor({ state: "visible", timeout: 60000 });
+  const firstTitle = await page.getByText(/^There were 16 (read|pretested) word pairs\.$/).textContent();
+  for (const invalid of ["", "-1", "17", "2.5"]) {
+    await box.fill(invalid);
+    await surveyContinue(page);
+    await expect(page.getByText(firstTitle, { exact: true })).toBeVisible();
+    expect(await page.evaluate(() => window.__saver.allTrials.filter(t => t.task === "prediction").length)).toBe(0);
+  }
+  // Declining hides a previously entered value. Changing one's mind restores required input.
+  await box.fill("12");
+  await page.getByText("Prefer not to answer", { exact: true }).click();
+  await expect(box).toBeHidden();
+  await page.getByText("Prefer not to answer", { exact: true }).click();
+  await expect(box).toBeVisible();
+  await expect(box).toHaveValue("");
+  await surveyContinue(page);
+  await expect(page.getByText(firstTitle, { exact: true })).toBeVisible();
+  await box.fill("0");
+  await surveyContinue(page);
+  await page.getByText(firstTitle, { exact: true }).waitFor({ state: "detached" });
+  await box.fill("16");
+  await page.getByText("Prefer not to answer", { exact: true }).click();
+  await surveyContinue(page);
+  await expect(page.locator("#jspsych-instructions-next")).toBeVisible();
+  const predictions = await page.evaluate(() => window.__saver.allTrials.filter(t => t.task === "prediction"));
+  expect(predictions).toHaveLength(2);
+  expect(predictions[0].prediction).toBe(0);
+  expect(predictions[0].prediction_declined).toBe(false);
+  expect(predictions[1].prediction).toBeNull();
+  expect(predictions[1].prediction_declined).toBe(true);
+});
+

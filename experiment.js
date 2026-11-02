@@ -334,17 +334,25 @@ function scoreLenient(response, target) {
           elements: [{
             type: "text", name: "prediction", inputType: "number", min: 0, max: 16, step: 1,
             title: `There were 16 ${label} word pairs.`,
-            description: `If you were to be tested (shown the first word and have to recall the second) on
-              those 16 ${label} word pairs approximately 5 minutes from now, how many do you think you
-              would answer correctly? Enter a whole number from 0 to 16.`.replace(/\s+/g, " "),
-            validators: [{ type: "numeric", minValue: 0, maxValue: 16, text: "Please enter a number from 0 to 16." }],
+            description: `You learned 16 ${label} word pairs. About five minutes from now, you will see the first word of each pair and try to remember the second word. How many of these 16 pairs do you think you will answer correctly? Enter a whole number from 0 to 16. Enter 0 if you think you will remember none.`,
+            isRequired: true,
+            visibleIf: "{prediction_opt_out} notcontains 'decline'",
+            clearIfInvisible: "onHidden",
+            validators: [
+              { type: "numeric", minValue: 0, maxValue: 16, text: "Please enter a whole number from 0 to 16." },
+              { type: "regex", regex: "^(?:[0-9]|1[0-6])$", text: "Please enter a whole number from 0 to 16." },
+            ],
+          }, {
+            type: "checkbox", name: "prediction_opt_out", titleLocation: "hidden",
+            choices: [{ value: "decline", text: "Prefer not to answer" }],
           }],
         }],
       },
       data: { task: "prediction", cycle: c.cycle, condition },
       on_finish: (data) => {
         const v = data.response && data.response.prediction;
-        data.prediction = v === undefined || v === null || v === "" ? null : Math.round(Number(v));
+        data.prediction_declined = Array.isArray(data.response?.prediction_opt_out) && data.response.prediction_opt_out.includes("decline");
+        data.prediction = data.prediction_declined || v === undefined || v === null || v === "" ? null : Number(v);
         results[c.cycle][condition + "_prediction"] = data.prediction;
       },
     };
@@ -492,8 +500,8 @@ function scoreLenient(response, target) {
         const predRow = withPredictions
           ? `<tr><th>Your prediction</th><td>${fmt(r.read_prediction)} out of 16</td><td>${fmt(r.pretest_prediction)} out of 16</td></tr>`
           : "";
-        const note = withPredictions
-          ? `<p>Please check how closely your predictions matched your actual performance.</p>`
+        const note = withPredictions && viewing === 1
+          ? `<p>Compare your prediction with the number you actually recalled correctly, separately for read pairs and pretested pairs. The next two questions ask whether your prediction was higher than, lower than, or equal to your actual score.</p>`
           : "";
         return `${head}
           <table class="feedback-table">
@@ -519,16 +527,16 @@ function scoreLenient(response, target) {
 
   // The original's attention checks: contrast your prediction with your performance.
   const CHECK_OPTIONS = [
-    "My prediction was higher than how well I actually performed.",
-    "My prediction was lower than how well I actually performed.",
-    "My prediction was the same as how well I actually performed.",
+    "My prediction was higher than my actual score.",
+    "My prediction was lower than my actual score.",
+    "My prediction equaled my actual score.",
   ];
   const CHECK_KEYS = ["higher", "lower", "same"];
   function predictionCheck(c, condition) {
     const label = condition === "read" ? "read" : "pretested";
     return {
       type: jsPsychHtmlButtonResponse,
-      stimulus: `<p class="question">For the <strong>${label}</strong> word pairs, which statement is true?</p>`,
+      stimulus: `<p class="question">For the <strong>${label}</strong> word pairs, was the number you predicted higher than, lower than, or equal to the number you actually recalled correctly?</p>`,
       choices: CHECK_OPTIONS,
       button_layout: "flex",
       button_html: (choice) => `<button class="jspsych-btn check-btn">${choice}</button>`,
@@ -675,3 +683,4 @@ function scoreLenient(response, target) {
     debrief,
   ]);
 })();
+
