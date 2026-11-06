@@ -30,7 +30,7 @@ window.TEMPLATE_VERSION = "0.1.0";
 const EXPERIMENT = {
   // Firestore path: experiments/<id>/participants/... Change it for each phase so pilot
   // data and real data never mix: pan2023-pilot-a -> pan2023-pilot-b -> pan2023-final.
-  id: "pan2023-pilot-b",
+  id: "pan2023-final",
 
   // ~185 trials per participant, so write every 10 trials (~22 writes per participant).
   chunk_size: 10,
