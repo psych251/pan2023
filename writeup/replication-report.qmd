@@ -49,7 +49,7 @@ library(jsonlite)
 
 # Must match EXPERIMENT.id in experiment.js, and the --experiment you passed to the export.
 # Phase 2 runs under its own id, so its data never mix with Phase 1's.
-# Change this to the final id (e.g. "pan2023-final") when you switch experiment.js for real data.
+# The final export includes the five soft-launch sessions and the rest of Phase 1.
 experiment_id        <- "pan2023-final"
 experiment_id_pilot_b <- "pan2023-pilot-b"
 experiment_id_phase2 <- "pan2023-phase2"
@@ -166,7 +166,8 @@ read_phase <- function(id) {
     semi_join(filter(checked, passed_checks, has_predictions), by = "participant_id")
 
   list(participants = participants, trials = trials, errors = errors,
-       complete = complete, checked = checked, keep = keep)
+       complete = complete, checked = checked, keep = keep,
+       has_error_log = file.exists(errors_path))
 }
 
 # Predictions of analysed participants: one row per participant x cycle x condition.
@@ -573,24 +574,36 @@ keep         <- phase1$keep
 #| label: funnel
 #| eval: !expr have_data
 tibble(
-  Step = c("Started", "Completed", "Passed both attention checks",
-           "Analysed (passed checks and gave all four predictions)"),
-  N    = c(nrow(participants), nrow(complete), sum(checked$passed_checks), nrow(keep))
+  Step = c("Saved session records", "Completed after consent", "Passed both comparison checks",
+           "Analysed (passed both checks and gave all four predictions)"),
+  N = c(nrow(participants), nrow(complete), sum(checked$passed_checks), nrow(keep))
 ) |>
-  knitr::kable(caption = "Participants at each step.")
+  knitr::kable(caption = "Phase 1 session and analysis counts.")
 ```
 
 ```{r}
-#| label: sample-text
+#| label: phase1-exclusions
 #| eval: !expr have_data
-#| echo: false
-#| results: asis
-cat(sprintf("Of %d participants who started, %d completed the study and %d met the exclusion criteria.",
-            nrow(participants), nrow(complete), nrow(keep)))
-n_failed <- sum(!checked$passed_checks)
-if (n_failed > 0) cat(sprintf(" %d completed session(s) failed at least one attention check.", n_failed))
-if (nrow(keep) == 0) cat(" No participants remain for analysis yet, so the results below are empty.")
-cat("\n")
+checked |>
+  count(`Comparison checks passed` = checks_passed,
+        `All four predictions present` = has_predictions, name = "N") |>
+  knitr::kable(caption = "Comparison-check and prediction completeness among Phase 1 completers.")
+```
+
+```{r}
+#| label: phase1-timing
+#| eval: !expr have_data
+minutes <- if ("duration_minutes" %in% names(complete)) {
+  complete$duration_minutes
+} else {
+  as.numeric(difftime(complete$ended_at, complete$started_at, units = "mins"))
+}
+minutes <- minutes[is.finite(minutes)]
+if (length(minutes) > 0) {
+  tibble(N = length(minutes), Median = median(minutes),
+         Minimum = min(minutes), Maximum = max(minutes)) |>
+    knitr::kable(digits = 1, caption = "Phase 1 completion time in minutes.")
+}
 ```
 
 ```{r}
@@ -866,7 +879,9 @@ comparison_plot(`Original (Exp 3)` = original_recall,
 ```{r}
 #| label: data-quality
 #| eval: !expr have_data
-if (nrow(errors) > 0) {
+if (!phase1$has_error_log) {
+  message("No browser error log was supplied with the Phase 1 export.")
+} else if (nrow(errors) > 0) {
   errors |> select(any_of(c("at", "trial_index", "message"))) |> head(20) |>
     knitr::kable(caption = "JavaScript errors reported from participants' browsers.")
 } else {
