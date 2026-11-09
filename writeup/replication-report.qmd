@@ -103,6 +103,8 @@ original_contrast <- list(N = 52, mean = 1.4038, sd = 3.0631)
 | Tool and model | What it was used for | How you checked the output | Date |
 |---|---|---|---|
 | *Opus 5.5* | *Explained ANOVA applications in original paper to me to understand how replication would occur* | *Compared model output explanation to original paper description* | *Oct 4 - Introduction/proposal writing* |
+| *GPT 6.1-Sol* | *GPT built out the paradigm for me based upon context I gave it(uploading Pan & Rivers OSF materials so full exact original procedure was shown* | *Compared model output code & went through several tests of interface itself to ensure it was identical* | *Oct 18* |
+| *GPT 6.1-Sol* | *GPT helped me understand how I was interpreting Pilot B results, and helped ensure some of the interpretation code was running correctly & integrated properly* | *Ensured it's changes were accurate through checking the qmd & github* | *Oct 27* |
 
 # Key statistics
 
@@ -305,7 +307,7 @@ An extension possibility I am considering is assigning a control group with no f
 
 ### Power analysis
 
-:The key effect in the original experiment (for part 3 that I'm specifically replicating) is the practice condition, or how a word pair was studied with either pre-testing or pure reading, and which cycle round of the experiment the participant was in, and applying analysis to the participant's predictions for each. This results in a 2x2 ANOVA with two factors and two levels for each factor for cycle and testing condition, with key statistics of $F(1, 51) = 10.92$, $p = .0017$, $\eta_p^2 = .18$. The table shows that to detect the effect with .5, it would require n to be 40, 52, & 64 for 80%, 90%, & 95% power, respectively. For avoiding an underpowered study, budget constraints limit a full 2.5x sample size analysis, which would be 130 participants taking a ~30 minute test(with 10 minutes of tetris). 
+:The key effect in the original experiment (for part 3 that I'm specifically replicating) is the practice condition, or how a word pair was studied with either pre-testing or pure reading, and which cycle round of the experiment the participant was in, and applying analysis to the participant's predictions for each. This results in a 2x2 ANOVA with two factors and two levels for each factor for cycle and testing condition, with key statistics of $F(1, 51) = 10.92$, $p = .0017$, $\eta_p^2 = .18$. The table shows that to detect the effect with .5, it would require n to be 40, 52, & 64 for 80%, 90%, & 95% power, respectively. For avoiding an underpowered study, budget constraints limit a full 2.5x sample size analysis, which would be 130 participants taking a ~35 minute test(with 10 minutes of tetris).
 
 Since our budget constraints would be around ~70 participants for this study, power analysis at that sample size would vary in how much the original effect is shown. If the effect is equal to the original study's amount, a replication with n = 70(assuming a similar 13.6% exclusion rate as original experiment, so payment would be for n = 81) would yield 97% power, but only 47% if the effect size is half as such. Therefore, if the study is ran, it would only be able to detect the original effect size from it's original amount to about a 25% smaller effect(at 81% power), but would be fairly underpowered to meaningfully detect a smaller effect size. An option I can use to maximize budget and  use is Prolific's running slots for participants, adding participants that meet exclusion criteria until I have enough sampling to meet 70, as well as using confidence intervals along with p values in my analysis to help take this into account.
 
@@ -569,6 +571,9 @@ complete     <- phase1$complete
 checked      <- phase1$checked
 keep         <- phase1$keep
 ```
+### Phase 1 Sample
+
+52 Prolific participants consented and completed the replicated experiment, including 5 initial test participants with new procedural information. The median completion timing was ~31.6 minutes, ranging from 24 to 73 minutes. Only 30 participants met criteria with 22 being excluded, 11 of which failed both prediction & performance checks. 
 
 ```{r}
 #| label: funnel
@@ -629,26 +634,21 @@ if (nrow(demo) > 0) {
 
 #### Deviations from the preregistered plan
 
-::: {.callout-tip icon=false}
-## Guidance
+The initial sample size was planned to be 70 analyzable participants, however given budget constraints, having the same sample size as the original study seemed like a feasible alternative. Recruitment overall ended at 52 participants as well, as recruiting until 52 non-excluded participants would mean a much higher sample size that would be out of budget constraints, given the 57.7% pass rate of participants to be included in the analysis. 
 
-Any deviation from the preregistered plan above, or "None". Changes made after seeing data
-belong here even if they seem minor, together with the reason.
-:::
 
 ## Results
 
 ### Data preparation
 
-::: {.callout-tip icon=false}
-## Guidance
-
-Data preparation follows the analysis plan. Loading and exclusions are done by the shared
-analysis code under Key statistics (open "Show the analysis code"). Describe anything you did to
-the data beyond that.
-:::
+Participants and trial records used participant IDs as identifiers, and overall sessions were complete if it was counted as complete from beginning to end including consent & final debrief question on validity of instructions given. Participants entered the actual analysis if they answered the prediction & performance comparison questions of their own answers correctly for all four recall predictions. This is especially important because it not only functions as an attention check, but it is important for the participant to see their typically superior performance in the pre-test condition and understand that before predicting for Cycle 2. For each participant, the difference between predicted recall for pretested and read matching pairs were calculated for each cycle, and the Cycle 1 difference was subtracted from the Cycle 2 difference. For the actual recall, pretested pairs the participant guessed correctly were omitted from analysis and the proportion of pairs recalled in each cycle and practice condition were scored leniently and factored into prediction viewings for participants.
 
 ### Confirmatory analysis
+The primary test to look at was the cycle & practice condition interaction in a 2x2 repeated ANOVA for the predicted recall. 
+
+In Cycle 1, participants predicted recalling an average of 7.13 pretested pairs and 7.23 read pairs, so a pretest condition premium difference of -.1 pairs. In Cycle 2, participants predicted recalling 8.37 pretested pairs and 8.07 read pairs, a pretest premium of +0.3 pairs.
+
+With an overall prediction increase of 0.4 across cycles, we have a 95% CI [−0.28, 1.08], F(1, 29) = 1.46, p = .236, and a partial η² of .048
 
 ```{r}
 #| label: confirmatory
@@ -698,15 +698,9 @@ if (nrow(w) >= 2 && all(c("read_1", "pretest_1", "read_2", "pretest_2") %in% nam
 
 ### Replication assessment
 
-::: {.callout-tip icon=false}
-## Guidance
+In Pan & Rivers original experiment, the predicted pretesting pair premium shifted from -0.71 in Cycle 1 to +0.69 in Cycle 2, increasing by 1.4 pairs across Cycles, with a 95% CI [0.55, 2.26]. The replication still shows the same effect directionally, but a smaller size of +0.4 pairs. The confidence interval also included zero and ended at +1.08 pairs. The effect size is much smaller, partly due to budget constraints, with lower power to reveal effect sizes if the true effect is similar to the original experiment, along with a much higher failure rate for attention & confirmation checks for participants.
 
-Judge the replication on effect sizes, not only on whether the key test is significant. Compare
-the replication estimate and its interval with the original: does the interval exclude zero, and
-does it include the original estimate? A significant result much smaller than the original, or
-a non-significant result whose interval still includes the original effect, are both
-informative and should be reported as such (Experimentology §3.2).
-:::
+
 
 ```{r}
 #| label: comparison
@@ -744,37 +738,6 @@ if (!is.null(rep)) {
 }
 ```
 
-::: {.callout-tip icon=false}
-## Guidance: show the original next to your replication
-
-**Every report should have a figure that puts the original finding and your replication side by
-side.** It is the single most informative thing in a replication report: a reader can see at a
-glance whether the effect came back, and how its size compares. Make it however you can, in
-roughly this order of preference:
-
-1. **Replot both from numbers.** Enter the original's summary statistics (means or proportions,
-   with SDs, SEs or CIs, and Ns) in the original-study chunk at the top of this file, and plot
-   them on the same axes as yours. That is what the demo figure below does.
-2. **Replot the original from its data**, if the authors shared it or it is in an open
-   repository, using exactly the same plotting code as for your own data.
-3. **Show the original figure as an image** next to yours if neither is possible. Save a
-   screenshot of it, for example as `writeup/images/original-figure.png`, and lay the two out
-   in columns:
-
-   ````markdown
-   ::: {layout-ncol=2}
-   ![Original: Tversky & Kahneman (1981), Figure 1](images/original-figure.png)
-
-   ```{{r}}
-   # your replication plot here
-   ```
-   :::
-   ````
-
-Whichever you choose, use the same measure, scale, condition order and error-bar meaning for
-both panels, label which is which, and cite the source of the original values or figure in the
-caption. If the original reported no variability, say so rather than leaving it out silently.
-:::
 
 ```{r}
 #| label: fig-comparison
@@ -788,12 +751,8 @@ comparison_plot(`Original (Exp 3)` = original_pred,
 
 ### Exploratory analyses
 
-::: {.callout-tip icon=false}
-## Guidance
+The recall testing showed better performance for pretesting conditions as expected across Cycles, and participants recalled 17.5% more pretested than read trained pairs in Cycle 1, and 13.5% better in Cycle 2. In participants who showed an advantage for recall testing in pretested pairs in Cycle 1, those 22 participants had their predicted pretesting advantage increase by 0.36 pairs.
 
-Any follow-up analyses (optional). Label them clearly as exploratory: they were not planned, so
-they generate hypotheses rather than test them.
-:::
 
 ```{r}
 #| label: exploratory
@@ -891,147 +850,76 @@ if (!phase1$has_error_log) {
 
 ## Discussion
 
+
 ### Summary of replication attempt
 
-::: {.callout-tip icon=false}
-## Guidance
-
-Open with one paragraph summarizing the result of the key analysis and your assessment of
-whether the original finding replicated, partially replicated, or failed to replicate. Base
-that judgment on the replication assessment above: the size of the effect relative to the
-original, not just the p value.
-:::
+The replication displays the benefit of pretesting in recall testing, but was fairly inconclusive in revealing evidence that participants updated their predictions to reflect that benefit. The predictions still shifted in the same direction as the original study to prefer pretesting, but was much smaller. This smaller effect, as well as the restricted sample size, may also contribute to participants remembering more pretested pairs overall in both cycles, but the main effect of the shift across cycles as a relative point is also less apparent.
 
 ### Commentary
 
-::: {.callout-tip icon=false}
-## Guidance
+A challenge that may have contributed to the high failure rate, which could have tainted participant understanding is due to the Cycle 1 comparison questions and how participants interpreted them. In the questions given to participants after Cycle 1, their real scores as well as their predictions were shown to them in a table of four values. In the following page, they would have to confirm which scores were higher or lower than their predictions, which is intended to help participants fully understand the degree to which pre-testing is effective in their performance, as well as function as an attention check. An incorrect answer in these questions shows difficulty in seeing that pre-testing is functionally better than reading pairs to learn the pairs. We also cannot distinguish among these possibilities, but 22 of 52 participants were excluded as a result. In the original experiment, 8 of 62 participants were excluded for failed attention checks  by Pan and Rivers. Since this is such a drastic change, it's possible that the sample of 30 used disproportionately reflects participants who specifically remembered and answered correctly.
 
-Open-ended commentary, none of it long: (a) what the exploratory analyses suggest; (b) what the
-replication means, for example whether the differences between your study and the original are
-definitely, plausibly, or unlikely to be moderators of the result; and (c) any objections or
-challenges raised by you or the original authors.
-:::
+
+A follow up could keep each prediction and score visible during comparison questions, ensuring participants cross reference answers and do not let them pass until answering correctly.
 
 # Phase 2: Extension
 
-::: {.callout-tip icon=false}
-## Guidance: choosing your extension
-
-Follow the Extension guidelines page on Canvas. In brief:
-
-- **By default the extension is a best-practices modification of your Phase 1 experiment.** If
-  your replication did not succeed, it is a **rescue**: address the plausible reasons for the
-  failure. If it did succeed, it is an **upgrade**: make the estimate more precise. Typical
-  changes are better or more reliable measurement, more trials, a within-participant design
-  where that is legitimate, comprehension and manipulation checks, clearer instructions, or a
-  larger or better-targeted sample.
-- **If your scientific extension pitch was approved at Milestone 3 and your replication
-  succeeded, propose that instead:** the original conditions rerun unchanged, plus the one
-  added condition or manipulation, with a power analysis for the new comparison.
-- On either track you may add exploratory measures **at the end** of the study.
-- Every change is listed and tagged by category below; everything else stays identical.
-
-State your track on the line below, and delete the others.
-:::
-
-**Track:** Best-practices upgrade / Best-practices rescue / Scientific extension (approved at Milestone 3)
+**Track:** Rescue
 
 ## Rationale
 
-::: {.callout-tip icon=false}
-## Guidance
+In Phase 1, participants increased their pretesting predictions .4 pairs on average, smaller than the original premium of 1.4, and the confidence interval of [-0.28, 1.08] included zero. Most importantly, 22 of 52 recruited participants failed the exclusion criteria, which could be due to a variety of procedural reasons, that display a large portion of participants not internalizing improved pretesting effects.
 
-One or two paragraphs. For a rescue: what are the plausible reasons Phase 1 did not reproduce the
-original result, and how does each change address one of them? For an upgrade: where is the
-Phase 1 estimate least precise or least trustworthy, and how will the changes improve it? For a
-scientific extension: what question does the added condition answer, and why does it follow from
-the original finding?
-:::
+Since the comparison questions require comparison with participants own performance, not having the table of their four scores visible to cross reference when answering could be an issue. It could be a result of forgetting values for their scores or not paying attention to those values before advancing. In Phase 2, questions will have values of participants scores shown as they answer for each practice condition & prediction. This way, we can also restrict the question so participants must answer correctly before they continue, with another sepearate purely function attention check soon after, recognizing their score. I would expect both failure rates to decrease to around 13.3%, similar to the original experiment, as well as likely a larger effect size if more participants have identified the effect more clearly.
+
 
 ## Changes from Phase 1
 
-::: {.callout-tip icon=false}
-## Guidance
-
-Every change from the Phase 1 experiment, one per row, each tagged with a category: Measurement,
-Trials, Design, Checks, Instructions, Sample, Added condition (scientific track only), or
-Exploratory measure (end of study only). If it is not in this table, it does not change: same
-materials, wording, procedure, exclusion rule and analysis. The rows below are examples for the
-demo; replace them with yours.
-:::
 
 | # | Category | Phase 1 | Phase 2 | Why |
 |---|---|---|---|---|
-| 1 | Sample | 27 analysed participants | 300 analysed participants (150 per frame) | Phase 1's interval was too wide to distinguish the original effect from a much smaller one. |
-| 2 | Checks | No comprehension check | After the choice, participants say how many people are at risk (600) | Confirms participants read the scenario; failures are reported, and excluded only if preregistered. |
-| 3 | Exploratory measure | None | At the end: "How confident are you in your choice?" (1–7) | Exploratory only; collected after every confirmatory measure. |
+| 1 | Sample | Recruitment ended at 52 participants with 30 analyzed | We can recruit a new sample with 30 participants, consistent with Phase 1 | Budget constraints reduce my sample size, or recruiting until 30 valid participants as a stopping point would be ideal |
+| 2 | Checks | Predictions & scores are shown on one screen, and feedback questions about their performance are shown on the following screen to participants | Each comparison question displays the participant's own prediction & performance while the questions are asked | Participants can make the comparison without misremembering, and are also required to answer correctly and understand pre-testing's effect  |
 
 Everything not listed above is identical to Phase 1.
 
 ## Power and sample
 
-::: {.callout-tip icon=false}
-## Guidance
-
-Justify the Phase 2 sample, and **state how you expect the estimate and its precision to compare
-with Phase 1**. For an upgrade, plan the sample around the confidence interval you want; for a
-rescue, around the power to detect the original effect, or the smallest effect you would still
-consider a successful replication; for a scientific extension, around the power to detect the new
-comparison. Set `phase2_n_per_group` in the code below; the table uses Phase 1's estimate if you
-have it and the original's otherwise.
-:::
+I will recruit 30 participants on Prolific, using the same eligibility criteria as in Phase 1, with the updated attention checks & feedback procedure. Recruitment will stop at 30 participants, and I will apply the same analysis to exclude if participants fail the purely functional attention checks. I expect the failure rate to decrease from 42.3%, but also expect increases in the original effect of the study. If we assume 4 participants fail attention checks, we see that the study has approximately  19% power to detect the effect size of Phase 1. With this low power, I would still at least expect the direction effect of improvement to be larger on average than Phase 1's results, as it would less so be participants who are already more inclined to be or were more aware of the pretesting effect.
 
 ```{r}
 #| label: phase2-power
-phase2_n <- 130   # planned analysed participants in Phase 2
+phase2_recruited <- 30L
+phase2_exclusion_rate <- 0.1333
+phase2_n <- round(phase2_recruited * (1 - phase2_exclusion_rate))
 
 p1_key <- if (have_data) key_contrast(phase1)
-basis  <- if (!is.null(p1_key)) list(sd = p1_key$sd, source = "Phase 1") else
-  list(sd = original_key$sd, source = "the original study")
+if (!is.null(p1_key)) {
+  phase2_power <- power.t.test(
+    n = phase2_n, delta = p1_key$dz, sd = 1, sig.level = .05,
+    type = "one.sample", alternative = "two.sided", strict = TRUE
+  )$power
+  phase2_half_width <- qt(.975, phase2_n - 1) * p1_key$sd / sqrt(phase2_n)
 
-# Expected 95% CI half-width on the interaction contrast at N participants.
-half_width <- function(n) qt(0.975, n - 1) * basis$sd / sqrt(n)
-power_at <- function(n, dz) {
-  tryCatch(power.t.test(n = n, delta = dz, sd = 1, sig.level = 0.05, type = "one.sample")$power,
-           error = function(e) NA)
+  tibble(
+    `Recruited N` = phase2_recruited,
+    `Assumed exclusion rate` = scales::percent(phase2_exclusion_rate, accuracy = 0.01),
+    `Projected analysed N` = phase2_n,
+    `Phase 1 benchmark (d_z)` = round(p1_key$dz, 2),
+    `Power against zero` = scales::percent(phase2_power, accuracy = 1),
+    `Phase 1 CI half-width (items)` = round((p1_key$ci_high - p1_key$ci_low) / 2, 2),
+    `Expected Phase 2 CI half-width (items)` = round(phase2_half_width, 2)
+  ) |>
+    knitr::kable(caption = "Phase 2 power and precision using the Phase 1 prediction interaction as the planning benchmark.")
+} else {
+  message("Phase 1 data are needed to calculate the Phase 2 power benchmark.")
 }
-
-rows <- tibble(
-  Study = c(if (!is.null(p1_key)) "Phase 1 (actual)", "Phase 2 (planned)"),
-  `N analysed` = c(if (!is.null(p1_key)) p1_key$N, phase2_n),
-  `95% CI half-width` = c(if (!is.null(p1_key)) sprintf("±%.2f points", (p1_key$ci_high - p1_key$ci_low) / 2),
-                          sprintf("±%.2f points (expected)", half_width(phase2_n)))
-)
-knitr::kable(rows, caption = sprintf("Precision of the key estimate, Phase 2 expected values based on %s.", basis$source))
-
-tibble(
-  `Effect to detect` = c(sprintf("Original: d_z = %.2f", original_key$dz),
-                         if (!is.null(p1_key)) sprintf("Phase 1: d_z = %.2f", p1_key$dz),
-                         sprintf("Half the original: d_z = %.2f", original_key$dz / 2)),
-  `Power at planned N` = scales::percent(c(
-    power_at(phase2_n, original_key$dz),
-    if (!is.null(p1_key)) power_at(phase2_n, p1_key$dz),
-    power_at(phase2_n, original_key$dz / 2)
-  ), accuracy = 1)
-) |>
-  knitr::kable(caption = sprintf("Power of the Phase 2 key test at N = %d, two-sided alpha = .05.", phase2_n))
 ```
 
 ## Analysis plan
 
-::: {.callout-tip icon=false}
-## Guidance
+I will use the same primary test as in Phase 1, and for each participant, I will subtract the Cycle 1 difference from Cycle 2. This mean will be used in the two sided ANOVA, for cycle and practice condition of pretesting or reading. The main analysis will use Phase 2 data only, and participants must complete the study's comparison questions even if they fail attention checks - I will compare these values of failure rates & wrong answers on these questions as well as failures of attention checks before comparing alongside ANOVA tests.
 
-The confirmatory analysis for Phase 2, written before Phase 2 data collection. On the
-best-practices tracks this is normally the same key test as Phase 1, run on the Phase 2 data
-alone; say whether you will also report a pooled estimate across phases, and label it
-exploratory if so. On the scientific track, specify the test for the new comparison. Name the
-exclusion rule (unchanged unless it is in the Changes table) and list any exploratory measures.
-
-Run Phase 2 under a new `EXPERIMENT.id` in `experiment.js` (for example `smith2016-phase2`) and
-set `experiment_id_phase2` at the top of this file to match, so the two phases' data never mix.
-:::
 
 ## Results
 
@@ -1054,13 +942,22 @@ if (!have_phase2) {
 #| label: phase2-results
 #| eval: !expr have_phase2
 p2_key <- key_contrast(phase2)
-cat(sprintf("Phase 2: %d started, %d completed, %d analysed.\n",
+cat(sprintf("Phase 2: %d saved session records, %d completed, %d analysed.\n",
             nrow(phase2$participants), nrow(phase2$complete), nrow(phase2$keep)))
 if (!is.null(p2_key)) {
   p_text <- if (p2_key$p < 0.001) "p < .001" else sprintf("p = %.3f", p2_key$p)
-  cat(sprintf("Key interaction: %.2f points [%.2f, %.2f], F(1, %d) = %.2f, %s, partial eta squared = %.2f.\n",
-              p2_key$estimate, p2_key$ci_low, p2_key$ci_high, p2_key$df, p2_key$F, p_text, p2_key$pes))
+  cat(sprintf("Key interaction: %.2f points [%.2f, %.2f], F(1, %d) = %.2f, %s, partial eta squared = %.2f, d_z = %.2f.\n",
+              p2_key$estimate, p2_key$ci_low, p2_key$ci_high, p2_key$df, p2_key$F, p_text, p2_key$pes, p2_key$dz))
 }
+```
+
+```{r}
+#| label: phase2-checks
+#| eval: !expr have_phase2
+phase2$checked |>
+  count(`Comparison checks passed` = checks_passed,
+        `All four predictions present` = has_predictions, name = "N") |>
+  knitr::kable(caption = "Comparison-check and prediction completeness among Phase 2 completers.")
 ```
 
 ```{r}
