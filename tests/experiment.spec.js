@@ -540,6 +540,7 @@ test("predictions require a whole number or an explicit decline", async ({ page 
   }
   // Declining hides a previously entered value. Changing one's mind restores required input.
   await box.fill("12");
+  await box.press("Tab"); // SurveyJS commits the number on blur before the checkbox is toggled.
   await page.getByText("Prefer not to answer", { exact: true }).click();
   await expect(box).toBeHidden();
   await page.getByText("Prefer not to answer", { exact: true }).click();
@@ -551,6 +552,7 @@ test("predictions require a whole number or an explicit decline", async ({ page 
   await surveyContinue(page);
   await page.getByText(firstTitle, { exact: true }).waitFor({ state: "detached" });
   await box.fill("16");
+  await box.press("Tab");
   await page.getByText("Prefer not to answer", { exact: true }).click();
   await surveyContinue(page);
   await expect(page.locator("#jspsych-instructions-next")).toBeVisible();
