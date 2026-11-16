@@ -8,7 +8,7 @@
  *             criterial-test recall (task "test", fields `correct` / `correct_strict`).
  *   Trials:   per cycle, 32 pairs (16 read + 16 pretested, randomly intermixed). Read = intact
  *             pair 5 s. Pretest = cue + text box 5 s, then intact pair 5 s. Two predictions
- *             (random order), 5-min Tetris, self-paced cued-recall test of all 32 (random order,
+ *             (random order), 5-min Tetris, 12 s per cued-recall item for all 32 pairs (random order,
  *             no feedback), then performance feedback. Cycle 1 feedback also shows the
  *             participant's own predictions (the Exp 3 manipulation), followed by two
  *             prediction-vs-performance questions with scores visible and corrective retries,
@@ -52,9 +52,10 @@ const EXPERIMENT = {
   // Keyboard needed: typing answers and playing Tetris.
   requires_keyboard: true,
 
-  // Timing from the original (milliseconds).
+  // Timing (milliseconds). Phase 2 caps each memory-test response.
   study_ms: 5000,          // read trial; pretest guess window; pretest answer display
   distractor_ms: 300000,   // 5-minute Tetris
+  recall_ms: 12000,        // per item in the memory test
 };
 
 function hasFinePointer() {
@@ -64,7 +65,7 @@ function hasFinePointer() {
 const CHUNK_SIZE = Number(URL_PARAMS.get("chunk_size")) || EXPERIMENT.chunk_size;
 if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = URL_PARAMS.get("cc");
 
-// Test/development only: `?speed=N` divides every timed duration by N so the robot (and you,
+// Test/development only: `?speed=N` shortens study displays and Tetris so the robot (and you,
 // when checking the flow) do not wait 30 minutes. Ignored anywhere except localhost, so it can
 // never change timing on GitHub Pages.
 const SPEED = IS_LOCAL ? Math.max(1, Number(URL_PARAMS.get("speed")) || 1) : 1;
@@ -447,12 +448,15 @@ function scoreLenient(response, target) {
         `<h2>Memory test</h2>
          <p>You will now be tested on all 32 word pairs from this round, one at a time, in random order.</p>
          <p>For each one you will see the first word. Type the second word and press <strong>Enter</strong>
-         (or click Continue). Take as long as you need. If you cannot remember, make your best guess or
-         leave it blank.</p>`,
+         (or click Continue). You have <strong>${EXPERIMENT.recall_ms / 1000} seconds per word pair</strong>.
+         When time runs out, the test saves what you typed and moves on. If you cannot remember,
+         make your best guess or leave it blank.</p>`,
       ],
       show_clickable_nav: true,
       data: { task: "instructions", cycle: c.cycle },
     };
+    let timedOut = false;
+    let responseTimer;
     const trial = {
       type: jsPsychSurveyText,
       preamble: () => `<p class="phase-label">Memory test</p>
@@ -467,7 +471,17 @@ function scoreLenient(response, target) {
         list: jsPsych.timelineVariable("list"), item: jsPsych.timelineVariable("item"),
         condition: jsPsych.timelineVariable("condition"),
       },
+      on_load: () => {
+        timedOut = false;
+        const form = jsPsych.getDisplayElement().querySelector("#jspsych-survey-text-form");
+        responseTimer = window.setTimeout(() => {
+          timedOut = true;
+          form.requestSubmit();
+        }, EXPERIMENT.recall_ms);
+      },
       on_finish: (data) => {
+        window.clearTimeout(responseTimer);
+        data.timed_out = timedOut;
         data.answer = (data.response && data.response.answer) || "";
         data.correct = scoreLenient(data.answer, data.target);
         data.correct_strict = scoreStrict(data.answer, data.target);
@@ -591,9 +605,9 @@ function scoreLenient(response, target) {
     return {
       type: jsPsychHtmlButtonResponse,
       stimulus: () => `<h2>Round ${c.cycle} score check</h2>
-        <p>For the <strong>${label}</strong> word pairs, your actual score was
-        <strong class="score-check-value">${score()}</strong> out of 16.</p>
-        <p>What was your actual score for those pairs?</p>`,
+        <p>Please select the number shown below.</p>
+        <p>Your score for the <strong>${label}</strong> word pairs:
+        <strong class="score-check-value">${score()}</strong> out of 16.</p>`,
       choices: () => {
         const first = Math.max(0, Math.min(13, score() - 1));
         options = jsPsych.randomization.shuffle(Array.from({ length: 4 }, (_, i) => first + i));
