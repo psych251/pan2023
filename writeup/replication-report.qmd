@@ -984,6 +984,7 @@ Since the comparison questions require comparison with participants own performa
 | 1 | Sample | 52 completers, 30 analyzed | 30 new Prolific participants recruited, with 26 projected for analysis at 13.33% assumed exclusions | Budget and Phase 2 precision planning |
 | 2 | Cycle 1 comparisons | One response per comparison, with the values on the preceding screen | The prediction and score for that condition stay visible. An incorrect response prompts another attempt. A declined prediction is logged as unscorable and the participant can continue. | Reduce reliance on memory for the displayed values |
 | 3 | Cycle 1 attention check | Two comparison responses determine attention-check eligibility | After the second feedback display, one separate score lookup for the first randomly ordered condition, with the answer visible on screen, four answer options, and one attempt. All participants can continue. | Measure attention separately from the comparison practice |
+| 4 | Memory-test timing | Self-paced cued recall in both cycles | 12 seconds per word pair in both cycles. At timeout, the current input is saved and the test advances. | Bound the time available to answer each item |
 
 Everything not listed above is identical to Phase 1.
 
