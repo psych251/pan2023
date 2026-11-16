@@ -11,13 +11,14 @@
  *             (random order), 5-min Tetris, self-paced cued-recall test of all 32 (random order,
  *             no feedback), then performance feedback. Cycle 1 feedback also shows the
  *             participant's own predictions (the Exp 3 manipulation), followed by two
- *             prediction-vs-performance questions and a second look at the feedback.
+ *             prediction-vs-performance questions with scores visible and corrective retries,
+ *             a second look at the feedback, and an independent score check.
  *             Cycle 2 uses new pairs and ends with feedback and an attribution question.
  *   Random:   the four 16-pair lists are shuffled per participant: lists 1-2 go to Cycle 1,
  *             3-4 to Cycle 2; the first of each pair is read, the second pretested.
  *             Item order within each phase and the order of the two predictions are random.
- *   Checks:   the two Cycle 1 prediction-vs-performance questions are the original's
- *             attention checks (field `passed`); nobody is ejected, exclusion happens in the
+ *   Checks:   comparison attempts are logged separately from the one-shot score check
+ *             (field `passed`); nobody is ejected, exclusion happens in the
  *             analysis. Pretested items guessed correctly at pretest are dropped from recall
  *             scoring in the analysis (field `guess_correct` on test rows).
  */
@@ -27,18 +28,24 @@
 // ---------------------------------------------------------------------------
 window.TEMPLATE_VERSION = "0.1.0";
 
+const URL_PARAMS = new URLSearchParams(window.location.search);
+const USE_EMULATOR = URL_PARAMS.get("emulator") === "1";
+const IS_LOCAL = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+const IS_PILOT = URL_PARAMS.get("pilot") === "1";
+
 const EXPERIMENT = {
   // Firestore path: experiments/<id>/participants/... Change it for each phase so pilot
   // data and real data never mix: pan2023-pilot-a -> pan2023-pilot-b -> pan2023-final.
-  id: "pan2023-final",
+  id: "pan2023-phase2",
+  pilot_id: "pan2023-phase2-pilot",
 
   // ~185 trials per participant, so write every 10 trials (~22 writes per participant).
   chunk_size: 10,
 
   save_full_data_at_end: true,
 
-  // Prolific: set this to the completion code from your Prolific study before Pilot B.
-  prolific_completion_code: "C9738RQA",
+  // Set the new Phase 2 Prolific completion code after staff approval.
+  prolific_completion_code: "",
 
   contact_email: "stanfordpsych251@gmail.com",
 
@@ -54,15 +61,12 @@ function hasFinePointer() {
   return !!(window.matchMedia && window.matchMedia("(any-pointer: fine)").matches);
 }
 
-const URL_PARAMS = new URLSearchParams(window.location.search);
-const USE_EMULATOR = URL_PARAMS.get("emulator") === "1";
 const CHUNK_SIZE = Number(URL_PARAMS.get("chunk_size")) || EXPERIMENT.chunk_size;
 if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = URL_PARAMS.get("cc");
 
 // Test/development only: `?speed=N` divides every timed duration by N so the robot (and you,
 // when checking the flow) do not wait 30 minutes. Ignored anywhere except localhost, so it can
 // never change timing on GitHub Pages.
-const IS_LOCAL = ["localhost", "127.0.0.1"].includes(window.location.hostname);
 const SPEED = IS_LOCAL ? Math.max(1, Number(URL_PARAMS.get("speed")) || 1) : 1;
 const STUDY_MS = Math.round(EXPERIMENT.study_ms / SPEED);
 const DISTRACTOR_MS = Math.round(EXPERIMENT.distractor_ms / SPEED);
@@ -97,10 +101,21 @@ function scoreLenient(response, target) {
 // Boot
 // ---------------------------------------------------------------------------
 (async function main() {
+  const prolificParams = ["PROLIFIC_PID", "STUDY_ID", "SESSION_ID"];
+  const hasProlificSession = prolificParams.every((key) => {
+    const value = URL_PARAMS.get(key)?.trim();
+    return value && !value.includes("{{");
+  });
+  if (!IS_LOCAL && !IS_PILOT && (!EXPERIMENT.prolific_completion_code || !hasProlificSession)) {
+    document.body.innerHTML = '<main class="jspsych-content" style="max-width:640px;margin:15vh auto">' +
+      "<h1>This study is not open from this link</h1>" +
+      "<p>If you were invited, use the link you received.</p></main>";
+    return;
+  }
   const deviceSupported = !EXPERIMENT.requires_keyboard || hasFinePointer();
 
   const saver = await DataSaver.init({
-    experiment_id: EXPERIMENT.id,
+    experiment_id: IS_PILOT ? EXPERIMENT.pilot_id : EXPERIMENT.id,
     chunk_size: CHUNK_SIZE,
     save_full_data_at_end: EXPERIMENT.save_full_data_at_end,
     use_emulator: USE_EMULATOR,
@@ -137,10 +152,10 @@ function scoreLenient(response, target) {
 
       if (!consented) {
         msg.innerHTML = "<h2 class='thanks'>Thank you</h2><p class='thanks'>You chose not to participate. " +
-          "You may close this window" + (EXPERIMENT.prolific_completion_code ? " and return the study on Prolific" : "") + ".</p>";
+          "You may close this window" + (!IS_PILOT && EXPERIMENT.prolific_completion_code ? " and return the study on Prolific" : "") + ".</p>";
         return;
       }
-      if (result.ok && EXPERIMENT.prolific_completion_code && !USE_EMULATOR) {
+      if (result.ok && EXPERIMENT.prolific_completion_code && !IS_PILOT && !USE_EMULATOR) {
         msg.innerHTML = "<p class='thanks'>Saved. Returning you to Prolific…</p>";
         window.location.href =
           "https://app.prolific.com/submissions/complete?cc=" + EXPERIMENT.prolific_completion_code;
@@ -149,7 +164,7 @@ function scoreLenient(response, target) {
       msg.innerHTML =
         "<h2 class='thanks'>All done</h2>" +
         (result.ok ? "<p class='thanks'>Your responses were saved. Thank you for participating!</p>" : "") +
-        (EXPERIMENT.prolific_completion_code
+        (!IS_PILOT && EXPERIMENT.prolific_completion_code
           ? "<p class='thanks'>Your completion code is <strong>" + EXPERIMENT.prolific_completion_code + "</strong>.</p>"
           : "");
     },
@@ -525,31 +540,70 @@ function scoreLenient(response, target) {
     };
   }
 
-  // The original's attention checks: contrast your prediction with your performance.
+  // Phase 2 comparison practice: display the two values and retry a wrong answer.
   const CHECK_OPTIONS = [
     "My prediction was higher than my actual score.",
     "My prediction was lower than my actual score.",
     "My prediction equaled my actual score.",
   ];
   const CHECK_KEYS = ["higher", "lower", "same"];
-  function predictionCheck(c, condition) {
+  function predictionComparison(c, condition) {
     const label = condition === "read" ? "read" : "pretested";
-    return {
+    let attempt = 0;
+    let retry = false;
+    const values = () => ({
+      prediction: results[c.cycle][condition + "_prediction"] ?? null,
+      actual: results[c.cycle][condition + "_correct"],
+    });
+    const question = {
       type: jsPsychHtmlButtonResponse,
-      stimulus: `<p class="question">For the <strong>${label}</strong> word pairs, was the number you predicted higher than, lower than, or equal to the number you actually recalled correctly?</p>`,
-      choices: CHECK_OPTIONS,
+      stimulus: () => {
+        const { prediction, actual } = values();
+        const prompt = prediction === null
+          ? "You skipped this prediction. Select Continue to see the next screen."
+          : "Was your prediction higher than, lower than, or equal to your actual score?";
+        return `<p class="question">Compare your results for the <strong>${label}</strong> word pairs.</p>
+          <p>Your prediction: <strong class="comparison-prediction">${prediction ?? "Skipped"}</strong>${prediction === null ? "" : " out of 16"}<br>
+          Your actual score: <strong class="comparison-score">${actual}</strong> out of 16</p>
+          <p>${prompt}</p>
+          ${retry ? '<p role="alert">Please compare the two numbers above and try again.</p>' : ""}`;
+      },
+      choices: () => values().prediction === null ? ["Continue"] : CHECK_OPTIONS,
       button_layout: "flex",
       button_html: (choice) => `<button class="jspsych-btn check-btn">${choice}</button>`,
+      data: { task: "prediction_comparison", cycle: c.cycle, condition },
+      on_finish: (data) => {
+        const { prediction, actual } = values();
+        const expected = prediction === null ? null : prediction > actual ? "higher" : prediction < actual ? "lower" : "same";
+        const choice = expected === null ? null : CHECK_KEYS[data.response];
+        const passed = expected === null ? null : choice === expected;
+        Object.assign(data, { attempt: ++attempt, prediction, actual, expected, choice, passed });
+        retry = passed === false;
+      },
+    };
+    return { timeline: [question], loop_function: () => retry };
+  }
+
+  function scoreCheck(c, condition) {
+    const label = condition === "read" ? "read" : "pretested";
+    const score = () => results[c.cycle][condition + "_correct"];
+    let options;
+    return {
+      type: jsPsychHtmlButtonResponse,
+      stimulus: () => `<h2>Round ${c.cycle} score check</h2>
+        <p>For the <strong>${label}</strong> word pairs, your actual score was
+        <strong class="score-check-value">${score()}</strong> out of 16.</p>
+        <p>What was your actual score for those pairs?</p>`,
+      choices: () => {
+        const first = Math.max(0, Math.min(13, score() - 1));
+        options = jsPsych.randomization.shuffle(Array.from({ length: 4 }, (_, i) => first + i));
+        return options.map(String);
+      },
       data: { task: "attention_check", cycle: c.cycle, condition },
       on_finish: (data) => {
-        const r = results[c.cycle];
-        const pred = r[condition + "_prediction"];
-        const actual = r[condition + "_correct"];
-        data.choice = CHECK_KEYS[data.response];
-        data.prediction = pred ?? null;
-        data.actual = actual;
-        data.expected = pred === null || pred === undefined ? null : pred > actual ? "higher" : pred < actual ? "lower" : "same";
-        data.passed = data.expected === null ? null : data.choice === data.expected;
+        const choice = options[data.response];
+        const actual = score();
+        Object.assign(data, { choice, actual, expected: actual, passed: choice === actual });
       },
     };
   }
@@ -595,9 +649,10 @@ function scoreLenient(response, target) {
       const checks = jsPsych.randomization.shuffle(["read", "pretest"]);
       timeline.push(
         feedbackScreen(c, { withPredictions: true, viewing: 1 }),
-        predictionCheck(c, checks[0]),
-        predictionCheck(c, checks[1]),
+        predictionComparison(c, checks[0]),
+        predictionComparison(c, checks[1]),
         feedbackScreen(c, { withPredictions: true, viewing: 2 }),
+        scoreCheck(c, checks[0]),
       );
     } else {
       timeline.push(feedbackScreen(c, { withPredictions: false, viewing: 1 }), attribution(c));
