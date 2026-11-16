@@ -14,7 +14,8 @@ const { test, expect, devices } = require("@playwright/test");
 
 const EMULATOR = process.env.EMULATOR === "1" || !!process.env.FIRESTORE_EMULATOR_HOST;
 const PROJECT = "demo-psych251";
-const EXPERIMENT_ID = "pan2023-pilot-b";
+const EXPERIMENT_ID = "pan2023-phase2";
+const PILOT_ID = "pan2023-phase2-pilot";
 const FS = `http://localhost:8080/v1/projects/${PROJECT}/databases/(default)/documents`;
 
 // Every run uses ?speed=50: the 5 s study screens become 100 ms and each 5-minute Tetris
@@ -34,7 +35,7 @@ async function surveyContinue(page) {
 
 // Plays one cycle. Recall answers: every second pair right, one pair with a typo (which the
 // lenient scoring accepts), the rest left blank.
-async function runCycle(page, cycle) {
+async function runCycle(page, cycle, { declinePrediction = false, failScoreCheck = false } = {}) {
   // Learning instructions (two pages); the study phase then runs by itself.
   await clickNext(page);
   await clickNext(page);
@@ -49,7 +50,11 @@ async function runCycle(page, cycle) {
     await box.waitFor({ state: "visible", timeout: 60000 });
     // Both prediction screens use the same input, so wait for this screen's title to go.
     const which = await page.getByText(/^There were 16 (read|pretested) word pairs\.$/).textContent();
-    await box.fill("8");
+    if (declinePrediction && i === 0) {
+      await page.getByText("Prefer not to answer", { exact: true }).click();
+    } else {
+      await box.fill("8");
+    }
     await surveyContinue(page);
     await page.getByText(which, { exact: true }).waitFor({ state: "detached" });
   }
@@ -89,12 +94,29 @@ async function runCycle(page, cycle) {
       const which = (await q.textContent()).trim();
       const actual = scores[which];
       const option = 8 > actual ? "My prediction was higher than my actual score." : 8 < actual ? "My prediction was lower than my actual score." : "My prediction equaled my actual score.";
-      await page.getByRole("button", { name: option, exact: true }).click();
+      await expect(page.locator(".comparison-score")).toHaveText(String(actual));
+      if (await page.locator(".comparison-prediction").textContent() === "Skipped") {
+        await page.getByRole("button", { name: "Continue", exact: true }).click();
+      } else {
+        await expect(page.locator(".comparison-prediction")).toHaveText("8");
+        const wrong = option.startsWith("My prediction was higher") ? "My prediction was lower" : "My prediction was higher";
+        await page.getByRole("button", { name: new RegExp(wrong) }).click();
+        await expect(page.getByRole("alert").filter({ hasText: "try again" })).toBeVisible();
+        await expect(q).toHaveText(which);
+        await page.getByRole("button", { name: option, exact: true }).click();
+      }
       // The two check screens look alike, so wait for this one's condition word to go.
       await page.locator(".question strong", { hasText: new RegExp(`^${which}$`) }).waitFor({ state: "detached" });
     }
     await expect(page.getByText("once more")).toBeVisible();
     await page.getByRole("button", { name: "Continue" }).click();
+    const scoreCheck = page.locator(".score-check-value");
+    await expect(scoreCheck).toBeVisible();
+    const scoreValue = await scoreCheck.textContent();
+    await page.getByRole("button", {
+      name: failScoreCheck ? new RegExp(`^(?!${scoreValue}$)\\d+$`) : scoreValue,
+      exact: !failScoreCheck,
+    }).first().click();
   } else {
     await page.getByText("Lucky guesses").click();
     await surveyContinue(page);
@@ -102,7 +124,7 @@ async function runCycle(page, cycle) {
   return scores;
 }
 
-async function runThroughExperiment(page, { finish = true } = {}) {
+async function runThroughExperiment(page, { finish = true, declinePrediction = false, failScoreCheck = false } = {}) {
   await page.getByRole("button", { name: "I agree to participate" }).click();
   await clickNext(page);
   await clickNext(page);
@@ -111,7 +133,7 @@ async function runThroughExperiment(page, { finish = true } = {}) {
   await page.locator('[data-name="native_english"]').getByText("Yes", { exact: true }).first().click();
   await surveyContinue(page);
 
-  await runCycle(page, 1);
+  await runCycle(page, 1, { declinePrediction, failScoreCheck });
   await page.getByRole("heading", { name: "Round 2" }).waitFor();
   await clickNext(page);
   await runCycle(page, 2);
@@ -251,9 +273,16 @@ test.describe("experiment", () => {
       expect(fb[0].pretest_correct).toBe(test.filter((t) => t.condition === "pretest" && t.correct).length);
       expect(fb[0].with_predictions).toBe(cycle === 1);
     }
-    // Attention checks (Cycle 1): both answered correctly by the robot.
+    const comparisons = trials.filter((t) => t.task === "prediction_comparison");
+    expect(comparisons.length).toBe(4);
+    for (const condition of ["read", "pretest"]) {
+      expect(comparisons.filter((t) => t.condition === condition)
+        .sort((a, b) => a.attempt - b.attempt).map((t) => [t.attempt, t.passed]))
+        .toEqual([[1, false], [2, true]]);
+    }
+    // The functional score check is one-shot and separate from comparison practice.
     const checks = trials.filter((t) => t.task === "attention_check");
-    expect(checks.length).toBe(2);
+    expect(checks.length).toBe(1);
     expect(checks.every((t) => t.passed === true)).toBe(true);
     expect(trials.find((t) => t.task === "attribution").attribution).toBe("lucky_guesses");
     const exit = trials.find((t) => t.task === "exit_questions");
@@ -262,6 +291,24 @@ test.describe("experiment", () => {
     // Every trial row must carry the same participant id as its participant document,
     // otherwise trials.csv and participants.csv cannot be joined in the analysis.
     expect([...new Set(trials.map((t) => t.participant_id))]).toEqual([uid]);
+  });
+
+  test("pilot runs stay separate and finish after a declined prediction and a failed score check", async ({ page }) => {
+    await page.goto(url("pilot=1"));
+    await runThroughExperiment(page, { declinePrediction: true, failScoreCheck: true });
+    const { id, docId, trials } = await page.evaluate(() => ({
+      id: window.__saver.opts.experiment_id,
+      docId: window.__saver.docId,
+      trials: window.__saver.allTrials,
+    }));
+    expect(id).toBe(PILOT_ID);
+    expect(trials.filter((t) => t.task === "attention_check").map((t) => t.passed)).toEqual([false]);
+    expect(trials.filter((t) => t.task === "prediction_comparison" && t.prediction === null)
+      .map((t) => [t.attempt, t.passed])).toEqual([[1, null]]);
+    if (EMULATOR) {
+      expect((await fsGet(`experiments/${PILOT_ID}/participants/${docId}`)).status).toBe(200);
+      expect((await fsGet(`experiments/${EXPERIMENT_ID}/participants/${docId}`)).status).toBe(404);
+    }
   });
 
   test("chunked writes (chunk_size > 1) save every trial", async ({ page }) => {
