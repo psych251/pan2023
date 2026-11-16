@@ -64,8 +64,9 @@ async function runCycle(page, cycle, { declinePrediction = false, failScoreCheck
   await page.locator("#tetris-board").waitFor({ state: "visible" });
   for (const k of ["ArrowLeft", "ArrowUp", "ArrowRight", "Space", "ArrowDown"]) await page.keyboard.press(k);
 
-  // Test: instructions, then 32 self-paced items.
+  // Test: instructions, then 32 timed recall items.
   await page.getByRole("heading", { name: "Memory test" }).waitFor({ timeout: 60000 });
+  await expect(page.getByText("12 seconds per word pair", { exact: true })).toBeVisible();
   await clickNext(page);
   const answers = await page.evaluate(() =>
     Object.fromEntries(Object.values(window.STIMULI).flat().map(([cue, target]) => [cue, target])));
@@ -77,8 +78,13 @@ async function runCycle(page, cycle, { declinePrediction = false, failScoreCheck
     if (i === 1) answer = answers[cue].slice(0, -1);       // one typo: last letter missing
     else if (i % 2 === 0) answer = answers[cue].toUpperCase() + " ";
     await page.locator("#jspsych-survey-text-form input[type=text]").fill(answer);
-    await page.keyboard.press("Enter");
-    await page.locator(`.pair[data-cue="${cue}"]`).waitFor({ state: "detached" });
+    const testTimeout = declinePrediction && i === 0;
+    if (!testTimeout) await page.keyboard.press("Enter");
+    await page.locator(`.pair[data-cue="${cue}"]`).waitFor({ state: "detached", timeout: 15000 });
+    if (testTimeout) {
+      const saved = await page.evaluate(() => window.__saver.allTrials.at(-1));
+      expect(saved).toMatchObject({ cycle, cue, answer, correct: true, timed_out: true });
+    }
   }
 
   // Feedback: read the scores shown, so the attention checks can be answered correctly.
@@ -110,6 +116,7 @@ async function runCycle(page, cycle, { declinePrediction = false, failScoreCheck
     }
     await expect(page.getByText("once more")).toBeVisible();
     await page.getByRole("button", { name: "Continue" }).click();
+    await expect(page.getByText("Please select the number shown below.", { exact: true })).toBeVisible();
     const scoreCheck = page.locator(".score-check-value");
     await expect(scoreCheck).toBeVisible();
     const scoreValue = await scoreCheck.textContent();
