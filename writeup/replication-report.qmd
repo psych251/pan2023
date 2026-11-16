@@ -47,8 +47,8 @@ exclusion rule, and the key comparison.
 library(tidyverse)
 library(jsonlite)
 
-# Must match EXPERIMENT.id in experiment.js, and the --experiment you passed to the export.
-# Phase 2 runs under its own id, so its data never mix with Phase 1's.
+# Match each phase's export ID. EXPERIMENT.id now points to Phase 2.
+# Phase 2 pilot sessions have a separate ID and are not loaded by this report.
 # The final export includes the five soft-launch sessions and the rest of Phase 1.
 experiment_id        <- "pan2023-final"
 experiment_id_pilot_b <- "pan2023-pilot-b"
@@ -94,8 +94,8 @@ original_contrast <- list(N = 52, mean = 1.4038, sd = 3.0631)
 
 - **Original paper:** Pan & Rivers (2023). Metacognitive awareness of the pretesting effect improves with self‑regulation support. Memory & Cognition (2023) 51:1461–1480. <https://doi.org/10.3758/s13421-022-01392-1>
 - **Original Paper Preregistration:** [OSF registration](https://osf.io/64x5k) [OSF materials & methods video] (https://osf.io/htjqz/files/24efh) *(original prereg was 04-29-2020, & experiment video 04-9-2020, before final publish 01-13-2023)*
-- **Preregistration:** [OSF registration](https://osf.io/XXXXX) *(registered YYYY-MM-DD, before final data collection)*
-- **Live experiment:** <https://psych251.github.io/pan2023/> (take the study exactly as participants did)
+- **Preregistration:** [Phase 1 OSF registration](https://osf.io/2cmrv/overview) *(registered November 1, 2026 and updated November 5, 2026)*
+- **Live experiment:** <https://psych251.github.io/pan2023/?pilot=1> (Phase 2 pilot)
 - **Repository:** <	https://github.com/psych251/pan2023> (experiment code, data, and this report)
 :::
 
@@ -105,6 +105,7 @@ original_contrast <- list(N = 52, mean = 1.4038, sd = 3.0631)
 | *Opus 5.5* | *Explained ANOVA applications in original paper to me to understand how replication would occur* | *Compared model output explanation to original paper description* | *Oct 4 - Introduction/proposal writing* |
 | *GPT 6.1-Sol* | *GPT built out the paradigm for me based upon context I gave it(uploading Pan & Rivers OSF materials so full exact original procedure was shown* | *Compared model output code & went through several tests of interface itself to ensure it was identical* | *Oct 18* |
 | *GPT 6.1-Sol* | *GPT helped me understand how I was interpreting Pilot B results, and helped ensure some of the interpretation code was running correctly & integrated properly* | *Ensured it's changes were accurate through checking the qmd & github* | *Oct 27* |
+| Codex and independent review agent | Phase 1 robustness audit, Phase 2 feedback implementation, analysis code, and automated tests | Recomputed Phase 1 results from anonymous exports and compared the primary analysis with the paper and the repository's preregistration snapshot | Nov 15 |
 
 # Key statistics
 
@@ -125,7 +126,7 @@ adapt its code and say so in the caption.
 
 # Load one phase's exported data and apply the exclusion rule. Returns NULL if that phase
 # has not been exported yet, which is how every section below knows to skip itself.
-read_phase <- function(id) {
+read_phase <- function(id, expected_checks = 2L) {
   dir <- file.path("..", "data", "raw", id)
   if (!all(file.exists(file.path(dir, c("participants.csv", "trials.csv"))))) return(NULL)
   participants <- read_csv(file.path(dir, "participants.csv"), show_col_types = FALSE)
@@ -149,21 +150,33 @@ read_phase <- function(id) {
   # same as how well I actually performed" questions). Also exclude anyone missing one of the
   # four predictions, since the key test needs all four.
   checks <- trials |>
-    filter(task == "attention_check") |>
+    filter(task == "attention_check", cycle == 1L) |>
     group_by(participant_id) |>
-    summarise(checks_passed = sum(as.logical(passed) %in% TRUE), .groups = "drop")
+    summarise(
+      n_checks = n(), checks_passed = sum(as.logical(passed) %in% TRUE),
+      valid_conditions = n_distinct(condition) == expected_checks &&
+        all(condition %in% c("read", "pretest")),
+      .groups = "drop"
+    )
   n_preds <- trials |>
     filter(task == "prediction") |>
     group_by(participant_id) |>
-    summarise(n_pred = sum(!is.na(prediction)), .groups = "drop")
+    summarise(
+      n_pred = sum(!is.na(prediction)),
+      has_predictions = n() == 4L && n_distinct(cycle, condition) == 4L &&
+        all(cycle %in% 1:2 & condition %in% c("read", "pretest") & prediction %in% 0:16),
+      .groups = "drop"
+    )
   checked <- complete |>
     select(participant_id) |>
     left_join(checks, by = "participant_id") |>
     left_join(n_preds, by = "participant_id") |>
-    mutate(checks_passed   = replace_na(checks_passed, 0),
+    mutate(n_checks        = replace_na(n_checks, 0L),
+           checks_passed   = replace_na(checks_passed, 0L),
            n_pred          = replace_na(n_pred, 0),
-           passed_checks   = checks_passed == 2,
-           has_predictions = n_pred == 4)
+           passed_checks   = n_checks == expected_checks & checks_passed == expected_checks &
+             replace_na(valid_conditions, FALSE),
+           has_predictions = replace_na(has_predictions, FALSE))
   keep <- complete |>
     semi_join(filter(checked, passed_checks, has_predictions), by = "participant_id")
 
@@ -220,11 +233,12 @@ contrast_test <- function(x) {
 
 # The key statistic: the cycle x condition interaction on predictions,
 # (pretest - read in Cycle 2) - (pretest - read in Cycle 1).
-key_contrast <- function(d) {
+interaction_scores <- function(d) {
   w <- wide_cells(prediction_data(d))
-  if (!all(c("read_1", "pretest_1", "read_2", "pretest_2") %in% names(w))) return(NULL)
-  contrast_test((w$pretest_2 - w$read_2) - (w$pretest_1 - w$read_1))
+  if (!all(c("read_1", "pretest_1", "read_2", "pretest_2") %in% names(w))) return(numeric())
+  (w$pretest_2 - w$read_2) - (w$pretest_1 - w$read_1)
 }
+key_contrast <- function(d) contrast_test(interaction_scores(d))
 original_key <- contrast_test(original_contrast)
 
 # contrast_test() with extra label columns; NULL (dropped by bind_rows) when it cannot be computed.
@@ -258,7 +272,7 @@ comparison_plot <- function(..., ylab = "Predicted number correct (out of 16)", 
 }
 
 phase1 <- read_phase(experiment_id)
-phase2 <- read_phase(experiment_id_phase2)
+phase2 <- read_phase(experiment_id_phase2, expected_checks = 1L)
 pilot_b <- read_phase(experiment_id_pilot_b)
 have_data   <- !is.null(phase1)
 have_phase2 <- !is.null(phase2)
@@ -268,9 +282,9 @@ have_pilot_b <- !is.null(pilot_b)
 ```{r}
 #| label: key-stats
 #| echo: false
-fmt_row <- function(study, r) {
+fmt_row <- function(study, r, available = TRUE) {
   if (is.null(r)) {
-    return(tibble(Study = study, N = "", `Interaction (prediction points)` = "not yet collected",
+    return(tibble(Study = study, N = "", `Interaction (prediction points)` = if (available) "not estimable" else "not yet collected",
                   `95% CI` = "", F = "", p = "", `ηp²` = ""))
   }
   tibble(Study = study, N = as.character(r$N),
@@ -282,8 +296,8 @@ fmt_row <- function(study, r) {
 }
 bind_rows(
   fmt_row("Original (Exp 3)", original_key),
-  fmt_row("Phase 1: replication", if (have_data) key_contrast(phase1)),
-  fmt_row("Phase 2: extension", if (have_phase2) key_contrast(phase2))
+  fmt_row("Phase 1: replication", if (have_data) key_contrast(phase1), have_data),
+  fmt_row("Phase 2: extension", if (have_phase2) key_contrast(phase2), have_phase2)
 ) |>
   knitr::kable(align = "lrrlllr",
                caption = "Key comparison: cycle × condition interaction on predictions, i.e. the change from Cycle 1 to Cycle 2 in (pretest − read) predicted recall, out of 16.")
@@ -309,7 +323,7 @@ An extension possibility I am considering is assigning a control group with no f
 
 :The key effect in the original experiment (for part 3 that I'm specifically replicating) is the practice condition, or how a word pair was studied with either pre-testing or pure reading, and which cycle round of the experiment the participant was in, and applying analysis to the participant's predictions for each. This results in a 2x2 ANOVA with two factors and two levels for each factor for cycle and testing condition, with key statistics of $F(1, 51) = 10.92$, $p = .0017$, $\eta_p^2 = .18$. The table shows that to detect the effect with .5, it would require n to be 40, 52, & 64 for 80%, 90%, & 95% power, respectively. For avoiding an underpowered study, budget constraints limit a full 2.5x sample size analysis, which would be 130 participants taking a ~35 minute test(with 10 minutes of tetris).
 
-Since our budget constraints would be around ~70 participants for this study, power analysis at that sample size would vary in how much the original effect is shown. If the effect is equal to the original study's amount, a replication with n = 70(assuming a similar 13.6% exclusion rate as original experiment, so payment would be for n = 81) would yield 97% power, but only 47% if the effect size is half as such. Therefore, if the study is ran, it would only be able to detect the original effect size from it's original amount to about a 25% smaller effect(at 81% power), but would be fairly underpowered to meaningfully detect a smaller effect size. An option I can use to maximize budget and  use is Prolific's running slots for participants, adding participants that meet exclusion criteria until I have enough sampling to meet 70, as well as using confidence intervals along with p values in my analysis to help take this into account.
+Since our budget constraints would be around ~70 participants for this study, power analysis at that sample size would vary in how much the original effect is shown. If the effect is equal to the original study's amount, a replication with n = 70(assuming a similar 13.3% exclusion rate as original experiment, so payment would be for n = 81) would yield 97% power, but only 47% if the effect size is half as such. Therefore, if the study is ran, it would only be able to detect the original effect size from it's original amount to about a 25% smaller effect(at 81% power), but would be fairly underpowered to meaningfully detect a smaller effect size. An option I can use to maximize budget and  use is Prolific's running slots for participants, adding participants that meet exclusion criteria until I have enough sampling to meet 70, as well as using confidence intervals along with p values in my analysis to help take this into account.
 
 ```{r}
 #| label: power
@@ -349,7 +363,7 @@ https://osf.io/htjqz/files/24efh
 
 The overall experiment takes around ~30 minutes for participants, starting off with informed consent and demographic questions(including age, gender, and english proficiency confirmation)
 
-In the first cycle, 32 pairs are presented in random order, with half of them shown through reading and the other half through pretesting. Both reading and pretesting conditions here showed the words and option to type in a word for 5 seconds, with the full pair appearing after that time for the pretesting pairs. After this session, participants made two predictions in random order predicting from 0-16 how well they could do next test. They then play Tetris for 5 minutes as a distractor activity with no words, after which they undergo the recall test on the same 32 pairs all at once, with no feedback after each pair, and paced at their own level, allowing as much time as needed to complete the pair. After this, the cycle is complete and participants are shown their scores for each part of the cycle. This is where participants are required to answer a question that asks them to place whether their prediction was higher, lower than, or the same as their performance for each condition. This is helpful because it functions as an attention check, and also helps emphasize to participants their performance on read pairs and pretested pairs. After this, participants are shown are shown their performance feedback screen once more, and they continue to Cycle 2.
+In the first cycle, 32 pairs are presented in random order, with half of them shown through reading and the other half through pretesting. Read trials displayed intact pairs for 5 seconds. Pretest trials gave participants 5 seconds to type a guess before displaying the intact pair for 5 seconds. After this session, participants made two predictions in random order predicting from 0-16 how well they could do next test. They then play Tetris for 5 minutes as a distractor activity with no words, after which they undergo the recall test on the same 32 pairs all at once, with no feedback after each pair, and paced at their own level, allowing as much time as needed to complete the pair. After this, the cycle is complete and participants are shown their scores for each part of the cycle. This is where participants are required to answer a question that asks them to place whether their prediction was higher, lower than, or the same as their performance for each condition. This is helpful because it functions as an attention check, and also helps emphasize to participants their performance on read pairs and pretested pairs. After this, participants are shown are shown their performance feedback screen once more, and they continue to Cycle 2.
 
 Cycle 2 is the same structure as Cycle 1, with 32 new pairs of words, and ending with feedback only of their scores, no reminders of predictions. They are then asked a question about where they attribute their performance, likely improved performance, to testing conditions, performance over time, and others.
 
@@ -562,8 +576,7 @@ if (!have_data) {
 ```{r}
 #| label: phase1-data
 #| eval: !expr have_data
-# Loaded and excluded by read_phase(), under Key statistics, so Phase 1 and Phase 2 share one
-# exclusion rule.
+# Loaded and excluded by read_phase(), with the attention check count set by phase.
 participants <- phase1$participants
 trials       <- phase1$trials
 errors       <- phase1$errors
@@ -571,6 +584,13 @@ complete     <- phase1$complete
 checked      <- phase1$checked
 keep         <- phase1$keep
 ```
+```{r}
+#| label: phase1-content-start
+#| echo: false
+#| results: asis
+if (!have_data) cat("<!--\n")
+```
+
 ### Phase 1 Sample
 
 52 Prolific participants consented and completed the replicated experiment, including 5 initial test participants with new procedural information. The median completion timing was ~31.6 minutes, ranging from 24 to 73 minutes. Only 30 participants met criteria with 22 being excluded, 11 of which failed both prediction & performance checks. 
@@ -641,7 +661,7 @@ The initial sample size was planned to be 70 analyzable participants, however gi
 
 ### Data preparation
 
-Participants and trial records used participant IDs as identifiers, and overall sessions were complete if it was counted as complete from beginning to end including consent & final debrief question on validity of instructions given. Participants entered the actual analysis if they answered the prediction & performance comparison questions of their own answers correctly for all four recall predictions. This is especially important because it not only functions as an attention check, but it is important for the participant to see their typically superior performance in the pre-test condition and understand that before predicting for Cycle 2. For each participant, the difference between predicted recall for pretested and read matching pairs were calculated for each cycle, and the Cycle 1 difference was subtracted from the Cycle 2 difference. For the actual recall, pretested pairs the participant guessed correctly were omitted from analysis and the proportion of pairs recalled in each cycle and practice condition were scored leniently and factored into prediction viewings for participants.
+Participants and trial records used participant IDs as identifiers, and overall sessions were complete if it was counted as complete from beginning to end including consent & final debrief question on validity of instructions given. Participants entered the actual analysis if they answered the prediction & performance comparison questions for both Cycle 1 conditions correctly and provided all four numeric predictions. This is especially important because it not only functions as an attention check, but it is important for the participant to see their typically superior performance in the pre-test condition and understand that before predicting for Cycle 2. For each participant, the difference between predicted recall for pretested and read matching pairs were calculated for each cycle, and the Cycle 1 difference was subtracted from the Cycle 2 difference. For the actual recall, pretested pairs the participant guessed correctly were omitted from analysis and the proportion of pairs recalled in each cycle and practice condition were scored leniently and factored into prediction viewings for participants.
 
 ### Confirmatory analysis
 The primary test to look at was the cycle & practice condition interaction in a 2x2 repeated ANOVA for the predicted recall. 
@@ -681,7 +701,7 @@ if (!is.null(key1)) {
   message("Key test not computed yet: needs at least two analysed participants whose contrasts are not all identical.")
 }
 
-# Follow-up tests reported in the original: pretest vs read predictions within each cycle.
+# Whole-sample follow-ups specified in the replication plan. The paper reports subgroup follow-ups.
 w <- wide_cells(preds)
 if (nrow(w) >= 2 && all(c("read_1", "pretest_1", "read_2", "pretest_2") %in% names(w))) {
   follow <- bind_rows(
@@ -694,6 +714,65 @@ if (nrow(w) >= 2 && all(c("read_1", "pretest_1", "read_2", "pretest_2") %in% nam
               t = sprintf("t(%d) = %.2f", df, t), p = format.pval(p, digits = 2, eps = 0.001)) |>
     knitr::kable(caption = "Predictions for pretested minus read pairs within each cycle.")
 }
+```
+
+### Phase 1 robustness checks
+
+```{r}
+#| label: phase1-robustness
+#| eval: !expr have_data
+all_predictions <- phase1
+all_predictions$keep <- phase1$complete |>
+  semi_join(filter(phase1$checked, has_predictions), by = "participant_id")
+
+primary_scores <- interaction_scores(phase1)
+max_influence <- which.max(abs(primary_scores - mean(primary_scores)))
+top_k <- seq_len(min(5L, max(0L, length(primary_scores) - 2L)))
+ranked_scores <- sort(primary_scores, decreasing = TRUE)
+robustness <- bind_rows(
+  labelled_test(primary_scores, Analysis = "Preregistered inclusion rule"),
+  labelled_test(interaction_scores(all_predictions), Analysis = "All complete sessions with four predictions"),
+  labelled_test(primary_scores[-max_influence], Analysis = "Omit the most influential contrast (diagnostic)"),
+  map_dfr(top_k, function(k) {
+    labelled_test(ranked_scores[-seq_len(k)],
+                  Analysis = sprintf("Omit %d highest contrasts (diagnostic)", k))
+  })
+)
+if (nrow(robustness)) {
+  robustness |>
+    transmute(Analysis, N, `Interaction (items)` = round(estimate, 2),
+              `95% CI` = sprintf("[%.2f, %.2f]", ci_low, ci_high),
+              p = format.pval(p, digits = 3, eps = .001)) |>
+    knitr::kable(caption = "Phase 1 prediction interaction under the planned rule and post hoc sensitivity specifications.")
+}
+```
+
+| Audit item | Verified definition |
+|---|---|
+| Original Experiment 3 sample | 52 analyzed and eight additional attention-check exclusions, 8/60 (13.3%). |
+| Phase 1 registered target | The initial plan called for 70 analyzable participants. The November 5 OSF update changed the planned sample size to 52 and documented the procedural wording change after the five-person soft launch. |
+| Phase 1 eligibility for analysis | Consent, completed session with debrief, one correct Cycle 1 check for each condition, and four numeric predictions. |
+| Phase 1 exclusions | 22 completers did not pass both checks. Of these, 21 answered at least one check incorrectly. Two participants declined one or more predictions, and both already failed the check criterion. |
+| Online feedback | Raw count correct out of 16 per condition, using lenient scoring. |
+| Analytic recall | Proportion correct per condition after dropping correctly guessed pretest items. |
+
+```{r}
+#| label: phase1-recall-scoring-sensitivity
+#| eval: !expr have_data
+scoring_results <- map_dfr(c("correct", "correct_strict"), function(scoring) {
+  scores <- wide_cells(recall_data(phase1, scoring))
+  if (!all(c("read_1", "pretest_1", "read_2", "pretest_2") %in% names(scores))) return(NULL)
+  bind_rows(
+    labelled_test(scores$pretest_1 - scores$read_1, Scoring = scoring, Cycle = 1L),
+    labelled_test(scores$pretest_2 - scores$read_2, Scoring = scoring, Cycle = 2L)
+  )
+})
+if (nrow(scoring_results)) scoring_results |>
+  transmute(Scoring = recode(Scoring, correct = "Lenient", correct_strict = "Strict"),
+            Cycle, N, `Difference (percentage points)` = round(100 * estimate, 2),
+            `95% CI` = sprintf("[%.2f, %.2f]", 100 * ci_low, 100 * ci_high),
+            p = format.pval(p, digits = 3, eps = .001)) |>
+  knitr::kable(caption = "Recall scoring sensitivity with the same pretest-guess exclusions.")
 ```
 
 ### Replication assessment
@@ -718,6 +797,23 @@ if (!is.null(rep)) {
     knitr::kable(caption = "Effect size: change from Cycle 1 to Cycle 2 in the pretest − read difference in predictions.")
 } else {
   message("Replication effect size not computed yet: need at least two analysed participants.")
+}
+```
+
+```{r}
+#| label: between-study-sensitivity
+#| eval: !expr have_data
+if (!is.null(rep)) {
+  difference <- rep$estimate - orig$estimate
+  v_rep <- rep$sd^2 / rep$N
+  v_orig <- orig$sd^2 / orig$N
+  se <- sqrt(v_rep + v_orig)
+  df <- (v_rep + v_orig)^2 / (v_rep^2 / rep$df + v_orig^2 / orig$df)
+  margin <- qt(.975, df) * se
+  tibble(`Phase 1 minus original (items)` = round(difference, 3),
+         `95% CI` = sprintf("[%.3f, %.3f]", difference - margin, difference + margin),
+         p = round(2 * pt(-abs(difference / se), df), 3)) |>
+    knitr::kable(caption = "Exploratory Welch comparison incorporating both samples’ uncertainty.")
 }
 ```
 
@@ -857,10 +953,17 @@ The replication displays the benefit of pretesting in recall testing, but was fa
 
 ### Commentary
 
-A challenge that may have contributed to the high failure rate, which could have tainted participant understanding is due to the Cycle 1 comparison questions and how participants interpreted them. In the questions given to participants after Cycle 1, their real scores as well as their predictions were shown to them in a table of four values. In the following page, they would have to confirm which scores were higher or lower than their predictions, which is intended to help participants fully understand the degree to which pre-testing is effective in their performance, as well as function as an attention check. An incorrect answer in these questions shows difficulty in seeing that pre-testing is functionally better than reading pairs to learn the pairs. We also cannot distinguish among these possibilities, but 22 of 52 participants were excluded as a result. In the original experiment, 8 of 62 participants were excluded for failed attention checks  by Pan and Rivers. Since this is such a drastic change, it's possible that the sample of 30 used disproportionately reflects participants who specifically remembered and answered correctly.
+A challenge that may have contributed to the high failure rate, which could have tainted participant understanding is due to the Cycle 1 comparison questions and how participants interpreted them. In the questions given to participants after Cycle 1, their real scores as well as their predictions were shown to them in a table of four values. In the following page, they would have to confirm which scores were higher or lower than their predictions, which is intended to help participants fully understand the degree to which pre-testing is effective in their performance, as well as function as an attention check. An incorrect answer in these questions shows difficulty in seeing that pre-testing is functionally better than reading pairs to learn the pairs. We also cannot distinguish among these possibilities, but 22 of 52 participants were excluded as a result. In the original experiment, 8 of 60 participants were excluded for failed attention checks  by Pan and Rivers. Since this is such a drastic change, it's possible that the sample of 30 used disproportionately reflects participants who specifically remembered and answered correctly.
 
 
 A follow up could keep each prediction and score visible during comparison questions, ensuring participants cross reference answers and do not let them pass until answering correctly.
+
+```{r}
+#| label: phase1-content-end
+#| echo: false
+#| results: asis
+if (!have_data) cat("-->\n")
+```
 
 # Phase 2: Extension
 
@@ -878,8 +981,9 @@ Since the comparison questions require comparison with participants own performa
 
 | # | Category | Phase 1 | Phase 2 | Why |
 |---|---|---|---|---|
-| 1 | Sample | Recruitment ended at 52 participants with 30 analyzed | We can recruit a new sample with 30 participants, consistent with Phase 1 | Budget constraints reduce my sample size, or recruiting until 30 valid participants as a stopping point would be ideal |
-| 2 | Checks | Predictions & scores are shown on one screen, and feedback questions about their performance are shown on the following screen to participants | Each comparison question displays the participant's own prediction & performance while the questions are asked | Participants can make the comparison without misremembering, and are also required to answer correctly and understand pre-testing's effect  |
+| 1 | Sample | 52 completers, 30 analyzed | 30 new Prolific participants recruited, with 26 projected for analysis at 13.33% assumed exclusions | Budget and Phase 2 precision planning |
+| 2 | Cycle 1 comparisons | One response per comparison, with the values on the preceding screen | The prediction and score for that condition stay visible. An incorrect response prompts another attempt. A declined prediction is logged as unscorable and the participant can continue. | Reduce reliance on memory for the displayed values |
+| 3 | Cycle 1 attention check | Two comparison responses determine attention-check eligibility | After the second feedback display, one separate score lookup for the first randomly ordered condition, with the answer visible on screen, four answer options, and one attempt. All participants can continue. | Measure attention separately from the comparison practice |
 
 Everything not listed above is identical to Phase 1.
 
@@ -918,8 +1022,13 @@ if (!is.null(p1_key)) {
 
 ## Analysis plan
 
-I will use the same primary test as in Phase 1, and for each participant, I will subtract the Cycle 1 difference from Cycle 2. This mean will be used in the two sided ANOVA, for cycle and practice condition of pretesting or reading. The main analysis will use Phase 2 data only, and participants must complete the study's comparison questions even if they fail attention checks - I will compare these values of failure rates & wrong answers on these questions as well as failures of attention checks before comparing alongside ANOVA tests.
+I will use the same primary test as in Phase 1, and for each participant, I will subtract the Cycle 1 difference from Cycle 2. This mean will be used in a two-sided test of the cycle × practice interaction. The main analysis will use Phase 2 data only, and participants must complete the study's comparison questions even if they fail attention checks - I will compare these values of failure rates & wrong answers on these questions as well as failures of attention checks before comparing alongside ANOVA tests.
 
+| Analysis decision | Specification |
+|---|---|
+| Confirmatory outcome | Phase 2 only. For each participant, subtract the Cycle 1 prediction difference (pretest minus read) from the equivalent Cycle 2 difference. Report the mean and 95% CI, two-sided repeated-measures interaction test at α = .05, and partial η². |
+| Exclusions | Exclude incomplete sessions, sessions missing any of the four numeric predictions, and sessions that fail or lack the single functional score check. Comparison retries are retained. |
+| Comparison with Phase 1 | Report each phase's interaction and 95% CI side by side. Report first-attempt comparison errors among scorable attempts and exclusions among completers by phase. The two phases use different attention-check rules and separate cohorts. No pooled estimate. |
 
 ## Results
 
@@ -955,9 +1064,34 @@ if (!is.null(p2_key)) {
 #| label: phase2-checks
 #| eval: !expr have_phase2
 phase2$checked |>
-  count(`Comparison checks passed` = checks_passed,
+  count(`Functional score check passed` = passed_checks,
         `All four predictions present` = has_predictions, name = "N") |>
-  knitr::kable(caption = "Comparison-check and prediction completeness among Phase 2 completers.")
+  knitr::kable(caption = "Functional score-check and prediction completeness among Phase 2 completers.")
+
+comparison_attempts <- function(d, task_name, first_only) {
+  rows <- d$trials |>
+    filter(task == task_name, cycle == 1L, participant_id %in% d$complete$participant_id)
+  if (first_only && nrow(rows)) rows <- filter(rows, attempt == 1L)
+  rows |>
+    group_by(condition) |>
+    summarise(first_attempts = n(), scorable = sum(!is.na(passed)),
+              incorrect = sum(as.logical(passed) %in% FALSE), .groups = "drop")
+}
+bind_rows(
+  if (have_data) comparison_attempts(phase1, "attention_check", FALSE) |> mutate(Phase = "Phase 1"),
+  comparison_attempts(phase2, "prediction_comparison", TRUE) |> mutate(Phase = "Phase 2")
+) |>
+  mutate(`First-attempt error rate` = if_else(scorable > 0, scales::percent(incorrect / scorable), NA_character_)) |>
+  select(Phase, condition, first_attempts, scorable, incorrect, `First-attempt error rate`) |>
+  knitr::kable(caption = "First-attempt comparison responses among completers. Phase 1 comparisons also served as attention checks.")
+
+phase_counts <- function(d, phase) {
+  tibble(Phase = phase, Complete = nrow(d$complete), Analysed = nrow(d$keep),
+         Excluded = Complete - Analysed,
+         `Exclusion rate` = if_else(Complete > 0, scales::percent(Excluded / Complete), NA_character_))
+}
+bind_rows(if (have_data) phase_counts(phase1, "Phase 1"), phase_counts(phase2, "Phase 2")) |>
+  knitr::kable(caption = "Exclusions among completers under each phase's own rule.")
 ```
 
 ```{r}
