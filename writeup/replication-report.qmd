@@ -988,6 +988,11 @@ Since the comparison questions require comparison with participants own performa
 
 Everything not listed above is identical to Phase 1.
 
+## Phase 2 Pilot
+
+Two individuals completed the pilot for extension, and changes made seemed to work well with participants passing exclusions, and verbal confirmation instructions & procedure were more clear. After, a 12-second limit on testing per word pair is implemented as well to limit participants that had such large variation in timing in Phase 1.
+
+
 ## Power and sample
 
 I will recruit 30 participants on Prolific, using the same eligibility criteria as in Phase 1, with the updated attention checks & feedback procedure. Recruitment will stop at 30 participants, and I will apply the same analysis to exclude if participants fail the purely functional attention checks. I expect the failure rate to decrease from 42.3%, but also expect increases in the original effect of the study. If we assume 4 participants fail attention checks, we see that the study has approximately  19% power to detect the effect size of Phase 1. With this low power, I would still at least expect the direction effect of improvement to be larger on average than Phase 1's results, as it would less so be participants who are already more inclined to be or were more aware of the pretesting effect.
