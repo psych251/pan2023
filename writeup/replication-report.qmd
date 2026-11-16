@@ -1118,15 +1118,8 @@ with what the two phases together say about the original finding.
 
 # Data and code availability
 
-::: {.callout-tip icon=false}
-## Guidance
-
-Edit the statement below to match what you are actually sharing. Anonymized data and all code
-should be public; if something cannot be shared, say what and why.
-:::
-
 The experiment code, the anonymized data, and the code that produces every number in this
-report are available at <https://github.com/psych251/your-repo>. The experiment itself can be
-taken at <https://psych251.github.io/your-repo/>. The data contain no names, email addresses,
+report are available at <https://github.com/psych251/pan2023>. The experiment itself can be
+taken at <https://psych251.github.io/pan2023/?pilot=1>. The data contain no names, email addresses,
 IP addresses, or Prolific IDs; the file linking participants to their Prolific IDs is kept
 privately for payment and is not shared.
